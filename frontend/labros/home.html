@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+    <title>UniWA e-Banking | Home</title>
+    <link rel="stylesheet" href="home_style.css">
+</head>
+
+<body>
+    <header class="header">
+        <img src="logo.png" alt="bank logo" class="img">
+        <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+        <button class="settings">
+            <img src="settings.png" alt="settings" class="settings_icon">
+            <span class="tooltip">User Settings</span>
+        </button>
+        <!--TESTING-->
+        <button class="logout" onclick="user_logout()"><span>Log Out</span></button>
+    </header>
+
+    <section class="container">
+        <div class="balance_top">
+            <h2>Balance</h2>
+            <p class="amount">50,000.75 €</p>
+        </div>
+
+        <div class="balance_rest">
+            <div class="row">
+                <img src="card1.png" alt="iban_icon" class="icon">
+                <div>
+                    <p class="label">IBAN</p>
+                    <p class="value">GR30 0369 3768 4885 8436 2590 002</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <img src="card1.png" alt="card_icon" class="icon">
+                <div>
+                    <p class="label">Card Number</p>
+                    <p class="value">**** **** **** 0001</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <aside class="sidebar">
+        <div class="item" data-tooltip="Transfers">
+            <img src="transfer.png" alt="transfers">
+        </div>
+
+        <div class="item" data-tooltip="Transactions">
+            <img src="transaction.png" alt="transactions">
+        </div>
+
+        <div class="item" data-tooltip="Credit Card">
+            <img src="card2.png" alt="card">
+        </div>
+
+        <div class="item" data-tooltip="Graphs">
+            <img src="graphs.png" alt="graph">
+        </div>
+
+        <div class="item" data-tooltip="Currency Exchange">
+            <img src="exchange.png" alt="exchange">
+        </div>
+    </aside>
+
+    <!-- TESTING -->
+    <script>
+        function user_logout(){
+            window.location.href = "login.html"
+        }
+    </script>
+
+</body>
+</html>
