@@ -142,11 +142,35 @@ body{
     display: flex;
     justify-content: center;
     min-height: 100vh;
-    background-color: #0c4b86; 
+    /*background-color: #0a4568;*/
     padding-top: 34.4px;
+    
+    /*
+    background: radial-gradient(circle at 10% 20%, #135899 0%, #0b2f70 25%, #072e6d 60%, #040e1f 100%);
+    */
+
+    background: linear-gradient(-45deg, #010b25, #082970, #040536, #133b6b);
+    background-size: 550% 150%;
+    animation: gradientMove 20s ease infinite;
+
+   
+
+    /*
+    background-color: #774503;
+    background-image: radial-gradient(rgb(9, 57, 88) 9.7px, transparent 10px);
+    background-size: 20px 20px;
+    */
 }
 
+@keyframes gradientMove {
+     0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
+.neuron{
+    color: white;
+}
 /* ----COINTAINER---- */
 .container{
     position: relative;
