@@ -7,12 +7,12 @@
     <div>
       <p><strong>Balance:</strong> {{ balance }} €</p>
       <p><strong>IBAN:</strong> {{ iban }}</p>
-      <p><strong>Card Number:</strong> {{ maskedCard }}</p>
+      <p><strong>Card Number:</strong> {{ cardNumber }}</p>
     </div>
 
     <!-- Κουμπιά πλοήγησης (router-links) -->
     <p>
-      <router-link to="/signin">Sign In</router-link> |
+      <!-- <router-link to="/signin">Sign In</router-link> |
       <router-link to="/signup">Sign Up</router-link> |
       <router-link to="/transfers">Transfers</router-link> |
       <router-link to="/transactions">Transactions</router-link> |
@@ -20,7 +20,7 @@
       <router-link to="/card">Card</router-link> |
       <router-link to="/graphs">Graphs</router-link> |
       <router-link to="/settings">Settings</router-link> |
-      <router-link to="/logout">Log Out</router-link>
+      <router-link to="/logout">Log Out</router-link> -->
     </p>
   </section>
 </template>
@@ -28,6 +28,9 @@
 <script>
 // Εισάγουμε τη συνάρτηση getAccount() από το api.js
 import { getAccount } from "../services/api.js";
+import { ref } from 'vue'
+
+const data = ref(null)
 
 export default {
   name: "HomeView",
@@ -48,12 +51,18 @@ export default {
       καλούμε τη συνάρτηση getAccount() από το api.js
       για να φέρει τα στοιχεία λογαριασμού του χρήστη.
     */
+   const token = localStorage.getItem('token')
+    if (!token) {
+      window.location.href = '/login'
+      return
+    }
+
     this.loading = true;
     try {
       const data = await getAccount();
 
       if (data.success) {
-        this.balance = data.balance;
+        this.balance = data.euro_balance;
         this.iban = data.iban;
         this.cardNumber = data.card_number;
         this.accountLoaded = true;

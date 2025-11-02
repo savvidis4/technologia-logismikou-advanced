@@ -1,7 +1,7 @@
 <template>
   <!-- Λογικά εδώ θα μπει ο κώδικας του Λάμπρου -->
   <section>
-    <h2>Sign In</h2>
+    <h2>Sign In PANEEEE</h2>
 
     <!-- Φόρμα εισόδου -->
     <form @submit.prevent="loginUser">

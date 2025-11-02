@@ -49,4 +49,4 @@ def login():
 
     # Δημιουργία JWT token
     access_token = create_access_token(identity=str(user.id))
-    return jsonify({"token": access_token, "username": user.username}), 200
+    return jsonify({"token": access_token, "username": user.username, "success":True}), 200

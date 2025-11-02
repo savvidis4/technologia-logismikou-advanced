@@ -16,12 +16,15 @@ def home_data():
     if not user or not account:
         return jsonify({"error": "User not found"}), 404
 
+    masked_card_number = "**** **** **** " + account.card_number[-4:]
+
     data = {
         "username": user.username,
         "email": user.email,
         "euro_balance": account.euro_balance,
         "iban": account.iban,
-        "card_number": account.card_number
+        "card_number": masked_card_number,
+        "success": True
     }
 
     return jsonify(data)
