@@ -19,7 +19,7 @@ def home_data():
     data = {
         "username": user.username,
         "email": user.email,
-        "balance": account.balance,
+        "euro_balance": account.euro_balance,
         "iban": account.iban,
         "card_number": account.card_number
     }
