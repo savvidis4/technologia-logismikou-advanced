@@ -94,13 +94,16 @@ body{
     object-fit: cover;
     z-index: -1;
     filter: brightness(0.8) blur(0px);
-    transition: filter 1.6s ease;
+    transition: filter 2.6s ease;
 }
 
 body:hover .pada_img{
     filter: brightness(0.5) blur(5.5px);
 }
 
+header:hover ~ .pada_img{
+    filter: brightness(0.8) blur(0px);
+}
 
 /*------------------*/
 /*-----LOGIN BOX----*/
@@ -157,16 +160,30 @@ body:hover .pada_img{
     border: 2px solid black;
     color: white;
     background: linear-gradient(90deg, #0b4f91, #00b4db);
+    background-size: 200% 200%;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .login:hover{
-    background: linear-gradient(90deg, #00b4db, #0b4f91);
+    
     transform: translateY(-5px);
+    animation: buttonGradient 1.5s ease normal;
 }
+@keyframes buttonGradient{
+    0%{
+        background-position: 0% 10%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 
 /* FORGOT PASSWORD */
 .forgot{
