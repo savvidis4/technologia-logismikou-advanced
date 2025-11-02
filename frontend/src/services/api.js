@@ -5,7 +5,7 @@
 // ===================================================
 
 // Ορίζουμε τη βάση του API URL (θα αλλάξει όταν το backend ανέβει σε server)
-const API_BASE_URL = "http://127.0.0.1:5000/api";
+const API_BASE_URL = "http://127.0.0.1:5000";
 
 // ---------------------------------------------------
 //  AUTHENTICATION ENDPOINTS
@@ -14,7 +14,7 @@ const API_BASE_URL = "http://127.0.0.1:5000/api";
 // Home Screen δεδομενα 
 export async function getAccount() {
   try {
-    const response = await fetch(`${API_BASE_URL}/account`, {
+    const response = await fetch(`${API_BASE_URL}/home`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`,
@@ -22,6 +22,7 @@ export async function getAccount() {
       }
     });
     const data = await response.json();
+    console.log("Account data fetched:", data);
     return data; // Επιστρέφει balance, iban, card_number
   } catch (error) {
     console.error("Error fetching account info:", error);
@@ -32,14 +33,14 @@ export async function getAccount() {
 // Σύνδεση χρήστη (Sign In)
 export async function login(email, password) {
   try {
-    //`${API_BASE_URL}/login` συνδυάζει τη βάση URL του backend (π.χ. `http://127.0.0.1:5000/api`) με το endpoint `/login`.
+    //`${API_BASE_URL}/login` συνδυάζει τη βάση URL του backend (π.χ. `http://127.0.0.1:5000`) με το endpoint `/login`.
     const response = await fetch(`${API_BASE_URL}/login`, {
       //(POST) Αυτό σημαίνει ότι στέλνουμε δεδομένα (το email και password) στο σώμα (body) του request.
       method: "POST",
       //(JSON) Ενημερώνουμε τον server ότι τα δεδομένα που στέλνουμε είναι σε μορφή JSON.
       headers: { "Content-Type": "application/json" },
       //Ορισμός, δεδομένων στο backend και μετατροπή τους σε JSON string.
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password, success: true })
     });
     const data = await response.json();
     return data; // Επιστρέφουμε την απάντηση στο Vue component
