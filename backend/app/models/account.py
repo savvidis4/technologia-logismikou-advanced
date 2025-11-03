@@ -9,5 +9,5 @@ class Account(db.Model):
     usd_balance = db.Column(db.Numeric(7,2), default=0.0)
     gbp_balance = db.Column(db.Numeric(7,2), default=0.0)
     yen_balance = db.Column(db.Numeric(7,2), default=0.0)
-    otp_secret = db.Column(db.String(6), nullable=False)
+    otp_secret = db.Column(db.String(6), nullable=True)
 

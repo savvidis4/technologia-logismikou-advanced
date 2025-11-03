@@ -1,36 +1,81 @@
 <template>
-  <section v-if="data">
-    <h2 style="background-color: black;">Welcome, {{ data.username }}</h2>
-    <p style="background-color: black;">Email: {{ data.email }}</p>
-    <p style="background-color: black;">Balance: €{{ data.balance }}</p>
-    <p style="background-color: black;">IBAN: {{ data.iban }}</p>
-    <p style="background-color: black;">Card: {{ data.card_number }}</p>
+  <!-- Λογικά εδώ θα μπει ο κώδικας του Λάμπρου -->
+  <section>
+    <h2>BANK OF UNIVERSITY OF WEST ATTICA e-Banking</h2>
+
+    <!-- Mock στοιχεία λογαριασμού -->
+    <div>
+      <p><strong>Balance:</strong> {{ balance }} €</p>
+      <p><strong>IBAN:</strong> {{ iban }}</p>
+      <p><strong>Card Number:</strong> {{ cardNumber }}</p>
+    </div>
+
+    <!-- Κουμπιά πλοήγησης (router-links) -->
+    <p>
+      <!-- <router-link to="/signin">Sign In</router-link> |
+      <router-link to="/signup">Sign Up</router-link> |
+      <router-link to="/transfers">Transfers</router-link> |
+      <router-link to="/transactions">Transactions</router-link> |
+      <router-link to="/currency">Currency Exchange</router-link> |
+      <router-link to="/card">Card</router-link> |
+      <router-link to="/graphs">Graphs</router-link> |
+      <router-link to="/settings">Settings</router-link> |
+      <router-link to="/logout">Log Out</router-link> -->
+    </p>
   </section>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue'
-import { api, setAuthToken } from '@/services/api'
+<script>
+// Εισάγουμε τη συνάρτηση getAccount() από το api.js
+import { getAccount } from "../services/api.js";
+import { ref } from 'vue'
 
 const data = ref(null)
 
-onMounted(async () => {
-  const token = localStorage.getItem('token')
-  if (!token) {
-    window.location.href = '/login'
-    return
-  }
+export default {
+  name: "HomeView",
 
-  setAuthToken(token)
+  data() {
+    return {
+      balance: null,        // Υπόλοιπο χρήστη
+      iban: "",             // IBAN λογαριασμού
+      cardNumber: "",       // Κάρτα χρήστη (masked)
+      accountLoaded: false, // Flag για το αν έχουν φορτωθεί τα στοιχεία  
+    };
+  },
 
-  try {
-    const res = await api.get('/home')
-    data.value = res.data
-  } catch (err) {
-    console.error(err)
-    alert('Session expired — please login again')
-    localStorage.removeItem('token')
-    window.location.href = '/login'
+  async mounted() {
+    /*
+      ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND (Flask)
+      Μόλις "φορτωθεί" η σελίδα (mounted),
+      καλούμε τη συνάρτηση getAccount() από το api.js
+      για να φέρει τα στοιχεία λογαριασμού του χρήστη.
+    */
+   const token = localStorage.getItem('token')
+    if (!token) {
+      window.location.href = '/login'
+      return
+    }
+
+    this.loading = true;
+    try {
+      const data = await getAccount();
+
+      if (data.success) {
+        this.balance = data.euro_balance;
+        this.iban = data.iban;
+        this.cardNumber = data.card_number;
+        this.accountLoaded = true;
+        console.log("Account info loaded successfully:", data);
+      } else {
+        alert(data.message || "Failed to load account information.");
+      }
+    } catch (error) {
+      console.error("Error loading account info:", error);
+      alert("Error connecting to server.");
+    } finally {
+      this.loading = false;
+    }
   }
-})
+};
 </script>

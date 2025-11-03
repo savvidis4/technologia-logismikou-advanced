@@ -29,7 +29,7 @@ def register():
     # Δημιουργία λογαριασμού
     iban = f"GR{random.randint(10**25, 10**26 - 1)}"
     card_number = str(random.randint(4000000000000000, 4999999999999999))
-    account = Account(user_id=user.id, iban=iban, card_number=card_number, balance=50000)
+    account = Account(user_id=user.id, iban=iban, card_number=card_number, euro_balance=50000)
     db.session.add(account)
     db.session.commit()
 
@@ -49,4 +49,4 @@ def login():
 
     # Δημιουργία JWT token
     access_token = create_access_token(identity=str(user.id))
-    return jsonify({"token": access_token, "username": user.username}), 200
+    return jsonify({"token": access_token, "username": user.username, "success":True}), 200

@@ -90,7 +90,7 @@ export default {
           alert(data.message || "Login successful!");
 
           // Μετάβαση στο Transfers (ή Home screen)
-          this.$router.push("/transfers");
+          this.$router.push("/home");
         } else {
           // Αν ο server επέστρεψε αποτυχία (λάθος email/κωδικός)
           console.warn("Login failed:", data.message);
