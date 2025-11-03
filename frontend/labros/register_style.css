@@ -36,42 +36,6 @@ header{
     width: 100%;
 }
 
-/* REGISTER BUTTON */
-.register_btn{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: black;
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 0.8rem;
-    transition: all 0.3s ease;
-    animation: glow 2.5s infinite;
-}
-
-.register_btn:hover{
-    transform: translateY(-3px);
-    background: linear-gradient(90deg, #00b4db, #007bff);
-    color: white;
-}
-
-.register_btn:hover .register_icon{
-    filter: brightness(0) invert(1);
-}
-
-.register_icon{
-    width: 25px;
-    height: 25px;
-    transition: filter 0.3s ease;
-}
-
-@keyframes glow{
-    0%, 100% {box-shadow: 0 0 10px #00b4db;}
-    50% {box-shadow: 0 0 20px #00b4db;}
-}
-
 /*---------------*/
 /*------BODY-----*/
 /*---------------*/
@@ -105,10 +69,11 @@ header:hover ~ .pada_img{
     filter: brightness(0.8) blur(0px);
 }
 
+
 /*------------------*/
 /*-----LOGIN BOX----*/
 /*------------------*/
-.login_container{
+.register_container{
     position: relative;
     margin: 110px auto 30px auto;
     width: 400px;
@@ -121,18 +86,18 @@ header:hover ~ .pada_img{
 }
 
 /* TITLE */
-.login_container h2{
+.register_container h2{
     font-family: 'Raleway', cursive;
-    letter-spacing: 1.5px;
-    font-size: 2.2rem;
-    margin-bottom: 45px;
-    margin-top: 25px;
+    letter-spacing: 0.1px;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    margin-top: 15px;
     color: rgb(6, 51, 109);
 }
 
 /* INPUTS */
 .input_row{
-    margin-bottom: 35px;
+    margin-bottom: 27px;
 }
 
 .input_row input{
@@ -156,7 +121,7 @@ header:hover ~ .pada_img{
     font-size: 1.1rem;
     font-weight: bold;
     color: black;
-    margin-right: 227px ;
+    margin-right: 190px ;
 }
 
 
@@ -166,15 +131,18 @@ header:hover ~ .pada_img{
     font-size: 1.1rem;
     font-weight: bold;
     color: black;
-    margin-right: 190px ;
+    margin-right: 157px ;
 }
 
-
+.password_row{
+    position: relative;
+}
 /* LOGIN BUTTON */
-.login{
+.register{
     width: 40%;
-    padding: 12px;
-    margin: 50px;
+    padding: 9px;
+    margin: -6px;
+    margin-bottom: 1px;
     border-radius: 15px;
     border: 2px solid black;
     color: white;
@@ -186,9 +154,9 @@ header:hover ~ .pada_img{
     transition: transform 0.3s ease;
 }
 
-.login:hover{
+.register:hover{
     
-    transform: translateY(-5px);
+    transform: translateY(-4px);
     animation: buttonGradient 1.5s ease normal;
 }
 @keyframes buttonGradient{
@@ -203,27 +171,31 @@ header:hover ~ .pada_img{
     }
 }
 
-
-/* FORGOT PASSWORD */
-.forgot{
-    margin-top: -25px;
-}
-
-.forgot a{
+/* ------ LOGIN LINK ------ */
+.login_link{
+    margin-top: 10px;
+    font-size: 0.9rem;
     color: black;
-    font-size: 1rem;
-    text-decoration: none;
 }
 
-.forgot a:hover{
+.login_link a{
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.1s ease;
+}
+
+.login_link a:hover{
+    color: blue;
     text-decoration: underline;
 }
+
 
 /* SHOW PASSWORD */
 .trigger{
     position: absolute;
     right: 45px;
-    top: 59.2%;
+    top: 70.6%;
     display: flex;
     align-items: center;
     justify-content: center;
