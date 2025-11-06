@@ -155,114 +155,210 @@ body{
     100% { background-position: 0% 50%; }
 }
 
-/* ----COINTAINER---- */
-.container{
-    position: relative;
-    margin: 110px auto 30px auto;
-    width: 500px;
-    border-radius: 25px;
-    background-color: rgb(255, 255, 255);
-    font-family: 'Poppins', sans-serif;
-    overflow: hidden;
-    box-shadow: 0 50px 55px rgb(0, 0, 0);
-    border: 2px solid rgb(0, 0, 0);
-    height: 455px;
-    max-height: 455px;
+.body_top{
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+
 }
 
-/* ---- TRANSFERS ---- */
-.transfer_top{
-    text-align: center;
-    padding: 25px 40px;
-    background: linear-gradient(180deg, #062d58 15%, #06a4e2 160%);
-}
 
-.transfer_top h2{
-    font-size: 2.12rem;
-    color: rgba(255, 255, 255, 0.938);
-    margin-bottom: 5px;
+.title{
+    display: flex;
+    margin-top: 120px;
+    color: white;
+    font-weight: 600;
+    font-size: 2.7rem;
+    margin-right:10px;
 }
 
 /* ---- EXIT ICON ----- */
 .exit{
     position: absolute;
-    top: 20px;
-    right: 25px;
+    top: 120px;
+    right: 65px;
     cursor: pointer;
+    width: 30px;
+    height: auto;
+    filter: brightness(1) saturate(100%) invert(100%);
+    transition: transform 0.2s ease, filter 0.1s ease;
 }
 
-.exit img{
-    width: 30px;
-    height: 30px;
-    filter: brightness(1) saturate(100%) invert(100%);
-    transition: transform 0.3s ease, filter 0.3s ease;
-}
 
 .exit:hover{
     transform: scale(1.1);
     filter: brightness(0) saturate(100%) invert(18%) sepia(100%) saturate(7000%) hue-rotate(0deg);
 }
 
-/* ---- TRANSFER FORM ---- */
-.transfer_form{
+
+/* --------- COINTAINER ------- */
+.container{
+    margin-top: 190px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    padding: 25px 40px;
-    margin-top: 20px;
+    gap: 30px;
+    align-items: center;
 }
 
-.form_row{
+/* ------ EXCHANGE BOX ----- */
+.ex_box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 50px;
+}
+
+.row{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 15px;
+    color: white;
+    font-weight: 500;
 }
 
-.form_row label{
-    width: 100px;
-    font-weight: bold;
-    color: #222;
-    font-size: 0.95rem;
+/* ------ AMOUNT LEKSOULES ----- */
+.label{
+    width: 160px;
+    text-align: right;
+    font-size: 1rem;
+    opacity: 0.85;
 }
 
-.iban{
+/* ----- EMFANISI SHMAIAS ------ */
+.currency{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.dropdown{
+    position: relative;
+}
+
+.drop{
+    background: rgba(255, 255, 255, 0.151);
+    border: 1px solid rgba(255, 255, 255, 0.404);
+    border-radius: 12px;
+    color: white;
     font-weight: 600;
-    color: #000;
-    font-size: 1.1rem;
-    margin-right: 16px;
+    font-size: 1rem;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.form_row input{
-    flex: 1;
-    padding: 8px 10px;
-    border: 1px solid #666;
-    border-radius: 5px;
-    font-size: 0.9rem;
+.drop:hover{
+    background: rgba(255, 255, 255, 0.253);
+    transform: scale(1.05);
+}
+
+.flag{
+    width: 28px;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ------ DROPDOWN MENU ------ */
+.drop_content{
+    display: none;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.534);
+    border-radius: 10px;
+    padding: 5px 0;
+    z-index: 10;
+    min-width: 120px;
+    top: 45px;
+    left: 0;
+    backdrop-filter: blur(4px);
+}
+
+/* ---- Emfanisi me hover ----- */
+.dropdown:hover .drop_content{
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* ------ EPILOGES MENU ------ */
+.drop_content .option{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.drop_content .option:hover{
+    background: rgb(66, 66, 66);
+    transform: translateX(3px);
+}
+
+@keyframes fadeIn{
+    from {opacity: 0; transform: translateY(-5px);}
+    to {opacity: 1; transform: translateY(0);}
 }
 
 
-/* ---- SEND BUTTON ---- */
-.send{
+/* ---- INPUT ---- */
+.input{
+    background: rgba(255, 255, 255, 0.158);
+    border: 2px solid rgba(255, 255, 255, 0.986);
+    border-radius: 12px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 8px 15px;
+    width: 180px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+
+.input:focus{
+    outline: none;
+    border-color: #fffefe;
+}
+
+
+/* ------ EXCHANGE BUTTON ------ */
+.exchange{
     position: relative;
     align-self: center;
     background: linear-gradient(90deg, #0b4f91, #00b4db);
-    border: none;
+    border: 1px solid rgb(0, 0, 0);
     color: white;
     font-weight: 600;
     font-size: 15px;
     padding: 15px 27px;
     border-radius: 8px;
-    margin-top: 55px;
+    margin-top: 375px;
+    right: 235px;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, color 0.3s ease;
     overflow: hidden;
 }
 
-.send:hover{
+.exchange:hover{
     transform: scale(1.05);
+    border-color: white;
 }
 
-.send::before{
+.exchange::before{
     content: "";
     position: absolute;
     left: 0;
@@ -274,11 +370,20 @@ body{
     z-index: 0;
 }
 
-.send:hover::before{
+.exchange:hover::before{
     bottom: 0;
 }
 
-.send span{
+.exchange span{
     position: relative;
     z-index: 1;
+}
+
+.option.active{
+    background: rgba(223, 29, 29, 0.253);
+    border-left: 3px solid #ffffff;
+}
+
+.optin.active:hover{
+    background: rgba(255, 255, 255, 0.247);
 }

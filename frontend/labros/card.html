@@ -26,9 +26,43 @@
         </div>
 
         <div class="card_template">
-            <img src="card_template.png" alt="credit card" class="your_card">
+            <div class="your_card">
+                <img src="card_template.png" alt="credit card" class="card_bg">
+
+                <!-- Logo & Bank Name -->
+                <div class="card_header">
+                    <img src="logo_card.png" alt="logo" class="card_logo">
+                    <h3 class="bank_name">Bank of UniWA</h3>
+                </div>
+
+                <!-- Card Number-->
+                 <div class="card_number">5175 9089 6236 0002</div>
+
+                 <!-- EXP & CVV -->
+                  <div class="card_info">
+                    <p>EXP: 07/30</p>
+                    <p>CVV: 404</p>
+                  </div>
+            </div>
         </div>
 
         <button type="submit" class="freeze"><span>Freeze</span></button>
     </section>
+
+    <script>
+        const freezebtn = document.querySelector('.freeze');
+
+        freezebtn.addEventListener('click', () => {
+            const textSpan = freezebtn.querySelector('span');
+            freezebtn.classList.toggle('active');
+
+            if(freezebtn.classList.contains('active')){
+                textSpan.textContent = 'Frozen';
+            }
+            else{
+                textSpan.textContent = 'Freeze';
+            }
+        });
+    </script>
+
 </body> 

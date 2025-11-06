@@ -165,17 +165,17 @@ header:hover ~ .pada_img{
     gap: 5px;
     margin-top: 40px;
     cursor: pointer;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .return:hover{
-    transform: translateY(0px);
-    opacity: 0.9;
+    transform: translateY(-5px);
 }
 
 .return_icon{
     width: 25px;
     height: 25px;
+    transition: transform 0.3s ease, filter 0.3s ease;
     filter: brightness(0) invert(0);
 }
 
@@ -183,9 +183,9 @@ header:hover ~ .pada_img{
     font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .return span:hover{
-    color: red;
+    transform: translateY(0.6px);
 }

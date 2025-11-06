@@ -159,15 +159,17 @@ body{
 .container{
     position: relative;
     margin: 110px auto 30px auto;
-    width: 500px;
+    width: 1150px; /* eikona 1: 950, eikona 2: 750 */
     border-radius: 25px;
     background-color: rgb(255, 255, 255);
     font-family: 'Poppins', sans-serif;
     overflow: hidden;
     box-shadow: 0 50px 55px rgb(0, 0, 0);
     border: 2px solid rgb(0, 0, 0);
-    height: 455px;
-    max-height: 455px;
+    height: 475px;
+    max-height: 655px;
+
+    /*right: 130px;*/
 }
 
 /* ----BALANCE---- */
@@ -178,7 +180,7 @@ body{
 }
 
 .balance_top h2{
-    font-size: 2.12rem;
+    font-size: 2.92rem;
     color: rgba(46, 219, 3, 0.938);
     margin-bottom: 5px;
 }
@@ -215,14 +217,14 @@ body{
 }
 
 .label{
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: black ;
     margin-bottom: 4px;
 }
 
 .value{
-    font-size: 1.15rem;
+    font-size: 1.35rem;
     color: #1f1f1f;
 }
 
@@ -231,16 +233,16 @@ body{
 /* ----------------- */
 .sidebar{
     position: fixed;
-    top: 150px;
+    top: 146px;
     right: 50px;
     width: 70px;
     background-color: #062d58;
     border-radius: 25px;
-    padding: 20px 10px;
+    padding: 20px 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 41px;
     box-shadow: 0 5px 25px rgba(0,0,0,0.2);
     z-index: 10;
 }
@@ -248,10 +250,10 @@ body{
 /* ---- SIDEBAR ICONS ---- */
 .item{
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
     background-color: #084b8a;
-    border-radius: 15px;
+    border-radius: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -265,8 +267,8 @@ body{
 }
 
 .item img{
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     filter: brightness(0) invert(1);
 }
 
@@ -282,12 +284,13 @@ body{
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease, right 0.3s ease;
+    transition: opacity 0.3s ease, right 0.3s ease, transform 0.3s ease;
 }
 
 .item:hover::after{
     opacity: 1;
-    right: 75px;
+    right: 88px;
+    transform: scale(1.25);
 }
 
 .item::before{

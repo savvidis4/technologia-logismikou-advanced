@@ -2,6 +2,7 @@
 <head>
     <title>Register | UniWA e-Banking</title>
     <link rel="stylesheet" href="register_style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -23,7 +24,7 @@
                 <input type="password" id="password1" placeholder="Password" required>
                 <!--TESTING-->
                 <span class="trigger" onclick="toggle_pswd('password1', this)">
-                    <img src="hide.png" alt="hide" class="show_pswd">
+                    <img src="hide (1).png" alt="hide" class="show_pswd">
                 </span>
             </div>
 
@@ -32,7 +33,7 @@
                 <input type="password" id="password2" placeholder="Password" required>
                 <!--TESTING-->
                 <span class="trigger" onclick="toggle_pswd('password2', this)">
-                    <img src="hide.png" alt="hide" class="show_pswd">
+                    <img src="hide (1).png" alt="hide" class="show_pswd">
                 </span>
             </div>
 
@@ -59,11 +60,11 @@
 
             if(pswd.type === "password"){
                 pswd.type = "text";
-                iconImg.src = "show.png";
+                iconImg.src = "show (1).png";
                 iconImg.alt = "show";
             }else{
                 pswd.type = "password";
-                iconImg.src = "hide.png";
+                iconImg.src = "hide (1).png";
                 iconImg.alt = "hide";
             }
         }
