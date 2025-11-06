@@ -36,41 +36,6 @@ header{
     width: 100%;
 }
 
-/* REGISTER BUTTON */
-.register_btn{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: black;
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 0.8rem;
-    transition: all 0.3s ease;
-    animation: glow 2.5s infinite;
-}
-
-.register_btn:hover{
-    transform: translateY(-3px);
-    background: linear-gradient(90deg, #00b4db, #007bff);
-    color: white;
-}
-
-.register_btn:hover .register_icon{
-    filter: brightness(0) invert(1);
-}
-
-.register_icon{
-    width: 25px;
-    height: 25px;
-    transition: filter 0.3s ease;
-}
-
-@keyframes glow{
-    0%, 100% {box-shadow: 0 0 10px #00b4db;}
-    50% {box-shadow: 0 0 20px #00b4db;}
-}
 
 /*---------------*/
 /*------BODY-----*/
@@ -108,7 +73,7 @@ header:hover ~ .pada_img{
 /*------------------*/
 /*-----LOGIN BOX----*/
 /*------------------*/
-.login_container{
+.forgot_container{
     position: relative;
     margin: 110px auto 30px auto;
     width: 400px;
@@ -121,7 +86,7 @@ header:hover ~ .pada_img{
 }
 
 /* TITLE */
-.login_container h2{
+.forgot_container h2{
     font-family: 'Raleway', cursive;
     letter-spacing: 1.5px;
     font-size: 2.2rem;
@@ -156,25 +121,14 @@ header:hover ~ .pada_img{
     font-size: 1.1rem;
     font-weight: bold;
     color: black;
-    margin-right: 227px ;
+    margin-right: 180px;
 }
 
-
-
-.input_label2{
-    margin-bottom: 3px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: black;
-    margin-right: 190px ;
-}
-
-
-/* LOGIN BUTTON */
-.login{
+/* ----- VERIFY EMAIL BUTTON ----- */
+.verify{
     width: 40%;
     padding: 12px;
-    margin: 50px;
+    margin: 30px;
     border-radius: 15px;
     border: 2px solid black;
     color: white;
@@ -186,7 +140,7 @@ header:hover ~ .pada_img{
     transition: transform 0.3s ease;
 }
 
-.login:hover{
+.verify:hover{
     
     transform: translateY(-5px);
     animation: buttonGradient 1.5s ease normal;
@@ -203,43 +157,35 @@ header:hover ~ .pada_img{
     }
 }
 
-
-/* FORGOT PASSWORD */
-.forgot{
-    margin-top: -25px;
-}
-
-.forgot a{
-    color: black;
-    font-size: 1rem;
-    text-decoration: none;
-}
-
-.forgot a:hover{
-    text-decoration: underline;
-}
-
-/* SHOW PASSWORD */
-.trigger{
-    position: absolute;
-    right: 45px;
-    top: 59.2%;
+/* ---- RETURN BUTTON ---- */
+.return{
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: translateY(-50%);
+    gap: 5px;
+    margin-top: 40px;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-.show_pswd{
+.return:hover{
+    transform: translateY(-5px);
+}
+
+.return_icon{
     width: 25px;
     height: 25px;
-    object-fit: contain;
-    opacity: 0.8;
-    transition: opacity 0.3s ease, transform 0.2s ease;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: brightness(0) invert(0);
 }
 
-.show_pswd:hover{
-    opacity: 1;
-    transform: scale(1.1);
+.return span{
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.return span:hover{
+    transform: translateY(0.6px);
 }

@@ -1,0 +1,389 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/*  ----HEADER----  */
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px 40px;
+    background: rgb(223, 221, 221);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+}
+
+.img{
+    position:relative;
+    width: auto;
+    height: 100px;
+    object-fit: contain;
+}
+
+.logo{
+    position: relative;
+    font-size: 1.8em;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: 50;
+    width: 100%;
+}
+
+/* ----Log Out Button---- */
+.logout{
+    position: relative;
+    width: 170px;
+    height: 40px;
+    background: #062d58;
+    border: 2px solid black;
+    border-radius: 35px;
+    border-width: 2px ;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: white;
+    transition: color .3s ease;
+    overflow: hidden;
+}
+
+.logout:hover {
+    color: black;
+    border-color: black;
+}
+
+.logout::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    transition: all 0.4s ease;
+    background: linear-gradient(90deg, #d40000, #f84e4e);
+}
+
+.logout:hover::before{
+    left: 0;
+}
+
+.logout span{
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- SETTINGS BUTTON ---- */
+.settings{
+    position: relative;
+    width: 60px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 15px;
+    border-width: 2px ;
+    cursor: pointer;
+    margin-right: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    z-index: 10;
+}
+
+.settings_icon{
+    width: 30px;
+    height: 30px;
+    margin-top: 3px;
+}
+
+/* ---- POP UP SETTINGS ---- */
+.tooltip{
+    position: absolute;
+    bottom: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, bottom 0.3s ease;
+    z-index: 20;
+}
+
+.tooltip::after{
+    content: '';
+    position: absolute;
+    top: -16px;
+    left: 50px;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+}
+
+.settings:hover .tooltip{
+    opacity: 1;
+    bottom: -47px;
+}
+
+/*---------------*/
+/*------BODY-----*/
+/*---------------*/
+body{
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 34.4px;
+    background: linear-gradient(-85deg, #01035c, #114e94, #114e94, #0f0b44);
+    background-size: 400% 500%;
+    animation: gradientMove 20s linear infinite; 
+    
+}
+
+@keyframes gradientMove {
+     0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.body_top{
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+
+}
+
+
+.title{
+    display: flex;
+    margin-top: 120px;
+    color: white;
+    font-weight: 600;
+    font-size: 2.7rem;
+    margin-right:10px;
+}
+
+/* ---- EXIT ICON ----- */
+.exit{
+    position: absolute;
+    top: 120px;
+    right: 65px;
+    cursor: pointer;
+    width: 30px;
+    height: auto;
+    filter: brightness(1) saturate(100%) invert(100%);
+    transition: transform 0.2s ease, filter 0.1s ease;
+}
+
+
+.exit:hover{
+    transform: scale(1.1);
+    filter: brightness(0) saturate(100%) invert(18%) sepia(100%) saturate(7000%) hue-rotate(0deg);
+}
+
+
+/* --------- COINTAINER ------- */
+.container{
+    margin-top: 190px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+
+/* ------ EXCHANGE BOX ----- */
+.ex_box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 50px;
+}
+
+.row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    color: white;
+    font-weight: 500;
+}
+
+/* ------ AMOUNT LEKSOULES ----- */
+.label{
+    width: 160px;
+    text-align: right;
+    font-size: 1rem;
+    opacity: 0.85;
+}
+
+/* ----- EMFANISI SHMAIAS ------ */
+.currency{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.dropdown{
+    position: relative;
+}
+
+.drop{
+    background: rgba(255, 255, 255, 0.151);
+    border: 1px solid rgba(255, 255, 255, 0.404);
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.drop:hover{
+    background: rgba(255, 255, 255, 0.253);
+    transform: scale(1.05);
+}
+
+.flag{
+    width: 28px;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ------ DROPDOWN MENU ------ */
+.drop_content{
+    display: none;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.534);
+    border-radius: 10px;
+    padding: 5px 0;
+    z-index: 10;
+    min-width: 120px;
+    top: 45px;
+    left: 0;
+    backdrop-filter: blur(4px);
+}
+
+/* ---- Emfanisi me hover ----- */
+.dropdown:hover .drop_content{
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* ------ EPILOGES MENU ------ */
+.drop_content .option{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.drop_content .option:hover{
+    background: rgb(66, 66, 66);
+    transform: translateX(3px);
+}
+
+@keyframes fadeIn{
+    from {opacity: 0; transform: translateY(-5px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+
+/* ---- INPUT ---- */
+.input{
+    background: rgba(255, 255, 255, 0.158);
+    border: 2px solid rgba(255, 255, 255, 0.986);
+    border-radius: 12px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 8px 15px;
+    width: 180px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+
+.input:focus{
+    outline: none;
+    border-color: #fffefe;
+}
+
+
+/* ------ EXCHANGE BUTTON ------ */
+.exchange{
+    position: relative;
+    align-self: center;
+    background: linear-gradient(90deg, #0b4f91, #00b4db);
+    border: 1px solid rgb(0, 0, 0);
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 15px 27px;
+    border-radius: 8px;
+    margin-top: 375px;
+    right: 235px;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.3s ease;
+    overflow: hidden;
+}
+
+.exchange:hover{
+    transform: scale(1.05);
+    border-color: white;
+}
+
+.exchange::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, #1ceb1e, #13a013);
+    transition: bottom 0.5s ease-in-out;
+    z-index: 0;
+}
+
+.exchange:hover::before{
+    bottom: 0;
+}
+
+.exchange span{
+    position: relative;
+    z-index: 1;
+}
+
+.option.active{
+    background: rgba(223, 29, 29, 0.253);
+    border-left: 3px solid #ffffff;
+}
+
+.optin.active:hover{
+    background: rgba(255, 255, 255, 0.247);
+}

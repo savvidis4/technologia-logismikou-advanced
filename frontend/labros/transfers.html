@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+    <title>Transfers | UniWA e-Banking</title>
+    <link rel="stylesheet" href="transfers_style.css">
+</head>
+
+<body>
+    <header class="header">
+        <img src="logo.png" alt="bank logo" class="img">
+        <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+        <button class="settings">
+            <img src="settings.png" alt="settings" class="settings_icon">
+            <span class="tooltip">User Settings</span>
+        </button>
+        <!--TESTING-->
+        <button class="logout" onclick="user_logout()"><span>Log Out</span></button>
+    </header>
+
+     <section class="container">
+        <div class="transfer_top">
+            <h2>Transfers</h2> 
+            <!-- TESTING -->
+             <div class="exit" onclick="window.location.href='home.html'">
+                <img src="exit.png" alt="exit">
+            </div>
+        </div>
+
+         <form class="transfer_form">
+            <div class="form_row">
+                <label for="form">From</label>
+                <span class="iban">GR30 0369 3768 4885 8436 2590 002</span>
+            </div>
+
+            <div class="form_row">
+                <label for="to">To</label>
+                <input type="text" id="to" placeholder="Recipient IBAN" required>
+            </div>
+
+            <div class="form_row">
+                <label for="amount">Amount (€)</label>
+                <input type="text" id="amount" placeholder="Enter amount" required>
+            </div>
+
+            <button type="submit" class="send"><span>Transfer</span></button>
+         </form>
+    </section>
+</body>
+</html>
+
+
+
+       

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>UniWA e-Banking | Login</title>
+    <title>Login | UniWA e-Banking</title>
     <link rel="stylesheet" href="login_style.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap" rel="stylesheet">
 </head>
@@ -20,18 +20,20 @@
         <h2>Welcome</h2>
         <form>
             <div class="input_row">
-                <input type="text" id="username" placeholder="Username" required>
+                <p class="input_label1">Enter Email</p>
+                <input type="text" id="username" placeholder="E-mail" required>
             </div>
 
             <div class="input_row">
+                <p class="input_label2">Enter Password</p>
                 <input type="password" id="password" placeholder="Password" required>
                 <!--TESTING-->
                 <span class="trigger" onclick="see_pswd()">
-                    <img src="hide.png" alt="hide" class="show_pswd">
+                    <img src="hide (1).png" alt="hide" class="show_pswd">
                 </span>
             </div>
 
-            <p class="forgot"><a href="#">Forgot Password?</a></p>
+            <p class="forgot"><a href="forgot.html">Forgot Password?</a></p>
             <!--TESTING-->
             <button type="submit" onclick="window.location.href='home.html'" class="login">Log In</button>
         </form>
@@ -48,11 +50,11 @@
 
             if(pswd.type === "password"){
                 pswd.type = "text";
-                iconImg.src = "show.png";
+                iconImg.src = "show (1).png";
                 iconImg.alt = "show";
             }else{
                 pswd.type = "password";
-                iconImg.src = "hide.png";
+                iconImg.src = "hide (1).png";
                 iconImg.alt = "hide";
             }
         }
