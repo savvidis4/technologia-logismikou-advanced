@@ -1,36 +1,88 @@
 <template>
-  <!-- Λογικά εδώ θα μπει ο κώδικας του Λάμπρου -->
-  <section>
-    <h2>BANK OF UNIVERSITY OF WEST ATTICA e-Banking</h2>
+  
+  <div class="home">
 
-    <!-- Mock στοιχεία λογαριασμού -->
-    <div>
-      <p><strong>Balance:</strong> {{ balance }} €</p>
-      <p><strong>IBAN:</strong> {{ iban }}</p>
-      <p><strong>Card Number:</strong> {{ cardNumber }}</p>
-    </div>
+    <!-- HEADER -->
+    <header class="header">
+      <img src="/logo.png" alt="bank logo" class="img">
+      <h2 class="logo">Bank of University of West Attica e-Banking</h2>
 
-    <!-- Κουμπιά πλοήγησης (router-links) -->
-    <p>
-      <!-- <router-link to="/signin">Sign In</router-link> |
-      <router-link to="/signup">Sign Up</router-link> |
-      <router-link to="/transfers">Transfers</router-link> |
-      <router-link to="/transactions">Transactions</router-link> |
-      <router-link to="/currency">Currency Exchange</router-link> |
-      <router-link to="/card">Card</router-link> |
-      <router-link to="/graphs">Graphs</router-link> |
-      <router-link to="/settings">Settings</router-link> |
-      <router-link to="/logout">Log Out</router-link> -->
-    </p>
-  </section>
+      <router-link to="/settings" class="settings">
+        <img src="/settings.png" alt="settings" class="settings_icon">
+        <span class="tooltip">User Settings</span>
+      </router-link>
+
+      <button class="logout" @click="logout"><span>Log Out</span></button>
+    </header>
+
+    <!-- BALANCE SECTION -->
+    <section class="container">
+      <div class="balance_top">
+        <h2>Balance</h2>
+
+        <!-- dynamic value from backend -->
+        <p class="amount">{{ balance }} €</p>
+      </div>
+
+      <div class="balance_rest">
+        <div class="row">
+          <img src="/card1.png" alt="iban_icon" class="icon">
+          <div>
+            <p class="label">IBAN</p>
+            <p class="value">{{ iban }}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <img src="/card1.png" alt="card_icon" class="icon">
+          <div>
+            <p class="label">Card Number</p>
+            <p class="value">{{ cardNumber }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="item" data-tooltip="Transfers">
+        <router-link to="/transfers">
+          <img src="/transfer.png" alt="transfers">
+        </router-link>
+      </div>
+
+      <div class="item" data-tooltip="Transactions">
+        <router-link to="/transactions">
+          <img src="/transaction.png" alt="transactions">
+        </router-link>
+      </div>
+
+      <div class="item" data-tooltip="Credit Card">
+        <router-link to="/card">
+          <img src="/card2.png" alt="card">
+        </router-link>
+      </div>
+
+      <div class="item" data-tooltip="Graphs">
+        <router-link to="/graphs">
+          <img src="/graphs.png" alt="graph">
+        </router-link>
+      </div>
+
+      <div class="item" data-tooltip="Currency Exchange">
+        <router-link to="/exchange">
+          <img src="/exchange.png" alt="exchange">
+        </router-link>
+      </div>
+    </aside>
+
+  </div>
 </template>
 
 <script>
 // Εισάγουμε τη συνάρτηση getAccount() από το api.js
 import { getAccount } from "../services/api.js";
-import { ref } from 'vue'
-
-const data = ref(null)
 
 export default {
   name: "HomeView",
@@ -51,18 +103,12 @@ export default {
       καλούμε τη συνάρτηση getAccount() από το api.js
       για να φέρει τα στοιχεία λογαριασμού του χρήστη.
     */
-   const token = localStorage.getItem('token')
-    if (!token) {
-      window.location.href = '/login'
-      return
-    }
-
     this.loading = true;
     try {
       const data = await getAccount();
 
       if (data.success) {
-        this.balance = data.euro_balance;
+        this.balance = data.balance;
         this.iban = data.iban;
         this.cardNumber = data.card_number;
         this.accountLoaded = true;
@@ -79,3 +125,9 @@ export default {
   }
 };
 </script>
+
+
+
+<style scoped>
+@import "../assets/home_style.css";
+</style>
