@@ -3,20 +3,17 @@
   <section>
     <h2>Currency Exchange</h2>
 
-    <!-- Φόρμα ανταλλαγής νομισμάτων -->
+    <!-- Φόρμα μετατροπής -->
     <form @submit.prevent="makeExchange">
       <input
         type="number"
         v-model="amount"
         placeholder="Amount"
-        min="0.01"
-        step="0.01"
         required
       />
 
-      <!-- Επιλογή από νομίσματα -->
       <select v-model="currencyFrom" required>
-        <option disabled value="">Select from currency</option>
+        <option disabled value="">Select from</option>
         <option>Euro</option>
         <option>Dollar</option>
         <option>Yen</option>
@@ -24,7 +21,7 @@
       </select>
 
       <select v-model="currencyTo" required>
-        <option disabled value="">Select to currency</option>
+        <option disabled value="">Select to</option>
         <option>Euro</option>
         <option>Dollar</option>
         <option>Yen</option>
@@ -32,20 +29,13 @@
       </select>
 
       <button type="submit" :disabled="loading">
-        {{ loading ? "Processing..." : "Convert" }}
+        {{ loading ? "Processing..." : "Exchange" }}
       </button>
     </form>
-
-    <!-- Εμφάνιση αποτελέσματος -->
-    <p v-if="convertedAmount">
-      {{ amount }} {{ currencyFrom }} = 
-      <strong>{{ convertedAmount.toFixed(2) }} {{ currencyTo }}</strong>
-    </p>
   </section>
 </template>
 
 <script>
-// Εισάγουμε τη συνάρτηση exchange από το api.js
 import { exchange } from "../api/api.js";
 
 export default {
@@ -53,95 +43,98 @@ export default {
 
   data() {
     return {
-      amount: "",           // Ποσό για μετατροπή
-      currencyFrom: "",     // Νόμισμα προέλευσης
-      currencyTo: "",       // Νόμισμα προορισμού
-      convertedAmount: null,// Αποτέλεσμα μετατροπής (εμφανίζεται στο template)
-      loading: false        // Ένδειξη "φόρτωσης"
+      amount: "",
+      currencyFrom: "",
+      currencyTo: "",
+
+      // Mock balances (μέχρι να κάνουμε endpoint για πραγματικά balances)
+      balances: {
+        Euro: 500,
+        Dollar: 200,
+        Yen: 15000,
+        Yuan: 1000
+      },
+
+      loading: false
     };
   },
 
   methods: {
-    /*
-      makeExchange()
-      -----------------
-      Η κύρια συνάρτηση που υλοποιεί τη λογική της ανταλλαγής νομίσματος.
-      Είναι το ισοδύναμο του exchange(info, iban_to, value, ...) στο Python desktop app.
-      
-      Περιλαμβάνει:
-       Έλεγχο δεδομένων (αν έχουν συμπληρωθεί όλα)
-       Κλήση στο Flask backend (μέσω api.js)
-       Εμφάνιση του αποτελέσματος
-    */
+    // Μεταφορά Python calc_value → Vue
+    calcValue(amount, from, to) {
+      const rates = {
+        Euro: { Dollar: 1.1463, Yen: 170.4335, Yuan: 8.2176 },
+        Dollar: { Euro: 0.8692, Yen: 148.2383, Yuan: 7.1521 },
+        Yen: { Euro: 0.0058, Dollar: 0.0067, Yuan: 0.0480 },
+        Yuan: { Euro: 0.1202, Dollar: 0.1381, Yen: 20.5003 }
+      };
+
+      return parseFloat(amount) * rates[from][to];
+    },
+
+    // Έλεγχος υπολοίπου (Python → Vue)
+    checkBalance(amount, currency) {
+      const available = this.balances[currency];
+      if (available < amount) {
+        alert("Your balance is too low.");
+        return false;
+      }
+      return true;
+    },
+
     async makeExchange() {
-      // Έλεγχος αν όλα τα πεδία είναι συμπληρωμένα
       if (!this.amount || !this.currencyFrom || !this.currencyTo) {
         alert("Please fill in all fields.");
         return;
       }
 
-      // Έλεγχος ότι δεν έχει επιλεγεί ίδιο νόμισμα (από / προς)
       if (this.currencyFrom === this.currencyTo) {
-        alert("Please select different currencies for exchange.");
+        alert("Currencies must be different.");
         return;
       }
 
-      //  Ενεργοποίηση ένδειξης φόρτωσης
-      this.loading = true;
       const value = parseFloat(this.amount);
+      if (value <= 0) {
+        alert("Amount must be greater than zero.");
+        return;
+      }
+
+      // CHECK BALANCE
+      if (!this.checkBalance(value, this.currencyFrom)) {
+        return;
+      }
+
+      this.loading = true;
 
       try {
         // ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND (Flask)
         /*
-          Κλήση του Flask API μέσω της συνάρτησης exchange() από το api.js.
-          Το api.js στέλνει:
-            POST /api/exchange
-          με body:
-            {
-              amount: value,
-              currency_from: this.currencyFrom,
-              currency_to: this.currencyTo
-            }
+          POST /api/exchange
+          { amount, currency_from, currency_to }
+          
+          Flask returns:
+          { "success": true } OR { "success": false }
         */
         const data = await exchange(value, this.currencyFrom, this.currencyTo);
 
-        // Αν το backend επιστρέψει επιτυχία
         if (data.success) {
-          /*
-            Ο Flask backend θα πρέπει να επιστρέφει π.χ.:
-            {
-              "success": true,
-              "converted_value": 113.45,
-              "message": "Exchange successful"
-            }
-          */
+          // Αν επιτυχής μετατροπή → κάνε update balances (mock)
+          const newValue = this.calcValue(value, this.currencyFrom, this.currencyTo);
 
-          // Ενημερώνουμε τοπικά την τιμή που θα εμφανιστεί στο template
-          this.convertedAmount = data.converted_value;
+          this.balances[this.currencyFrom] -= value;
+          this.balances[this.currencyTo] += newValue;
 
-          // Ενημερωτικό μήνυμα στο χρήστη
-          alert(
-            `You have successfully exchanged ${value} ${this.currencyFrom} into ${data.converted_value.toFixed(
-              2
-            )} ${this.currencyTo}.`
-          );
-
-          console.log("Exchange successful:", data);
+          alert(`You exchanged ${value} ${this.currencyFrom} into ${newValue.toFixed(2)} ${this.currencyTo}.`);
         } else {
-          // Αν αποτύχει η ανταλλαγή (π.χ. χαμηλό υπόλοιπο, λάθος νόμισμα)
-          alert(data.message || "Exchange failed. Please try again.");
-          console.warn("Exchange failed:", data);
+          alert("Exchange failed. Please try again.");
         }
       } catch (error) {
-        // Σε περίπτωση αποτυχίας επικοινωνίας με το backend
-        console.error("Error during exchange:", error);
+        console.error("Exchange error:", error);
         alert("Error connecting to server.");
       } finally {
-        // Τέλος: επαναφορά του κουμπιού (φόρτωση = false)
         this.loading = false;
       }
     }
   }
 };
 </script>
-

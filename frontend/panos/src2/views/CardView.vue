@@ -3,17 +3,17 @@
   <section>
     <h2>Your Card</h2>
 
-    <!-- Κουμπί για εμφάνιση στοιχείων -->
+    <!-- Κουμπί για φόρτωση στοιχείων κάρτας -->
     <button @click="loadCard" :disabled="loading">
       {{ loading ? "Loading..." : "Show Card Details" }}
     </button>
 
-    <!-- Αν υπάρχουν στοιχεία κάρτας, τα εμφανίζουμε -->
-    <div v-if="card" class="card-details">
+    <!-- Στοιχεία κάρτας -->
+    <div v-if="card">
       <p><strong>Card Number:</strong> {{ card.number }}</p>
       <p><strong>Expiration:</strong> {{ card.exp }}</p>
       <p><strong>CVV:</strong> {{ card.cvv }}</p>
-      <p><strong>Status:</strong> {{ card.isFrozen ? "Frozen ❄️" : "Active ✅" }}</p>
+      <p><strong>Status:</strong> {{ card.isFrozen ? "Frozen" : "Active" }}</p>
 
       <!-- Κουμπί Freeze / Unfreeze -->
       <button @click="toggleFreeze" :disabled="loading">
@@ -24,7 +24,6 @@
 </template>
 
 <script>
-// ✅ Εισάγουμε τις συναρτήσεις από το api.js
 import { getCard, toggleCardFreeze } from "../api/api.js";
 
 export default {
@@ -32,29 +31,25 @@ export default {
 
   data() {
     return {
-      card: null,     // Στοιχεία κάρτας
-      loading: false  // Flag για ένδειξη φόρτωσης
+      card: null,      // εδώ θα μπουν τα στοιχεία της κάρτας από το backend
+      loading: false   // για να μπλοκάρουμε κουμπιά όσο μιλάμε με Flask
     };
   },
 
   methods: {
-    /*
-      Φορτώνει τα στοιχεία της κάρτας του χρήστη.
-      (Αντίστοιχο με το "card_canvas.create_text(...)" του Python.)
-    */
+    // 1) Φόρτωση στοιχείων κάρτας από backend
     async loadCard() {
       this.loading = true;
+      console.log("Loading card data...");
 
       try {
-        // 🟦 ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND (Flask)
-        const data = await getCard(); // 🔹 χρησιμοποιεί το api.js
+        const data = await getCard();   // ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND
 
         if (data.success) {
-          // Ενημερώνουμε τοπικά τα δεδομένα της κάρτας
-          this.card = data.card;
-          console.log("Card data loaded:", data.card);
+          this.card = data.card;        // π.χ. { number, exp, cvv, isFrozen }
+          console.log("Card loaded:", this.card);
         } else {
-          alert(data.message || "Failed to load card data.");
+          alert("Failed to load card data.");
         }
       } catch (error) {
         console.error("Error loading card:", error);
@@ -64,38 +59,39 @@ export default {
       }
     },
 
-    /*
-      Εναλλάσσει την κατάσταση κάρτας (freeze/unfreeze),
-      αντίστοιχο με τις Python συναρτήσεις freeze_card() / unfreeze_card().
-    */
+    // 2) Αλλαγή κατάστασης κάρτας (freeze/unfreeze)
     async toggleFreeze() {
-      if (!this.card) return;
+      if (!this.card) return;  // αν δεν έχουν φορτωθεί στοιχεία, δεν κάνουμε τίποτα
 
-      const confirmAction = confirm(
-        this.card.isFrozen
-          ? "Are you sure you want to unfreeze your card?"
-          : "Are you sure you want to freeze your card?"
-      );
-      if (!confirmAction) return;
+      const confirmMsg = this.card.isFrozen
+        ? "Are you sure you want to unfreeze your card?"
+        : "Are you sure you want to freeze your card?";
+
+      if (!confirm(confirmMsg)) {
+        console.log("User canceled freeze/unfreeze.");
+        return;
+      }
 
       this.loading = true;
+
       try {
-        // 🟦 ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND (Flask)
-        const data = await toggleCardFreeze(!this.card.isFrozen); // 🔹 api.js function
+        // Θέλουμε η νέα κατάσταση να είναι το αντίθετο της τωρινής
+        const newFreezeState = !this.card.isFrozen;
+
+        const data = await toggleCardFreeze(newFreezeState); // ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND
 
         if (data.success) {
-          // Αν επιτυχής ενημέρωση backend, αλλάζουμε την κατάσταση στο UI
-          this.card.isFrozen = !this.card.isFrozen;
+          this.card.isFrozen = newFreezeState;
           alert(
             this.card.isFrozen
-              ? "Your card has been frozen successfully."
-              : "Your card has been unfrozen successfully."
+              ? "Your card has been frozen."
+              : "Your card has been unfrozen."
           );
         } else {
-          alert(data.message || "A problem occurred. Please try again later.");
+          alert("Failed to update card status.");
         }
       } catch (error) {
-        console.error("Error toggling freeze:", error);
+        console.error("Error toggling card state:", error);
         alert("Error connecting to server.");
       } finally {
         this.loading = false;
@@ -104,5 +100,3 @@ export default {
   }
 };
 </script>
-
-<!-- Δεν χρειάζεται style — θα προστεθεί από το άλλο μέλος -->

@@ -1,20 +1,15 @@
 <template>
+  <!-- ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ FRONTEND -->
   <section>
-    <h2>Settings</h2>
-    <form @submit.prevent="saveSettings">
-      <label>
-        Preferred Currency:
-        <select v-model="currency">
-          <option>EUR</option>
-          <option>USD</option>
-        </select>
-      </label>
-      <label>
-        Notifications:
-        <input type="checkbox" v-model="notifications" />
-      </label>
-      <button type="submit">Save</button>
-    </form>
+    <h2>User Settings</h2>
+
+    <!-- Κάθε κουμπί σε οδηγεί στο αντίστοιχο Vue component -->
+    <button @click="goToChangePassword">Change Password</button>
+    <button @click="goToChangePin">Change PIN</button>
+    <button @click="goToChangeEmail">Change Email</button>
+
+    <!-- Κουμπί για επιστροφή στο home -->
+    <button @click="goBack">⬅ Back</button>
   </section>
 </template>
 
@@ -22,25 +17,31 @@
 export default {
   name: "SettingsView",
 
-  data() {
-    return {
-      currency: "EUR",
-      notifications: true
-    };
-  },
-
   methods: {
-    saveSettings() {
-      /*
-        Placeholder:
-        - Αποθηκεύει τοπικά τις ρυθμίσεις
-        - Αργότερα θα γίνει axios.post('/api/settings')
-      */
-      console.log("Settings saved:", {
-        currency: this.currency,
-        notifications: this.notifications
-      });
-      alert("Settings saved (mock)");
+    /*
+      Τα methods αυτά απλά κάνουν routing.
+      Δεν έχουν backend λογική.
+      Δεν χρειάζονται API calls.
+    */
+
+    goToChangePassword() {
+      // Πηγαίνει στο component ChangePasswordView.vue
+      this.$router.push("/change-password");
+    },
+
+    goToChangePin() {
+      // Πηγαίνει στο component ChangePinView.vue
+      this.$router.push("/change-pin");
+    },
+
+    goToChangeEmail() {
+      // Πηγαίνει στο component ChangeEmailView.vue
+      this.$router.push("/change-email");
+    },
+
+    goBack() {
+      // Επιστροφή στο home screen (ή όπου έχεις ορίσει)
+      this.$router.push("/home");
     }
   }
 };

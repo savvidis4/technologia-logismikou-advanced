@@ -110,15 +110,51 @@ export async function exchange(amount, from, to) {
   return await response.json();
 }
 
-// Πληροφορίες κάρτας
+// =======================
+//   CARD API FUNCTIONS
+// =======================
+
+// Παίρνουμε τα στοιχεία της κάρτας του χρήστη
 export async function getCard() {
-  const response = await fetch(`${API_BASE_URL}/card`, {
-    headers: {
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
-    }
-  });
-  return await response.json();
+  try {
+    const response = await fetch(`${API_BASE_URL}/card`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    const data = await response.json();
+    return data;        // Περιμένουμε { success: true, card: {...} }
+  } catch (error) {
+    console.error("Get card error:", error);
+    return { success: false };
+  }
 }
+
+// Αλλάζουμε κατάσταση κάρτας: freeze ή unfreeze
+export async function toggleCardFreeze(freeze) {
+  try {
+    const endpoint = freeze ? "freeze_card" : "unfreeze_card";
+
+    const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      }
+      // δεν χρειάζεται body, ο server βρίσκει την κάρτα από το token
+    });
+
+    const data = await response.json();
+    return data;        // Περιμένουμε { success: true } ή { success: false }
+  } catch (error) {
+    console.error("Toggle card freeze error:", error);
+    return { success: false };
+  }
+}
+
 
 // Freeze / Unfreeze κάρτας
 export async function toggleCardFreeze(freeze) {
@@ -141,3 +177,81 @@ export async function getTransactions() {
   });
   return await response.json();
 }
+
+//Change Password
+export async function changePassword(old_password, new_password) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/change_password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({ old_password, new_password })
+    });
+
+    return await response.json();
+  } catch (error) {
+    console.error("Password change error:", error);
+    return { success: false, message: "Error connecting to server." };
+  }
+}
+
+//Change PIN
+export async function changePin(old_pin, new_pin) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/change_pin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({ old_pin, new_pin })
+    });
+
+    return await response.json();
+  } catch (error) {
+    console.error("PIN change error:", error);
+    return { success: false, message: "Error connecting to server." };
+  }
+}
+
+//Change Email
+// Ζητάμε αλλαγή email (παράγει OTP και το στέλνει)
+export async function requestEmailChange(old_email, new_email) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/request_email_change`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({ old_email, new_email })
+    });
+
+    return await response.json();
+  } catch (error) {
+    console.error("Request email change error:", error);
+    return { success: false };
+  }
+}
+
+// Επαληθεύουμε το OTP
+export async function verifyEmailOTP(otp) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/verify_email_otp`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({ otp })
+    });
+
+    return await response.json();
+  } catch (error) {
+    console.error("Verify OTP error:", error);
+    return { success: false };
+  }
+}
+

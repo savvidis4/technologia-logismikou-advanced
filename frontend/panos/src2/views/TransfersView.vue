@@ -11,6 +11,7 @@
         placeholder="Recipient IBAN"
         required
       />
+
       <input
         type="number"
         v-model="amount"
@@ -19,6 +20,7 @@
         step="0.01"
         required
       />
+
       <button type="submit" :disabled="loading">
         {{ loading ? "Processing..." : "Send Money" }}
       </button>
@@ -27,7 +29,6 @@
 </template>
 
 <script>
-// Εισάγουμε τη συνάρτηση transfer() από το api.js
 import { transfer } from "../api/api.js";
 
 export default {
@@ -35,29 +36,19 @@ export default {
 
   data() {
     return {
-      recipientIban: "",  // IBAN του παραλήπτη
-      amount: "",         // Ποσό μεταφοράς
-      userBalance: 1000,  // Mock balance (θα αντικατασταθεί με δεδομένα Flask)
-      loading: false      // Flag για φόρτωση
+      recipientIban: "",
+      amount: "",
+      userBalance: 1000,  
+
+      // Χρησιμοποιείται για να αποτρέπει πολλαπλά κλικ στο κουμπί
+      // ενώ η μεταφορά βρίσκεται σε εξέλιξη. Αν είναι true, το κουμπί "κλειδώνει".
+      loading: false
     };
   },
 
   methods: {
-    /*
-      makeTransfer()
-      -----------------
-      Η κύρια συνάρτηση μεταφοράς χρημάτων.
-      Είναι το αντίστοιχο του transfer(info, iban_to, value) στο Python desktop app.
-
-      Περιλαμβάνει:
-      Έλεγχο εισαγόμενων δεδομένων (IBAN & ποσό)
-      Έλεγχο υπολοίπου χρήστη
-      Κλήση στο Flask backend μέσω api.js
-      Επεξεργασία απάντησης (επιτυχία ή αποτυχία)
-      Ενημέρωση UI
-    */
     async makeTransfer() {
-      // Έλεγχος πεδίων
+      // Έλεγχος ότι όλα τα πεδία είναι συμπληρωμένα
       if (!this.recipientIban || !this.amount) {
         alert("Please fill in all fields.");
         return;
@@ -71,58 +62,34 @@ export default {
         return;
       }
 
-      // Έλεγχος υπολοίπου (όπως check_balance στο Python)
+      // Έλεγχος υπολοίπου χρήστη (mock)
       if (this.userBalance < money) {
-        alert("Your balance is too low. Please select a lower amount.");
+        alert("Your balance is too low.");
         return;
       }
 
-      // Ενεργοποιούμε το flag φόρτωσης
+      // Ξεκινάμε loading για να μην μπορεί να πατήσει ξανά
       this.loading = true;
-      console.log(`Attempting transfer: ${money}€ → ${this.recipientIban}`);
+      console.log("Attempting transfer:", this.recipientIban, money);
 
       try {
         // ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND (Flask)
-        /*
-          Η συνάρτηση transfer() στο api.js στέλνει:
-            POST /api/transfer
-          με body:
-            { recipient: recipientIban, amount: money }
-
-          Ο Flask backend αναμένεται να επιστρέψει JSON της μορφής:
-            {
-              "success": true,
-              "message": "Transfer completed",
-              "new_balance": 870.00
-            }
-        */
         const data = await transfer(this.recipientIban, money);
 
-        // Έλεγχος απάντησης από Flask
+        // Επεξεργασία απάντησης από Flask
         if (data.success) {
-          // Αν η μεταφορά ήταν επιτυχής
-          console.log("Transfer successful:", data);
-
-          // Ενημέρωση mock υπολοίπου (προσωρινά)
-          this.userBalance = data.new_balance || this.userBalance - money;
-
-          // Ενημέρωση χρήστη
-          alert(data.message || `You have successfully transferred ${money}€ to ${this.recipientIban}.`);
-
-          // Καθαρισμός πεδίων
+          alert(`Transfer of ${money}€ completed.`);
+          this.userBalance -= money;
           this.recipientIban = "";
           this.amount = "";
         } else {
-          // Αν ο server επιστρέψει σφάλμα (π.χ. IBAN δεν υπάρχει)
-          console.warn("Transfer failed:", data);
-          alert(data.message || "Account does not exist. Please check the IBAN.");
+          alert("Transfer failed. Invalid IBAN or insufficient balance.");
         }
       } catch (error) {
-        // Αν παρουσιαστεί σφάλμα επικοινωνίας (π.χ. server down)
         console.error("Error during transfer:", error);
         alert("Error connecting to server.");
       } finally {
-        // Απενεργοποίηση ένδειξης φόρτωσης
+        // Σταματάμε το loading 
         this.loading = false;
       }
     }

@@ -21,6 +21,7 @@
           <th>Transaction Type</th>
         </tr>
       </thead>
+
       <tbody>
         <tr v-for="t in transactions" :key="t.id">
           <td>{{ t.id }}</td>
@@ -34,8 +35,10 @@
       </tbody>
     </table>
 
-    <!-- Κουμπί Back -->
-    <button v-if="transactions.length" @click="goBack">⬅ Back</button>
+    <!-- Κουμπί επιστροφής -->
+    <button v-if="transactions.length" @click="goBack">
+      ⬅ Back
+    </button>
   </section>
 </template>
 
@@ -48,8 +51,8 @@ export default {
 
   data() {
     return {
-      transactions: [], // Πίνακας με συναλλαγές
-      loading: false    // Ένδειξη φόρτωσης
+      transactions: [], // Πίνακας συναλλαγών
+      loading: false    // Flag φόρτωσης
     };
   },
 
@@ -57,61 +60,30 @@ export default {
     /*
       fetchTransactions()
       -------------------
-      Καλεί το Flask backend και φέρνει τη λίστα συναλλαγών του χρήστη.
-
-      Περιλαμβάνει:
-      Ενεργοποίηση φόρτωσης
-      Κλήση στο api.js -> Flask endpoint /api/transactions
-      Αποθήκευση αποτελεσμάτων στον πίνακα
-      Ενημέρωση UI
+      Φέρνει τη λίστα συναλλαγών από τον Flask backend μέσω api.js.
     */
     async fetchTransactions() {
-      // Ενεργοποιούμε το flag φόρτωσης
       this.loading = true;
       console.log("Fetching transactions...");
 
       try {
-        // ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND (Flask)
-        /*
-          Η συνάρτηση getTransactions() στο api.js στέλνει:
-            GET /api/transactions
-          με header:
-            Authorization: Bearer <token>
+        // ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND μέσω getTransactions()
+        const data = await getTransactions();
 
-          Ο Flask backend αναμένεται να επιστρέψει JSON:
-            {
-              "success": true,
-              "transactions": [
-                {
-                  "id": 32,
-                  "from_iban": "...",
-                  "to_iban": "...",
-                  "amount": 100,
-                  "currency": "Euro (€)",
-                  "date": "2025-09-17 18:58:41",
-                  "type": "DEBIT"
-                },
-                ...
-              ]
-            }
-        */
-        const data = await getTransactions(); // 🔹 Κλήση μέσω api.js
-
-        // Αν η απάντηση είναι επιτυχής
         if (data.success) {
+          // Επιτυχής φόρτωση
           this.transactions = data.transactions;
           console.log("Transactions loaded:", data.transactions);
         } else {
-          // Αν αποτύχει (π.χ. μη έγκυρο token ή σφάλμα server)
-          alert(data.message || "Failed to load transactions.");
-          console.warn("Transactions fetch failed:", data);
+          // Αποτυχία backend
+          alert("Failed to load transactions.");
+          console.warn("Backend returned failure.", data);
         }
       } catch (error) {
-        // Αν υπάρξει σφάλμα επικοινωνίας
+        // Αποτυχία επικοινωνίας
         console.error("Error loading transactions:", error);
         alert("Error connecting to server.");
       } finally {
-        // Απενεργοποίηση ένδειξης φόρτωσης
         this.loading = false;
       }
     },
@@ -119,13 +91,12 @@ export default {
     /*
       goBack()
       -------------------
-      Επιστρέφει στην προηγούμενη σελίδα (όπως το "Back" κουμπί στο Python app).
-      Αντίστοιχο με show_main_screen(info[0]) στο desktop.
+      Επιστρέφει στη βασική σελίδα (Home ή Transfers).
     */
     goBack() {
-      this.$router.push("/transfers"); // ή όπου βρίσκεται η αρχική σελίδα του χρήστη
+      // Αλλάζεις το route σε ό,τι θες
+      this.$router.push("/home");
     }
   }
 };
 </script>
-
