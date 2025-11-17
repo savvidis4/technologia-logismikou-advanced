@@ -1,6 +1,6 @@
-from .home_routes import home_bp
-from .auth_routes import auth_bp
+from .home_route import home_bp
+from .login_route import login_bp
 
 def register_routes(app):
     app.register_blueprint(home_bp)
-    app.register_blueprint(auth_bp)
+    app.register_blueprint(login_bp)

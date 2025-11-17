@@ -3,7 +3,7 @@ from app.models import User, Account
 from app.extensions import db
 from flask_jwt_extended import create_access_token
 import random
-
+ 
 auth_bp = Blueprint('auth', __name__)
 
 # 📘 Εγγραφή (register)
@@ -36,17 +36,4 @@ def register():
     return jsonify({"message": "User registered successfully"}), 201
 
 
-# 🔐 Σύνδεση (login)
-@auth_bp.route('/login', methods=['POST'])
-def login():
-    data = request.get_json()
-    email = data.get('email')
-    password = data.get('password')
 
-    user = User.query.filter_by(email=email).first()
-    if not user or not user.check_password(password):
-        return jsonify({"error": "Invalid email or password"}), 401
-
-    # Δημιουργία JWT token
-    access_token = create_access_token(identity=str(user.id))
-    return jsonify({"token": access_token, "username": user.username, "success":True}), 200
