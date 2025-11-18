@@ -4,24 +4,27 @@ from app.extensions import db
 from flask_jwt_extended import create_access_token
 import random
  
-auth_bp = Blueprint('auth', __name__)
+register_bp = Blueprint('register', __name__)
 
-# 📘 Εγγραφή (register)
-@auth_bp.route('/register', methods=['POST'])
+@register_bp.route('/register', methods=['POST'])
 def register():
+
     data = request.get_json()
-    username = data.get('username')
     email = data.get('email')
     password = data.get('password')
+    ver_password = data.get('ver_password')
 
-    if not username or not email or not password:
+    if not email or not password or not ver_password:
         return jsonify({"error": "Missing fields"}), 400
-
-    if User.query.filter_by(email=email).first():
-        return jsonify({"error": "Email already exists"}), 400
+    
+    if password != ver_password:
+        return jsonify({"error": "Passwords do not match"}), 400
+    
+    if db.session.query(User).filter_by(email=email).first():
+        return jsonify({"error": "Email already in use"}), 400
 
     # Δημιουργία νέου χρήστη
-    user = User(username=username, email=email)
+    user = User(email=email)
     user.set_password(password)
     db.session.add(user)
     db.session.commit()
