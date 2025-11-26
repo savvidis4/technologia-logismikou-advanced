@@ -38,6 +38,6 @@ class LoginService:
         return jsonify({
             "token": self.access_token,
             "success": True,
-            "username": user.username,
+            "email": user.email,
             }), 200
         

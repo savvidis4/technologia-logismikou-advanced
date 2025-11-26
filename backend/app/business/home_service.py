@@ -25,7 +25,6 @@ class HomeService:
     def __init__(self, db_session, current_user_id):
 
         self.db = db_session
-        self.username = None
         self.balance = None
         self.iban = None
         self.card_number = None

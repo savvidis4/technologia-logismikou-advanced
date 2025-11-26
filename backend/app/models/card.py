@@ -15,3 +15,18 @@ class Card(db.Model):
     
     def check_card_pin(self, pin):
         return check_password_hash(self.card_pin_hash, pin)
+    
+    @classmethod
+    def create_card(cls, account_id, card_number, card_exp_date, card_cvv, card_pin):
+
+        new_card = cls(
+            account_id=account_id,
+            card_number=card_number,
+            card_exp_date=card_exp_date,
+            card_cvv=card_cvv
+        )
+        
+        new_card.set_card_pin(card_pin)
+
+        db.session.add(new_card)
+        db.session.commit()

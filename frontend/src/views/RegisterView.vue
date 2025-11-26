@@ -5,12 +5,6 @@
 
     <form @submit.prevent="registerUser">
       <input
-        type="text"
-        v-model="name"
-        placeholder="Full Name"
-        required
-      />
-      <input
         type="email"
         v-model="email"
         placeholder="Email"
@@ -20,6 +14,12 @@
         type="password"
         v-model="password"
         placeholder="Password"
+        required
+      />
+      <input
+        type="password"
+        v-model="ver_password"
+        placeholder="Verify Password"
         required
       />
       <button type="submit" :disabled="loading">
@@ -42,16 +42,16 @@ export default {
 
   data() {
     return {
-      name: "",
       email: "",
       password: "",
+      ver_password: "",
       loading: false
     };
   },
 
   methods: {
     async registerUser() {
-      if (!this.name || !this.email || !this.password) {
+      if (!this.ver_password || !this.email || !this.password) {
         alert("Please fill in all fields.");
         return;
       }
@@ -60,7 +60,14 @@ export default {
 
       try {
         // Κλήση στο Flask backend μέσω api.js
-        const data = await register(this.name, this.email, this.password);
+        const data = await register(this.email, this.password, this.ver_password);
+
+        console.log("Registration response:", data);
+
+        if (!data.success) {
+          alert(data.message);
+          return;
+        }
 
         // Έλεγχος μόνο για success (χωρίς message)
         if (data.success) {
@@ -68,7 +75,7 @@ export default {
           // Μετάβαση στη sign-in
           this.$router.push("/login");
         } else {
-          alert("Registration failed. Try again.");
+          alert(data.message || "Registration failed. Try again.");
         }
       } catch (error) {
         console.error("Error during registration:", error);
