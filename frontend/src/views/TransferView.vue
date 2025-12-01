@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { transfer } from "../api/api.js";
+import { transfer } from "../services/api.js";
 
 export default {
   name: "TransfersView",
@@ -38,7 +38,7 @@ export default {
     return {
       recipientIban: "",
       amount: "",
-      userBalance: 1000,  
+      userBalance: 0,  
 
       // Χρησιμοποιείται για να αποτρέπει πολλαπλά κλικ στο κουμπί
       // ενώ η μεταφορά βρίσκεται σε εξέλιξη. Αν είναι true, το κουμπί "κλειδώνει".

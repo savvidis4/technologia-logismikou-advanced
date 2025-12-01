@@ -42,7 +42,7 @@ class HomeService:
             raise ValueError("User not found")
 
         # Αποθήκευση δεδομένων στα private πεδία
-        self.username = user.username
+        
         self.email = user.email
         self.balance = account.euro_balance
         self.iban = account.iban
@@ -52,7 +52,7 @@ class HomeService:
     def to_dict(self):
 
         return {
-            "username": self.username,
+            
             "balance": self.balance,
             "iban": self.iban,
             "card_number": self.masked_card_number,

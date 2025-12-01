@@ -44,7 +44,7 @@
 
 <script>
 // Εισάγουμε τη συνάρτηση getTransactions() από το api.js
-import { getTransactions } from "../api/api.js";
+import { getTransactions } from "../services/api.js";
 
 export default {
   name: "TransactionsView",
