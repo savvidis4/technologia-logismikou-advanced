@@ -1,7 +1,78 @@
 <template>
   <!-- Λογικά εδώ θα μπει ο κώδικας του Λάμπρου -->
+   <div>
+      <!-- HEADER -->
+       <header class="header">
+        <img src="logo.png" alt="bank logo" class="img"/>
+        <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+        <button class="settings" @click="goToSettings">
+            <img src="settings.png" alt="settings" class="settings_icon"/>
+            <span class="tooltip">User Settings</span>
+        </button>
+        <button class="logout" @click="goToLogout"><span>Log Out</span></button>
+    </header>
+
+    <!-- ΚΟΥΤΙ ΥΠΟΛΟΙΠΟΥ -->
+      <section class="container">
+        <div class="balance_top">
+            <h2>Balance</h2>
+
+            <!-- ΕΔΩ ΕΧΩ ΒΑΛΕΙ ΚΑΡΦΩΤΑ ΤΙΜΕΣ ΤΩΡΑ ΔΕΝ ΞΕΡΩ ΤΙ ΜΠΑΛΙΤΣΑ ΠΑΙΖΕΤΕ -->
+            <p class="amount">50,000.75 €</p>
+        </div>
+
+        <div class="balance_rest">
+            <div class="row">
+                <img src="card1.png" alt="iban_icon" class="icon"/>
+                <div>
+                    <p class="label">IBAN</p>
+
+                    <!-- ΕΔΩ ΕΧΩ ΒΑΛΕΙ ΚΑΡΦΩΤΑ ΤΙΜΕΣ ΤΩΡΑ ΔΕΝ ΞΕΡΩ ΤΙ ΜΠΑΛΙΤΣΑ ΠΑΙΖΕΤΕ -->
+                    <p class="value">GR30 0369 3768 4885 8436 2590 002</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <img src="card1.png" alt="card_icon" class="icon"/>
+                <div>
+                    <p class="label">Card Number</p>
+
+                    <!-- ΕΔΩ ΕΧΩ ΒΑΛΕΙ ΚΑΡΦΩΤΑ ΤΙΜΕΣ ΤΩΡΑ ΔΕΝ ΞΕΡΩ ΤΙ ΜΠΑΛΙΤΣΑ ΠΑΙΖΕΤΕ -->
+                    <p class="value">**** **** **** 0001</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SIDEBAR ΜΕ ΚΟΥΜΠΙΑ ΠΛΟΗΓΗΣΗΣ -->
+     <aside class="sidebar">
+        <div class="item" data-tooltip="Transfers" @click="goTo('/transfers')">
+            <img src="transfer.png" alt="transfers"/>
+        </div>
+
+        <div class="item" data-tooltip="Transactions" @click="goTo('/transactions')">
+            <img src="transaction.png" alt="transactions"/>
+        </div>
+
+        <div class="item" data-tooltip="Credit Card" @click="goTo('/card')">
+            <img src="card2.png" alt="card"/>
+        </div>
+
+        <div class="item" data-tooltip="Graphs" @click="goTo('/graphs')">
+            <img src="graphs.png" alt="graph"/>
+        </div>
+
+        <div class="item" data-tooltip="Currency Exchange" @click="goTo('/exchange')">
+            <img src="exchange.png" alt="exchange"/>
+        </div>
+    </aside>
+   </div>
+
+   <!-- ΕΔΩ ΤΕΛΕΙΩΝΕΙ Ο ΚΩΔΙΚΑΣ ΤΟΥ ΛΑΜΠΡΟΥ  -->
+
   <section>
-    <h2>BANK OF UNIVERSITY OF WEST ATTICA e-Banking</h2>
+    <!-- <h2>BANK OF UNIVERSITY OF WEST ATTICA e-Banking</h2> -->
 
     <!-- Mock στοιχεία λογαριασμού -->
     <div>

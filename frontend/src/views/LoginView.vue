@@ -1,5 +1,63 @@
 <template>
   <!-- Λογικά εδώ θα μπει ο κώδικας του Λάμπρου -->
+  <div>
+    
+    <!-- HEADER -->
+    <header class="header">
+        <img src="logo.png" alt="bank logo" class="img"/>
+        <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+        <router-link to="/signup" class="register_btn">
+          <img src="register.png" alt="register_icon" class="register_icon"/>
+          <span>Create Account</span>
+        </router-link>
+    </header>
+
+    <!-- ΚΟΥΤΙ LOGIN -->
+     <div class="login_container">
+        <h2>Welcome</h2>
+
+        <!-- EIMAIL FIELD -->
+        <form @submit.prevent="loginUser">
+            <div class="input_row">
+                <p class="input_label1">Enter Email</p>
+                <input type="text" v-model="username" placeholder="E-mail" required />
+            </div>
+
+        <!-- PASSWORD FIELD -->
+         <div class="input_row">
+           <p class="input_label2">Enter Password</p>
+            <input 
+              :type="showPassword ? 'text' : 'password'" 
+              v-model="password" 
+              placeholder="Password" 
+              required 
+            />
+
+            <!-- Show / Hide password -->
+             <span class="trigger" @click="togglePassword">
+                <img 
+                :src="showPassword ? 'show (1).png' : 'hide (1).png'" 
+                :alt="showPassword ? 'show' : 'hide'" 
+                class="show_pswd"
+                />
+              </span>
+          </div>
+
+          <p class="forgot">
+            <router-link to="/forgot_password">Forgot Password?</router-link>
+          </p>
+
+           <button type="submit" class="login" :disabled="loading">
+              {{ loading ? "Logging in..." : "Log In" }}
+           </button>
+        </form>
+      </div>
+
+      <img src="pada1.webp" alt="background" class="pada_img" />
+  </div>
+  <!-- ΕΔΩ ΤΕΕΛΙΩΝΕΙ Ο ΚΩΔΙΚΑΣ ΛΑΜΠΡΟΥΚΟΥ -->
+
+
   <section>
     <h2>Sign In PANEEEE</h2>
 
@@ -31,6 +89,7 @@
 
 <script>
 // Εισάγωγή της συνάρτησης login() από το api.js
+import router from "@/router/index.js";
 import { login } from "../services/api.js";
 
 //Το export default { ... } 

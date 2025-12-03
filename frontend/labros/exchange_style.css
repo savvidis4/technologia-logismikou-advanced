@@ -211,7 +211,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 60px;
+    gap: 115px;
     margin-top: 50px;
 }
 
@@ -228,7 +228,7 @@ body{
 .label{
     width: 160px;
     text-align: right;
-    font-size: 1rem;
+    font-size: 1.25rem;
     opacity: 0.85;
 }
 
@@ -346,7 +346,7 @@ body{
     font-size: 15px;
     padding: 15px 27px;
     border-radius: 8px;
-    margin-top: 375px;
+    margin-top: 420px;
     right: 235px;
     cursor: pointer;
     transition: transform 0.2s ease, color 0.3s ease;
@@ -386,4 +386,23 @@ body{
 
 .optin.active:hover{
     background: rgba(255, 255, 255, 0.247);
+}
+
+/*--------- SCALE IMAGE ---------*/
+.scale_icon{
+    position: fixed;
+    z-index: -1;
+    width: 690px;
+    height: 450px;
+    filter: brightness(0) invert(0) opacity(0.1);
+    top: 200px;
+}
+
+.updown_icon{
+    position: fixed;
+    z-index: -1;
+    width: 65px;
+    height: auto;
+    filter: brightness(0) invert(1) opacity(0.8);
+    top: 345px;
 }
