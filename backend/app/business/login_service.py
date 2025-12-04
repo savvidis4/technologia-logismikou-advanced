@@ -2,16 +2,6 @@ from app.models import User
 from flask_jwt_extended import create_access_token
 from flask import jsonify
 
-"""
-=============================================================
- Business Logic Layer - Login 
-=============================================================
-Η κλάση LoginService είναι υπεύθυνη για τη λογική σύνδεσης χρηστών.
-
-Δέχεται db_session μέσω dependency injection και ελέγχει αν το email
-και ο κωδικός ταιριάζουν με αυτά της βάσης.
-"""
-
 class LoginService:
 
     #Constructor με dependency injection.

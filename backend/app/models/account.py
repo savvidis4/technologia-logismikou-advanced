@@ -29,4 +29,44 @@ class Account(db.Model):
         db.session.commit()
 
         return new_account
+    
+    @classmethod
+    def add_funds(cls, iban, amount, currency):
+
+        account = db.session.query(cls).filter_by(iban=iban).first()
+        
+        if not account:
+            return False
+
+        if currency == "EUR":
+            account.euro_balance += amount
+        elif currency == "USD":
+            account.usd_balance += amount
+        elif currency == "GBP":
+            account.gbp_balance += amount
+        elif currency == "JPY":
+            account.yen_balance += amount
+
+        db.session.commit()
+        return True
+    
+    @classmethod
+    def deduct_funds(cls, iban, amount, currency):
+
+        account = db.session.query(cls).filter_by(iban=iban).first()
+        
+        if not account:
+            return False
+
+        if currency == "EUR":
+            account.euro_balance -= amount
+        elif currency == "USD":
+            account.usd_balance -= amount
+        elif currency == "GBP":
+            account.gbp_balance -= amount
+        elif currency == "JPY":
+            account.yen_balance -= amount
+
+        db.session.commit()
+        return True
         

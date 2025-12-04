@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { transfer } from "../api/api.js";
+import { transfer } from "../services/api.js";
 
 export default {
   name: "TransfersView",

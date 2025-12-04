@@ -1,18 +1,3 @@
-"""
-=============================================================
- Business Logic Layer - Account Creation
-=============================================================
-Καθαρή υλοποίηση της λειτουργικότητας εγγραφής χρήστη,
-χωρίς UI, χωρίς messagebox, χωρίς tkinter.
-
-Εφαρμόζει dependency injection (δέχεται db_session απ' έξω),
-και περιλαμβάνει:
-
- - iban_generator()
- - card_generator()
- - account_creation() (εγγραφή χρήστη με ελέγχους)
-"""
-
 import random
 from datetime import datetime
 import re
