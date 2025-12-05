@@ -3,11 +3,11 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.extensions import db
 from app.business.transfer_service import TransferService
 
-transfer_bp = Blueprint('transfer', __name__)
+transfer_bp = Blueprint('transfers', __name__)
 
-@transfer_bp.route('/transfer', methods=['GET', 'POST'])
+@transfer_bp.route('/transfers', methods=['GET', 'POST'])
 @jwt_required()
-def transfer():
+def transfers():
 
     current_user_id = int(get_jwt_identity())
     transfer_service = TransferService(db.session, current_user_id)
@@ -18,7 +18,7 @@ def transfer():
         data = request.get_json()
         amount = data.get('amount')
         currency = data.get('currency')
-        recipient_iban = data.get('recipient_iban')
+        recipient_iban = data.get('recipient')
 
         current_user_id = int(get_jwt_identity())
 
@@ -26,4 +26,6 @@ def transfer():
 
         return result
     
-    return transfer_data
+    else:
+    
+        return transfer_data

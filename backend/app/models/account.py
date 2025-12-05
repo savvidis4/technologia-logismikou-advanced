@@ -51,11 +51,11 @@ class Account(db.Model):
         return True
     
     @classmethod
-    def deduct_funds(cls, iban, amount, currency):
+    def deduct_funds(cls, iban, amount, currency, added):
 
         account = db.session.query(cls).filter_by(iban=iban).first()
         
-        if not account:
+        if not account or not added:
             return False
 
         if currency == "EUR":

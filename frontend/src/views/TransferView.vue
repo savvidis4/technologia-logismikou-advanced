@@ -1,14 +1,16 @@
 <template>
   <!-- ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ FRONTEND -->
   <section>
-    <h2>Transfers</h2>
+    <h2 style="color: black;">Transfers</h2>
+
+    <p style="color: black;">Account IBAN (From): {{myiban}}</p>
 
     <!-- Φόρμα μεταφοράς χρημάτων -->
     <form @submit.prevent="makeTransfer">
       <input
         type="text"
         v-model="recipientIban"
-        placeholder="Recipient IBAN"
+        placeholder="Recipient IBAN (To)"
         required
       />
 
@@ -16,6 +18,15 @@
         type="number"
         v-model="amount"
         placeholder="Amount (€)"
+        min="1"
+        step="0.01"
+        required
+      />
+
+      <input
+        type="text"
+        v-model="currency"
+        placeholder="Currency"
         min="1"
         step="0.01"
         required
@@ -29,7 +40,7 @@
 </template>
 
 <script>
-import { transfer } from "../services/api.js";
+import { transfers, transfer_data } from "../services/api.js";
 
 export default {
   name: "TransfersView",
@@ -38,11 +49,20 @@ export default {
     return {
       recipientIban: "",
       amount: "",
-      loading: false
+      loading: false,
+      myiban: ""
     };
   },
 
+  async mounted() {
+      
+      const data = await transfer_data();
+      this.myiban = data.account_iban;
+    
+  },
+
   methods: {
+    
     async makeTransfer() {
       // Απλό validation — μόνο ότι τα πεδία δεν είναι άδεια
       if (!this.recipientIban || !this.amount) {
@@ -54,7 +74,10 @@ export default {
 
       try {
         // Στέλνουμε τα δεδομένα ΣΤΟ BACKEND
-        const data = await transfer(this.recipientIban, money);
+        console.log("Initiating transfer to:", this.recipientIban, "Amount:", this.amount);
+        const data = await transfers(this.recipientIban, this.amount, this.currency);
+
+        console.log("Transfer response:", data);
 
         if (data.success) {
           alert(data.message || "Transfer completed successfully.");

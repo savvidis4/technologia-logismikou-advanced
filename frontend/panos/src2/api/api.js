@@ -85,8 +85,8 @@ export async function logout() {
 // -------------- BANKING FEATURES -----------------
 
 // Μεταφορά χρημάτων
-export async function transfer(recipient, amount) {
-  const response = await fetch(`${API_BASE_URL}/transfer`, {
+export async function transfers(recipient, amount) {
+  const response = await fetch(`${API_BASE_URL}/transfers`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -41,25 +41,20 @@ class TransferService:
             return account.jpy_balance >= amount
         else:
             return False
-        
+   
     def initiate_transfer(self, amount, currency, recipient_iban):
 
+        print("Initiating transfer:", amount, currency, recipient_iban)
         if not self.check_funds(amount, currency):
+            print(amount, currency, recipient_iban)
             return jsonify({"success": False, "message": "Insufficient funds."}), 401
 
-        Account.add_funds(recipient_iban, amount, currency)
-        Account.deduct_funds(self.account_iban, amount, currency)
+        added = Account.add_funds(recipient_iban, amount, currency)
+        Account.deduct_funds(self.account_iban, amount, currency, added)
 
         return jsonify({"success": True, "message": f"Transfer of {amount} {self.currency_symbol} to account with IBAN {recipient_iban} was successfull."}), 200
     
     def to_dict(self):
-        
-        i = 0
-        for l in self.account_iban:
-
-            if i % 4 == 0 and i != 0:
-                self.account_iban = self.account_iban[:i] + " " + self.account_iban[i:]
-            i += 1
 
         return jsonify({
             
