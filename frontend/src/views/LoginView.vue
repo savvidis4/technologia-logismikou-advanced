@@ -55,7 +55,7 @@
 
       <img src="pada1.webp" alt="background" class="pada_img" />
   </div>
-  <!-- ΕΔΩ ΤΕΕΛΙΩΝΕΙ Ο ΚΩΔΙΚΑΣ ΛΑΜΠΡΟΥΚΟΥ -->
+  <!-- ΕΔΩ ΤΕΛEΙΩΝΕΙ Ο ΚΩΔΙΚΑΣ ΛΑΜΠΡΟΥΚΟΥ -->
 
 
   <section>
