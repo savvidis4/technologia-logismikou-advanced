@@ -145,8 +145,7 @@ body{
     padding-top: 34.4px;
     background: linear-gradient(-85deg, #01035c, #114e94, #114e94, #0f0b44);
     background-size: 400% 500%;
-    animation: gradientMove 20s linear infinite; 
-    
+    animation: gradientMove 20s linear infinite;  
 }
 
 @keyframes gradientMove {

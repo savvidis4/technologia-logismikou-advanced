@@ -51,17 +51,17 @@ export async function login(email, password) {
 }
 
 // Εγγραφή νέου χρήστη (Sign Up)
-export async function register(name, email, password) {
+export async function register(email, password, ver_password) {
   try {
     const response = await fetch(`${API_BASE_URL}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password })
+      body: JSON.stringify({ email, password, ver_password })
     });
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Register error:", error);
+    console.log("Register error:", error);
     return { success: false, message: "Error connecting to server." };
   }
 }

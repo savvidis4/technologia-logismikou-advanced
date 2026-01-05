@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { exchange } from "../api/api.js";
+import { exchange } from "../services/api.js";
 
 export default {
   name: "CurrencyExchangeView",
