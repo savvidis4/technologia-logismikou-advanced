@@ -103,9 +103,10 @@ header{
 /* ---- POP UP SETTINGS ---- */
 .tooltip{
     position: absolute;
-    bottom: -45px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    bottom: auto;
+    right: calc(100% + 12px);
+    transform: translateY(-50%);
     background-color: #333;
     color: white;
     font-size: 0.85rem;
@@ -115,23 +116,23 @@ header{
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease, bottom 0.3s ease;
-    z-index: 20;
+    z-index: 200;
 }
 
 .tooltip::after{
     content: '';
     position: absolute;
-    top: -13px;
-    left: 28px;
-    transform: translateX(-50%);
+    top: 50%;
+    left: 56.745px;
+    transform: translateY(-50%);
     border-width: 6px;
     border-style: solid;
-    border-color: transparent transparent #333 transparent;
+    border-color: transparent transparent transparent #333;
 }
 
 .home:hover .tooltip{
     opacity: 1;
-    bottom: -40px;
+    right: calc(100% +18px);
 }
 
 /*---------------*/
