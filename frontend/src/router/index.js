@@ -14,7 +14,7 @@ const router = createRouter({
     { path: '/login', component: LoginView },
     { path: '/home', component: HomeView },
     { path: '/register', component: RegisterView },
-    { path: '/transfer', component: TransferView },
+    { path: '/transfers', component: TransferView },
     { path: '/transactions', component: TransactionsView },
     { path: '/currency-exchange', component: CurrencyExchangeView },
     { path: '/settings', component: SettingsView },

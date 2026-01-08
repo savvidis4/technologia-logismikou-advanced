@@ -1,24 +1,5 @@
 from app.models import User, Account
 
-"""
-=============================================================
- Business Logic Layer - Home Screen
-=============================================================
-Αυτό το αρχείο περιέχει την κλάση HomeService, η οποία λειτουργεί
-ως μεσάζων μεταξύ του backend (βάση δεδομένων) και του frontend (Vue.js).
-
-Σκοπός:
---------
-Να επεξεργάζεται και να μορφοποιεί τα δεδομένα που αφορούν
-την αρχική οθόνη e-Banking (balance, IBAN, card number),
-ώστε να σταλούν έτοιμα προς εμφάνιση στο χρήστη.
-
-Η HomeService:
-  - Δέχεται δεδομένα από τη βάση (μέσω dependency injection)
-  - Κάνει βασική επεξεργασία (format, masking)
-  - Τα επιστρέφει στο Controller μέσω to_dict()
-"""
-
 class HomeService:
 
     #Constructor με dependency injection.

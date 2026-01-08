@@ -86,16 +86,34 @@ export async function logout() {
 // -------------- BANKING FEATURES -----------------
 
 // Μεταφορά χρημάτων
-export async function transfer(recipient, amount) {
-  const response = await fetch(`${API_BASE_URL}/transfer`, {
+export async function transfers(recipient, amount, currency) {
+  const response = await fetch(`${API_BASE_URL}/transfers`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${localStorage.getItem("token")}`
     },
-    body: JSON.stringify({ recipient, amount })
+    body: JSON.stringify({ recipient, amount, currency })
   });
   return await response.json();
+}
+
+export async function transfer_data() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/transfers`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      }
+    });
+    const data = await response.json();
+    console.log("Account data fetched:", data);
+    return data; // Επιστρέφει balance, iban, card_number
+  } catch (error) {
+    console.error("Error fetching account info:", error);
+    return { success: false, message: "Error connecting to server." };
+  }
 }
 
 // Ανταλλαγή νομισμάτων

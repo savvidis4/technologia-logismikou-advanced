@@ -1,8 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.models import User, Account
 from app.extensions import db
-from flask_jwt_extended import create_access_token
-import random
 from app.business.register_service import AccountCreationService
  
 register_bp = Blueprint('register', __name__)

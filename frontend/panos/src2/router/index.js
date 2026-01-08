@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
-import TransfersView from '../views/TransfersView.vue'
+import TransferView from '../views/TransferView.vue'
 import TransactionsView from '../views/TransactionsView.vue'
 import CurrencyExchangeView from '../views/CurrencyExchangeView.vue'
 import CardView from '../views/CardView.vue'
@@ -18,7 +18,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: '/', component: HomeView },        
-    { path: '/transfers', component: TransfersView },
+    { path: '/transfers', component: TransferView },
     { path: '/transactions', component: TransactionsView },
     { path: '/currency', component: CurrencyExchangeView },
     { path: '/card', component: CardView },
