@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+    <title>Change E-mail | UniWA e-Banking</title>
+    <link rel="stylesheet" href="change_email_style.css">
+</head>
+
+<body>
+    <header class="header">
+        <img src="logo.png" alt="bank logo" class="img">
+        <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+        <button class="settings">
+            <img src="settings.png" alt="settings" class="settings_icon">
+            <span class="tooltip">User Settings</span>
+        </button>
+        <!--TESTING-->
+        <button class="logout" onclick="user_logout()"><span>Log Out</span></button>
+    </header>
+
+    <section class="container">
+        <div class="email_top">
+            <h2>Change E-mail</h2> 
+            <!-- TESTING -->
+             <div class="exit" onclick="window.location.href='settings.html'">
+                <img src="exit.png" alt="exit">
+            </div>
+        </div>
+
+        <form class="email_form">
+            <div class="form_group1">
+                <label>Old E-mail</label>
+                <input type="email" placeholder="Enter old E-mail">
+            </div>
+
+            <div class="form_group1">
+                <label>New E-mail</label>
+                <input type="email" placeholder="Enter new E-mail">
+            </div>
+
+            <div class="form_group2">
+                <label>Verify New E-mail</label>
+                <input type="email" placeholder="Verify new E-mail">
+            </div>
+
+            <button class="change_btn">Change E-mail</button>
+
+        </form>
+    </section>
+</body>
+</html>
