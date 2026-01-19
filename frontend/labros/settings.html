@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<head>
+    <title>User Settings | UniWA e-Banking</title>
+    <link rel="stylesheet" href="settings_style.css">
+</head>
+
+<body>
+    <header class="header">
+        <img src="logo.png" alt="bank logo" class="img">
+        <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+        <button class="home" onclick="user_home()">
+            <img src="home_1.png" alt="home" class="home_icon">
+            <span class="tooltip"> Home</span>
+        </button>
+        <!--TESTING-->
+        <button class="logout" onclick="user_logout()"><span>Log Out</span></button>
+    </header>
+
+    <div class="body_top">
+        <h2 class="title">User Settings</h2>
+    </div>
+
+    <main class="settings_main">
+            <button class="settings_bar" type="button" onclick="window.location.href='change_email.html'">
+                <span class="bar_left">
+                    <span class="email_icon"><img src="mail.png" alt="email"> </span>
+                    <span class="bar_text">Change E-mail</span>
+                </span>
+                <span class="bar_arrow"> > </span>
+            </button>
+
+             <button class="settings_bar" type="button" onclick="window.location.href='change_pswd.html'">
+                <span class="bar_left">
+                    <span class="pswd_icon"><img src="padlock.png" alt="password"> </span>
+                    <span class="bar_text">Change Password</span>
+                </span>
+                <span class="bar_arrow"> > </span>
+            </button>
+
+            <button class="settings_bar" type="button" onclick="window.location.href='change_pin.html'">
+                <span class="bar_left">
+                    <span class="pin_icon"><img src="pin.png" alt="card_pin"></span>
+                    <span class="bar_text">Change Card PIN</span>
+                </span>
+                <span class="bar_arrow"> > </span>
+            </button>
+    </main>
+
+
+    <!-- TESTING -->
+    <script>
+        function user_logout(){
+            window.location.href = "login.html"
+        }
+    </script>
+
+    <script>
+        function user_home(){
+            window.location.href = "home.html"
+        }
+    </script>
+
+</body>
+</html>

@@ -104,9 +104,10 @@ header{
 /* ---- POP UP SETTINGS ---- */
 .tooltip{
     position: absolute;
-    bottom: -45px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    bottom: auto;
+    right: calc(100% + 12px);
+    transform: translateY(-50%);
     background-color: #333;
     color: white;
     font-size: 0.85rem;
@@ -116,23 +117,23 @@ header{
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease, bottom 0.3s ease;
-    z-index: 20;
+    z-index: 200;
 }
 
 .tooltip::after{
     content: '';
     position: absolute;
-    top: -16px;
-    left: 50px;
-    transform: translateX(-50%);
+    top: 50%;
+    left: 101.7px;
+    transform: translateY(-50%);
     border-width: 6px;
     border-style: solid;
-    border-color: transparent transparent #333 transparent;
+    border-color: transparent transparent transparent #333;
 }
 
 .settings:hover .tooltip{
     opacity: 1;
-    bottom: -47px;
+    right: calc(100% +18px);
 }
 
 /*---------------*/
@@ -211,7 +212,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 60px;
+    gap: 115px;
     margin-top: 50px;
 }
 
@@ -228,7 +229,7 @@ body{
 .label{
     width: 160px;
     text-align: right;
-    font-size: 1rem;
+    font-size: 1.25rem;
     opacity: 0.85;
 }
 
@@ -346,7 +347,7 @@ body{
     font-size: 15px;
     padding: 15px 27px;
     border-radius: 8px;
-    margin-top: 375px;
+    margin-top: 420px;
     right: 235px;
     cursor: pointer;
     transition: transform 0.2s ease, color 0.3s ease;
@@ -386,4 +387,23 @@ body{
 
 .optin.active:hover{
     background: rgba(255, 255, 255, 0.247);
+}
+
+/*--------- SCALE IMAGE ---------*/
+.scale_icon{
+    position: fixed;
+    z-index: -1;
+    width: 690px;
+    height: 450px;
+    filter: brightness(0) invert(0) opacity(0.1);
+    top: 200px;
+}
+
+.updown_icon{
+    position: fixed;
+    z-index: -1;
+    width: 65px;
+    height: auto;
+    filter: brightness(0) invert(1) opacity(0.8);
+    top: 345px;
 }

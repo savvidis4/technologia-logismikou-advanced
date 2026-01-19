@@ -78,8 +78,8 @@ header{
     z-index: 1;
 }
 
-/* ---- SETTINGS BUTTON ---- */
-.settings{
+/* ---- HOME BUTTON ---- */
+.home{
     position: relative;
     width: 60px;
     height: 40px;
@@ -95,10 +95,9 @@ header{
     z-index: 10;
 }
 
-.settings_icon{
-    width: 30px;
-    height: 30px;
-    margin-top: 3px;
+.home_icon{
+    width: 28px;
+    height: auto;
 }
 
 /* ---- POP UP SETTINGS ---- */
@@ -124,14 +123,14 @@ header{
     content: '';
     position: absolute;
     top: 50%;
-    left: 101.7px;
+    left: 56.745px;
     transform: translateY(-50%);
     border-width: 6px;
     border-style: solid;
     border-color: transparent transparent transparent #333;
 }
 
-.settings:hover .tooltip{
+.home:hover .tooltip{
     opacity: 1;
     right: calc(100% +18px);
 }
@@ -156,130 +155,111 @@ body{
     100% { background-position: 0% 50%; }
 }
 
-/* ----COINTAINER---- */
-.container{
-    position: relative;
-    margin: 110px auto 30px auto;
-    width: 500px;
-    border-radius: 25px;
-    background-color: rgb(255, 255, 255);
-    font-family: 'Poppins', sans-serif;
-    overflow: hidden;
-    box-shadow: 0 50px 55px rgb(0, 0, 0);
-    border: 2px solid rgb(0, 0, 0);
-    height: 455px;
-    max-height: 455px;
-}
-
-/* ---- TRANSFERS ---- */
-.transfer_top{
-    text-align: center;
-    padding: 25px 40px;
-    background: linear-gradient(180deg, #062d58 15%, #06a4e2 160%);
-}
-
-.transfer_top h2{
-    font-size: 2.12rem;
-    color: rgba(255, 255, 255, 0.938);
-    margin-bottom: 5px;
-}
-
-/* ---- EXIT ICON ----- */
-.exit{
+.body_top{
     position: absolute;
     top: 20px;
-    right: 25px;
-    cursor: pointer;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+
 }
 
-.exit img{
-    width: 30px;
-    height: 30px;
-    filter: brightness(1) saturate(100%) invert(100%);
-    transition: transform 0.3s ease, filter 0.3s ease;
+
+.title{
+    display: flex;
+    margin-top: 120px;
+    color: white;
+    font-weight: 600;
+    font-size: 2.7rem;
+    margin-left: 50px;
 }
 
-.exit:hover{
-    transform: scale(1.1);
-    filter: brightness(0) saturate(100%) invert(18%) sepia(100%) saturate(7000%) hue-rotate(0deg);
-}
-
-/* ---- TRANSFER FORM ---- */
-.transfer_form{
+.settings_main{
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    padding: 25px 40px;
-    margin-top: 20px;
+    gap: 50px;
+    height: fit-content;
+    min-height: 0;
+    margin-top: 230px;
+    padding-bottom: 0;
 }
 
-.form_row{
+
+.settings_bar{
+    width: min(520px, 92vw);
+    height: 58px;
+    margin-left: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    border-radius: 14px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.10);
+    color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.form_row label{
-    width: 100px;
-    font-weight: bold;
-    color: #222;
-    font-size: 0.95rem;
-}
-
-.iban{
-    font-weight: 600;
-    color: #000;
-    font-size: 1.1rem;
-    margin-right: 16px;
-}
-
-.form_row input{
-    flex: 1;
-    padding: 8px 10px;
-    border: 1px solid #666;
-    border-radius: 5px;
-    font-size: 0.9rem;
+    transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    margin-top: 6.3px;
 }
 
 
-/* ---- SEND BUTTON ---- */
-.send{
-    position: relative;
-    align-self: center;
-    background: linear-gradient(90deg, #0b4f91, #00b4db);
-    border: none;
+.settings_bar:hover{
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+    border: 3px solid white;
+    .bar_arrow{
+        opacity: 1;
+    }
+}
+
+.settings_bar:active{
+    transform: scale(0.98);
+}
+
+
+.bar_left{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.email_icon img{
+    width: 36px;
+    height: auto;
+    filter: brightness(1) saturate(100%) invert(90%);
+    margin-left: 10px;
+}
+
+.pswd_icon img{
+    width: 36px;
+    height: auto;
+    filter: brightness(1) saturate(100%) invert(90%);
+    margin-left: 10px;
+}
+
+.pin_icon img{
+    width: 42px;
+    height: auto;
+    filter: brightness(1) saturate(100%) invert(90%);
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.bar_text{
+    font-size: 1.13rem;
     color: white;
+    margin-left: 10px;
+}
+
+.bar_arrow{
+    font-size: 1.6rem;
+    opacity: 0.75;
+    margin-right: 10px;
     font-weight: 600;
-    font-size: 15px;
-    padding: 15px 27px;
-    border-radius: 8px;
-    margin-top: 55px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    overflow: hidden;
 }
 
-.send:hover{
-    transform: scale(1.05);
-}
 
-.send::before{
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, #1ceb1e, #13a013);
-    transition: bottom 0.5s ease-in-out;
-    z-index: 0;
-}
 
-.send:hover::before{
-    bottom: 0;
-}
-
-.send span{
-    position: relative;
-    z-index: 1;
-}

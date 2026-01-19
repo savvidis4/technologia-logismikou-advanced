@@ -1,0 +1,245 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/*  ----HEADER----  */
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px 40px;
+    background: rgb(223, 221, 221);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+}
+
+.img{
+    position:relative;
+    width: auto;
+    height: 100px;
+    object-fit: contain;
+}
+
+.logo{
+    position: relative;
+    font-size: 1.8em;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: 50;
+    width: 100%;
+}
+
+/* REGISTER BUTTON */
+.register_btn{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: black;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    animation: glow 2.5s infinite;
+}
+
+.register_btn:hover{
+    transform: translateY(-3px);
+    background: linear-gradient(90deg, #00b4db, #007bff);
+    color: white;
+}
+
+.register_btn:hover .register_icon{
+    filter: brightness(0) invert(1);
+}
+
+.register_icon{
+    width: 25px;
+    height: 25px;
+    transition: filter 0.3s ease;
+}
+
+@keyframes glow{
+    0%, 100% {box-shadow: 0 0 10px #00b4db;}
+    50% {box-shadow: 0 0 20px #00b4db;}
+}
+
+/*---------------*/
+/*------BODY-----*/
+/*---------------*/
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column ;
+    min-height: 100vh;
+    background-color: rgb(223, 221, 221); 
+    padding-top: 34.4px;
+}
+
+.pada_img{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.8) blur(0px);
+    transition: filter 2.6s ease;
+}
+
+body:hover .pada_img{
+    filter: brightness(0.5) blur(5.5px);
+}
+
+header:hover ~ .pada_img{
+    filter: brightness(0.8) blur(0px);
+}
+
+/*------------------*/
+/*-----LOGIN BOX----*/
+/*------------------*/
+.login_container{
+    position: relative;
+    margin: 110px auto 30px auto;
+    width: 400px;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.87);
+    overflow: hidden;
+    height: 455px;
+    max-height: 455px;
+    text-align: center;
+}
+
+/* TITLE */
+.login_container h2{
+    font-family: 'Raleway', cursive;
+    letter-spacing: 1.5px;
+    font-size: 2.2rem;
+    margin-bottom: 45px;
+    margin-top: 25px;
+    color: rgb(6, 51, 109);
+}
+
+/* INPUTS */
+.input_row{
+    margin-bottom: 35px;
+}
+
+.input_row input{
+    width: 85%;
+    padding: 12px 15px;
+    border-radius: 12px;
+    margin-top: 2px;
+    border: 1.5px solid black;
+    outline: none;
+    font-size: 1.1rem;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+}
+
+.input_row input::placeholder{
+    color: rgba(87, 87, 87, 0.644);
+}
+
+.input_label1{
+    margin-bottom: 3px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: black;
+    margin-right: 227px ;
+}
+
+
+
+.input_label2{
+    margin-bottom: 3px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: black;
+    margin-right: 190px ;
+}
+
+
+/* LOGIN BUTTON */
+.login{
+    width: 40%;
+    padding: 12px;
+    margin: 50px;
+    border-radius: 15px;
+    border: 2px solid black;
+    color: white;
+    background: linear-gradient(90deg, #0b4f91, #00b4db);
+    background-size: 200% 200%;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.login:hover{
+    
+    transform: translateY(-5px);
+    animation: buttonGradient 1.5s ease normal;
+}
+@keyframes buttonGradient{
+    0%{
+        background-position: 0% 10%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* FORGOT PASSWORD */
+.forgot{
+    margin-top: -25px;
+}
+
+.forgot a{
+    color: black;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.forgot a:hover{
+    text-decoration: underline;
+}
+
+/* SHOW PASSWORD */
+.trigger{
+    position: absolute;
+    right: 45px;
+    top: 59.2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.show_pswd{
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.show_pswd:hover{
+    opacity: 1;
+    transform: scale(1.1);
+}

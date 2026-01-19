@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<head>
+    <title>Home | UniWA e-Banking</title>
+    <link rel="stylesheet" href="graphs_style.css">
+</head>
+
+<body>
+    <header class="header">
+        <img src="logo.png" alt="bank logo" class="img">
+        <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+        <button class="settings" onclick="user_settings()">
+            <img src="settings.png" alt="settings" class="settings_icon">
+            <span class="tooltip">User Settings</span>
+        </button>
+        <!--TESTING-->
+        <button class="logout" onclick="user_logout()"><span>Log Out</span></button>
+    </header>
+
+    <div class="body_top">
+        <h2 class="title">Graphs</h2>
+        <img src="exit.png" alt="exit" class="exit" onclick="window.location.href='home.html'">
+    </div>
+
+    <section class="container">
+
+
+        <div class="layout">
+
+            <button class="arrow ar_prev" type="button" aria-label="Previous slide"> < </button>   
+
+        <div class="slider_wrapper">
+            <div class="slider">
+                <img id="slide1" src="greece.png" alt="pic1">
+
+                <img id="slide2" src="usa.png" alt="pic2">
+
+                <img id="slide3" src="china.png" alt="pic3">
+            </div>
+                
+            
+            <div class="slider_nav">
+                <button class="dot" type="button" data-slide="0" aria-label="slide1"></button>
+                <button class="dot" type="button" data-slide="1" aria-label="slide2"></button>
+                <button class="dot" type="button" data-slide="2" aria-label="slide3"></button>
+
+                <!--
+                <a href="#slide1"></a>
+                <a href="#slide2"></a>
+                <a href="#slide3"></a>
+                -->
+            </div> 
+        </div>
+
+            <button class="arrow ar_next" type="button" aria-label="Next slide"> > </button>
+        </div>
+    </section>
+
+
+    <!-- TESTING -->
+     <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const slider = document.querySelector(".slider");
+  const slides = Array.from(slider.querySelectorAll("img"));
+  const dots = Array.from(document.querySelectorAll(".slider_nav .dot"));
+
+  const prevBtn = document.querySelector(".arrow.ar_prev");
+  const nextBtn = document.querySelector(".arrow.ar_next");
+
+  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+
+  function getSlideWidth() {
+    // κάθε "σελίδα" = πλάτος του wrapper (ή του slider)
+    return slider.clientWidth;
+  }
+
+  function getCurrentIndex() {
+    const w = getSlideWidth() || 1;
+    return clamp(Math.round(slider.scrollLeft / w), 0, slides.length - 1);
+  }
+
+  function setActiveDot(index) {
+    dots.forEach(d => d.classList.remove("active"));
+    if (dots[index]) dots[index].classList.add("active");
+  }
+
+  function goTo(index, smooth = true) {
+    const w = getSlideWidth();
+    slider.scrollTo({ left: index * w, behavior: smooth ? "smooth" : "auto" });
+    setActiveDot(index);
+  }
+
+  // start at 2nd slide (index 1)
+  requestAnimationFrame(() => goTo(1, false));
+
+  prevBtn.addEventListener("click", () => goTo(getCurrentIndex() - 1));
+  nextBtn.addEventListener("click", () => goTo(getCurrentIndex() + 1));
+
+  dots.forEach(dot => {
+    dot.addEventListener("click", () => goTo(Number(dot.dataset.slide)));
+  });
+
+  // update dot while scrolling (debounced)
+  let t;
+  slider.addEventListener("scroll", () => {
+    clearTimeout(t);
+    t = setTimeout(() => setActiveDot(getCurrentIndex()), 60);
+  });
+
+  window.addEventListener("resize", () => goTo(getCurrentIndex(), false));
+});
+</script>
+
+</body>
+</html>

@@ -8,7 +8,7 @@
     <header class="header">
         <img src="logo.png" alt="bank logo" class="img">
         <h2 class="logo">Bank of University of West Attica e-Banking</h2>
-        <button class="settings">
+        <button class="settings" onclick="user_settings()">
             <img src="settings.png" alt="settings" class="settings_icon">
             <span class="tooltip">User Settings</span>
         </button>
@@ -46,7 +46,7 @@
             <img src="transfer.png" alt="transfers">
         </div>
 
-        <div class="item" data-tooltip="Transactions">
+        <div class="item" data-tooltip="Transactions" onclick="window.location.href='transactions.html'">
             <img src="transaction.png" alt="transactions">
         </div>
 
@@ -55,7 +55,7 @@
         </div>
 
         <div class="item" data-tooltip="Graphs">
-            <img src="graphs.png" alt="graph">
+            <img src="graphs.png" alt="graph" onclick="window.location.href='graphs.html'">
         </div>
 
         <div class="item" data-tooltip="Currency Exchange" onclick="window.location.href='exchange.html'">
@@ -71,6 +71,12 @@
             window.location.href = "login.html"
         }
     </script>
+
+     <script>
+        function user_settings(){
+            window.location.href = "settings.html"
+        }
+    </script>   
 
 </body>
 </html>
