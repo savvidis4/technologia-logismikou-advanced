@@ -30,3 +30,16 @@ class Card(db.Model):
 
         db.session.add(new_card)
         db.session.commit()
+
+    @classmethod
+    def set_card_frozen(cls, card_number):
+
+        card = db.session.query(cls).filter_by(card_number=card_number).first()
+        
+        if not card:
+            return False
+
+        card.frozen_card = not card.frozen_card
+
+        db.session.commit()
+        return True

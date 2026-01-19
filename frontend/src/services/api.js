@@ -141,8 +141,7 @@ export async function getCard() {
 
 // Freeze / Unfreeze κάρτας
 export async function toggleCardFreeze(freeze) {
-  const endpoint = freeze ? "freeze_card" : "unfreeze_card";
-  const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
+  const response = await fetch(`${API_BASE_URL}/card`, {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${localStorage.getItem("token")}`
