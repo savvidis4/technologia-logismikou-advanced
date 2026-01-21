@@ -1,10 +1,10 @@
 <template>
   <!-- Λογικά εδώ θα μπει ο κώδικας του Λάμπρου -->
   <div>
-    <section>
+    <!-- <section>
     <h2>BANK OF UNIVERSITY OF WEST ATTICA e-Banking</h2>
 
-    <!-- Mock στοιχεία λογαριασμού -->
+    
     <div>
       <p><strong>Balance:</strong> {{ balance }} €</p>
       <p><strong>IBAN:</strong> {{ iban }}</p>
@@ -18,17 +18,17 @@
             <p class="value">{{ cardNumber }}</p>
           </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- HEADER -->
     <header class="header">
-      <img src="logo.png" alt="bank_logo" class="img" />
+      <img src="/logo.png" alt="bank_logo" class="img" />
       <h2 class="logo">Bank of University of West Attica e-Banking</h2>
      
 
     <!-- SETTINGS -->
     <button class="settings" @click="goToSettings">
-      <img src="settings.png" alt="settings" class="settings_icon" />
+      <img src="/settings.png" alt="settings" class="settings_icon" />
       <span class="tooltip">User Settings</span>
     </button>
     
@@ -44,23 +44,23 @@
     <section class="container">
         <div class="balance_top">
             <h2>Balance</h2>
-            <p class="amount">50,000.75 €</p>
+            <p class="amount">{{ balance }} €</p>
         </div>
 
         <div class="balance_rest">
             <div class="row">
-                <img src="card1.png" alt="iban_icon" class="icon"/>
+                <img src="/card1.png" alt="iban_icon" class="icon"/>
                 <div>
                     <p class="label">IBAN</p>
-                    <p class="value">GR30 0369 3768 4885 8436 2590 002</p>
+                    <p class="value">{{ iban }}</p>
                 </div>
             </div>
 
             <div class="row">
-                <img src="card1.png" alt="card_icon" class="icon"/>
+                <img src="/card1.png" alt="card_icon" class="icon"/>
                 <div>
                     <p class="label">Card Number</p>
-                    <p class="value">**** **** **** 0001</p>
+                    <p class="value">{{ cardNumber }}</p>
                 </div>
             </div>
         </div>

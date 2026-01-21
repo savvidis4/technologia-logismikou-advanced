@@ -9,3 +9,4 @@ class Transactions(db.Model):
     currency = db.Column(db.String(3), nullable=False)
     trans_date = db.Column(db.DateTime, server_default=db.func.now())
     description = db.Column(db.String(255))
+ 
