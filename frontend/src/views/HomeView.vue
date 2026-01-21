@@ -119,6 +119,8 @@ export default {
     };
   },
 
+  
+
   async mounted() {
     /*
       ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND (Flask)
@@ -145,8 +147,20 @@ export default {
     } finally {
       this.loading = false;
     }
+  },
+
+  methods: {
+    goToSettings() {
+      // Πηγαίνει στο component SettingsView.vue
+      this.$router.push("/settings");
+    },
+
+    goToLogout() {
+      // Πηγαίνει στο component LogoutView.vue
+      this.$router.push("/logout");
+    }
   }
-};
+}
 </script>
 
 
