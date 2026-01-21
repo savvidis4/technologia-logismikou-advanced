@@ -1,5 +1,7 @@
-from app.models import Account
+from app.models import Account, Transactions
 from flask import jsonify
+
+
 
 class TransferService:
 
@@ -51,6 +53,24 @@ class TransferService:
 
         added = Account.add_funds(recipient_iban, amount, currency)
         Account.deduct_funds(self.account_iban, amount, currency, added)
+
+        Transactions.create_transaction(
+            account_id=self.db.query(Account).filter_by(iban=self.account_iban).first().id,
+            iban_from=self.account_iban,
+            iban_to=recipient_iban,
+            amount="-" + str(amount),
+            currency=currency,
+            description="CREDIT"
+        )
+
+        Transactions.create_transaction(
+            account_id=self.db.query(Account).filter_by(iban=recipient_iban).first().id,
+            iban_from=self.account_iban,
+            iban_to=recipient_iban,
+            amount="+" + str(amount),
+            currency=currency,
+            description="DEBIT"
+        )
 
         return jsonify({"success": True, "message": f"Transfer of {amount} {self.currency_symbol} to account with IBAN {recipient_iban} was successfull."}), 200
     
