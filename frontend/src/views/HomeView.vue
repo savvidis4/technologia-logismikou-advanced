@@ -119,8 +119,8 @@ export default {
     };
   },
 
-  
 
+  
   async mounted() {
     /*
       ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND (Flask)
