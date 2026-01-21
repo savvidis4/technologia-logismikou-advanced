@@ -1,4 +1,4 @@
-// src/api/api.js
+//  src/services/api.js
 // ===================================================
 // ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND (Flask API)
 // Όλες οι κλήσεις API θα βρίσκονται εδώ συγκεντρωμένες
@@ -124,9 +124,28 @@ export async function exchange(amount, from, to) {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${localStorage.getItem("token")}`
     },
-    body: JSON.stringify({ amount, currency_from: from, currency_to: to })
+    body: JSON.stringify({ amount, currencyFrom: from, currencyTo: to })
   });
   return await response.json();
+}
+
+// Ανταλλαγή νομισμάτων
+export async function getExchange() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/exchange`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      }
+    });
+    const data = await response.json();
+    console.log("Account data fetched:", data);
+    return data; // Επιστρέφει balance, iban, card_number
+  } catch (error) {
+    console.error("Error fetching account info:", error);
+    return { success: false, message: "Error connecting to server." };
+  }
 }
 
 // Πληροφορίες κάρτας

@@ -25,6 +25,7 @@ class TransactionsService:
         trans = self.db.query(Transactions).filter_by(account_id=account.id).all()
         
         transaction_list = []
+        transaction_list_r = []
 
         if not user or not account:
             # Δεν επιστρέφουμε jsonify εδώ (το κάνει ο controller)
@@ -42,8 +43,12 @@ class TransactionsService:
             self.date = t.trans_date
             self.description = t.description
             transaction_list.append([self.id, self.iban_from, self.iban_to, self.amount, self.cur, self.date, self.description])
-        
-        return transaction_list
+
+        for t in range (len(transaction_list)-1, -1, -1):
+            transaction_list_r.append(transaction_list[t])
+
+        print(transaction_list_r)
+        return transaction_list_r
 
     @classmethod
     def get_transactions_list(cls, db_session, current_user_id):

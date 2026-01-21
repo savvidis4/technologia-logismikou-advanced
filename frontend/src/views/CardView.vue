@@ -3,11 +3,6 @@
   <section style="max-width: 400px; margin: auto; background-color: gray;">
     <h2>Your Card</h2>
 
-    <!-- Κουμπί για φόρτωση στοιχείων κάρτας -->
-    <button @click="loadCard" :disabled="loading">
-      {{ loading ? "Loading..." : "Show Card Details" }}
-    </button>
-
     <!-- Στοιχεία κάρτας -->
     <div v-if="card">
       <p><strong>Card Number:</strong> {{ card.number }}</p>
@@ -34,6 +29,10 @@ export default {
       card: null,      // εδώ θα μπουν τα στοιχεία της κάρτας από το backend
       loading: false   // για να μπλοκάρουμε κουμπιά όσο μιλάμε με Flask
     };
+  },
+
+  mounted() {
+    this.loadCard();  // Φορτώνουμε τα στοιχεία μόλις φορτώσει το component
   },
 
   methods: {

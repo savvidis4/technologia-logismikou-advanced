@@ -4,6 +4,7 @@ from .register_route import register_bp
 from .transfer_route import transfer_bp
 from .card_route import card_bp
 from .transactions_route import transactions_bp
+from .currency_exchange_route import currency_exchange_bp
 
 def register_routes(app):
     app.register_blueprint(home_bp)
@@ -12,3 +13,4 @@ def register_routes(app):
     app.register_blueprint(transfer_bp)
     app.register_blueprint(card_bp)
     app.register_blueprint(transactions_bp)
+    app.register_blueprint(currency_exchange_bp)
