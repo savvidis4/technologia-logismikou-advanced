@@ -75,7 +75,7 @@ class CurrencyExchangeService:
             iban_to=account.iban,
             amount="-" + str(amount),
             currency=from_currency,
-            description="CREDIT"
+            description="DEBIT"
         )
 
         Transactions.create_transaction(
@@ -84,7 +84,7 @@ class CurrencyExchangeService:
             iban_to=account.iban,
             amount="+" + str(converted_amount),
             currency=to_currency,
-            description="DEBIT"
+            description="CREDIT"
         )
 
         return converted_amount

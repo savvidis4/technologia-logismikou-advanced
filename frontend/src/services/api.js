@@ -178,3 +178,13 @@ export async function getTransactions() {
   });
   return await response.json();
 }
+
+
+// Γραφήματα
+export async function getGraphsData() {
+  const response = await fetch(`${API_BASE_URL}/graphs`, {
+    headers: { 
+      "Authorization": `Bearer ${localStorage.getItem("token")}` }
+  });
+  return await response.json();
+}

@@ -60,7 +60,7 @@ class TransferService:
             iban_to=recipient_iban,
             amount="-" + str(amount),
             currency=currency,
-            description="CREDIT"
+            description="DEBIT"
         )
 
         Transactions.create_transaction(
@@ -69,7 +69,7 @@ class TransferService:
             iban_to=recipient_iban,
             amount="+" + str(amount),
             currency=currency,
-            description="DEBIT"
+            description="CREDIT"
         )
 
         return jsonify({"success": True, "message": f"Transfer of {amount} {self.currency_symbol} to account with IBAN {recipient_iban} was successfull."}), 200

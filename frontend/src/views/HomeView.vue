@@ -122,12 +122,7 @@ export default {
 
   
   async mounted() {
-    /*
-      ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND (Flask)
-      Μόλις "φορτωθεί" η σελίδα (mounted),
-      καλούμε τη συνάρτηση getAccount() από το api.js
-      για να φέρει τα στοιχεία λογαριασμού του χρήστη.
-    */
+    
     this.loading = true;
     try {
       const data = await getAccount();

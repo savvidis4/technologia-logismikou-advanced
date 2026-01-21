@@ -8,6 +8,7 @@ import CurrencyExchangeView from '@/views/CurrencyExchangeView.vue'
 import SettingsView from '@/views/SettingsView.vue'
 import CardView from '@/views/CardView.vue'
 import LogoutView from '@/views/LogoutView.vue'
+import GraphsView from '@/views/GraphsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,7 @@ const router = createRouter({
     { path: '/exchange', component: CurrencyExchangeView },
     { path: '/card', component: CardView },
     { path: '/settings', component: SettingsView },
+    { path: '/graphs', component: GraphsView }
   ]
 })
 
