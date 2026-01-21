@@ -47,7 +47,6 @@ class TransactionsService:
         for t in range (len(transaction_list)-1, -1, -1):
             transaction_list_r.append(transaction_list[t])
 
-        print(transaction_list_r)
         return transaction_list_r
 
     @classmethod
