@@ -114,6 +114,7 @@ class AccountCreationService:
 
             Card.create_card(account_id= new_account.id, card_number=card["card_number"], card_exp_date=card["card_exp"], card_cvv=str(card["card_cvv"]), card_pin=str(card["card_number"][-4:]))
             
+            
             return {
                 "success": True,
                 "message": "Account created successfully.",

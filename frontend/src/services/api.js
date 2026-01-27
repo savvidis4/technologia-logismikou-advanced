@@ -188,3 +188,17 @@ export async function getGraphsData() {
   });
   return await response.json();
 }
+
+
+// Γραφήματα
+export async function changePin(oldPin, newPin, confirmPin) {
+  const response = await fetch(`${API_BASE_URL}/change_pin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    },
+    body: JSON.stringify({ old_pin: oldPin, new_pin: newPin, new_pin_verification: confirmPin })
+  });
+  return await response.json();
+}
