@@ -1,4 +1,5 @@
 import decimal
+import random
 from app.extensions import db
 
 class Account(db.Model):
@@ -141,3 +142,13 @@ class Account(db.Model):
 
         db.session.commit()
         return converted_amount
+
+    @classmethod
+    def generate_new_otp_secret(self):
+        self.otp_secret = str(random.randint(100000, 999999))
+        db.session.commit()
+        return self.otp_secret
+    
+    @classmethod
+    def check_otp_secret(self, test_otp):
+        return self.otp_secret == test_otp
