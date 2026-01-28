@@ -36,32 +36,32 @@ export default {
 
     async verifyOtpCode() {
       // Έλεγχος κενού
-      if (!this.otp) {
+      if (!this.otp_code) {
         alert("Please enter the OTP code.");
         return;
       }
 
       // Έλεγχος μήκους (6 ψηφία)
-      if (this.otp.length !== 6) {
+      if (this.otp_code.length !== 6) {
         alert("OTP must be exactly 6 digits.");
         return;
       }
 
       // Έλεγχος ότι είναι μόνο αριθμοί
-      if (!/^\d{6}$/.test(this.otp)) {
+      if (!/^\d{6}$/.test(this.otp_code)) {
         alert("OTP must contain only numbers.");
         return;
       }
 
       // Ενεργοποίηση loading
       this.loading = true;
-      console.log("Verifying OTP:", this.otp);
+      console.log("Verifying OTP:", this.otp_code);
 
       try {
 
         // ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND μέσω verifyOtp()
         
-        const data = await verifyOtp(this.otp);
+        const data = await verifyOtp(this.otp_code);
 
         if (data.success) {
           alert("OTP verified successfully.");
