@@ -20,3 +20,4 @@ def change_password():
     result = change_password_service.password_change(current_user_id, old, new_password, new_ver_password)
 
     return jsonify(result)
+

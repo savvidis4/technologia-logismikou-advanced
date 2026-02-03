@@ -35,4 +35,4 @@ class ChangePasswordService:
         self.user.set_password(new_password)
         self.db.commit()
 
-        return {"success": True, "message": "password changed successfully."}
+        return {"success": True, "message": "Password changed successfully!"}
