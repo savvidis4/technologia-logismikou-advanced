@@ -36,7 +36,7 @@ export default {
 
     goToChangeEmail() {
       // Πηγαίνει στο component ChangeEmailView.vue
-      this.$router.push("/change_email");
+      this.$router.push("/otp");
     },
 
     goBack() {

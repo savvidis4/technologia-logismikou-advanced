@@ -8,6 +8,7 @@ from .currency_exchange_route import currency_exchange_bp
 from .logout_route import logout_bp
 from .graphs_route import graphs_bp
 from .change_pin_route import change_pin_bp
+from .otp_route import otp_bp
 
 def register_routes(app):
     app.register_blueprint(home_bp)
@@ -20,4 +21,6 @@ def register_routes(app):
     app.register_blueprint(logout_bp)
     app.register_blueprint(graphs_bp)
     app.register_blueprint(change_pin_bp)
+    app.register_blueprint(otp_bp)
+
 

@@ -24,16 +24,16 @@ class OtpService:
     def generate_otp(self):
 
         if not self.user:
-            return {"success": False, "message": "User not found."}
+            return ({"success": False, "message": "User not found."})
 
         if not self.account:
             return {"success": False, "message": "Account not found."}
 
-        self.account.generate_new_otp_secret()
+        otp = self.account.generate_new_otp_secret()
 
         self.find_data(self.user.id)
 
-        return {"success": True, "message": "OTP generated successfully.", "otp": self.account.otp_secret}
+        return {"success": True, "message": "OTP generated successfully.", "otp": otp}
 
 
     def verify_otp(self, current_user_id, otp):

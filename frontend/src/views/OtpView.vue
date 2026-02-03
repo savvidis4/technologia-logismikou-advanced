@@ -7,12 +7,12 @@
     <form @submit.prevent="verifyOtp">
       <input
         type="text"
-        v-model="otp"
+        v-model="otp_code"
         placeholder="Enter OTP"
         maxlength="6"
         required
       />
-
+ 
       <button type="submit" :disabled="loading">
         {{ loading ? "Verifying..." : "Verify" }}
       </button>
@@ -20,16 +20,21 @@
   </section>
 </template>
 <script>
-import { verifyOtp } from "../services/api.js";
+import { otp } from "../services/api.js";
+import { openOtp } from "../services/api.js";
 
 export default {
-  name: "VerifyOtpView",
+  name: "OtpView",
 
   data() {
     return {
       otp_code: "",        // Ο κωδικός OTP που εισάγει ο χρήστης
       loading: false       // Flag για να μπλοκάρει πολλαπλά submits
     };
+  },
+
+  mounted() {
+    openOtp();
   },
 
   methods: {
@@ -61,14 +66,13 @@ export default {
 
         // ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND μέσω verifyOtp()
         
-        const data = await verifyOtp(this.otp_code);
+        const data = await otp(this.otp_code);
 
         if (data.success) {
           alert("OTP verified successfully.");
 
           // ΕΔΩ μελλοντικά:
-          // this.$router.push("/settings")
-          // ή ολοκλήρωση change-email flow
+          this.$router.push("/settings")
         } else {
           alert(data.message || "Invalid or expired OTP.");
         }
