@@ -152,3 +152,7 @@ class Account(db.Model):
     @classmethod
     def check_otp_secret(self, test_otp):
         return self.otp_secret == test_otp
+    
+    @classmethod
+    def get_otp(self):
+        return self.otp_secret

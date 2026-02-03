@@ -201,6 +201,18 @@ export async function changePin(oldPin, newPin, confirmPin) {
   return await response.json();
 }
 
+export async function changePassword(oldPassword, newPassword, confirmPassword) {
+  const response = await fetch(`${API_BASE_URL}/change_password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    },
+    body: JSON.stringify({ old_password: oldPassword, new_password: newPassword, new_password_verification: confirmPassword })
+  });
+  return await response.json();
+}
+
 export async function openOtp() {
   const response = await fetch(`${API_BASE_URL}/otp`, {
     headers: {

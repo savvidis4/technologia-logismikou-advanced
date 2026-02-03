@@ -106,7 +106,7 @@ export default {
 
       try {
         // ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND
-        const data = await changePassword(this.oldPassword, this.newPassword);
+        const data = await changePassword(this.oldPassword, this.newPassword, this.confirmPassword);
 
         if (data.success) {
           alert(data.message || "Password changed successfully!");

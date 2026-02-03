@@ -31,7 +31,7 @@ def otp():
             return jsonify({"success": False, "message": "User not found."}), 404
         
         otp_service = OtpService(db.session, current_user_id)
-        otp_result = otp_service.generate_otp()
+        otp_result = otp_service.generate_otp(current_user_id)
         otp_code = otp_result["otp"]
 
         user_email = user.email

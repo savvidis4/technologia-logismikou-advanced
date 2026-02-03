@@ -4,7 +4,7 @@
 
     <p>Please enter the 6-digit code sent to your email.</p>
 
-    <form @submit.prevent="verifyOtp">
+    <form @submit.prevent="verifyOtpCode">
       <input
         type="text"
         v-model="otp_code"
@@ -35,6 +35,7 @@ export default {
 
   mounted() {
     openOtp();
+    console.log("Done Get Method")
   },
 
   methods: {
@@ -67,7 +68,7 @@ export default {
         // ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND μέσω verifyOtp()
         
         const data = await otp(this.otp_code);
-
+        console.log(this.otp_code)
         if (data.success) {
           alert("OTP verified successfully.");
 
