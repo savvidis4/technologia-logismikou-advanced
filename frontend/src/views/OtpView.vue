@@ -73,7 +73,7 @@ export default {
           alert("OTP verified successfully.");
 
           // ΕΔΩ μελλοντικά:
-          this.$router.push("/settings")
+          this.$router.push("/change_email")
         } else {
           alert(data.message || "Invalid or expired OTP.");
         }

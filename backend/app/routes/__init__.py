@@ -10,7 +10,7 @@ from .graphs_route import graphs_bp
 from .change_pin_route import change_pin_bp
 from .otp_route import otp_bp
 from .change_password_route import change_password_bp
-# from .change_email_route import change_email_bp
+from .change_email_route import change_email_bp
 
 def register_routes(app):
     app.register_blueprint(home_bp)
@@ -25,5 +25,6 @@ def register_routes(app):
     app.register_blueprint(change_pin_bp)
     app.register_blueprint(otp_bp)
     app.register_blueprint(change_password_bp)
+    app.register_blueprint(change_email_bp)
 
 

@@ -234,3 +234,21 @@ export async function otp(otp_code) {
   });
   return await response.json();
 }
+
+export async function emailChange(old_email, new_email, new_email_verification) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/change_email`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({ old_email, new_email, new_email_verification })
+    });
+
+    return await response.json();
+  } catch (error) {
+    console.error("Request email change error:", error);
+    return { success: false };
+  }
+}

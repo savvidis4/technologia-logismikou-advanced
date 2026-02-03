@@ -3,8 +3,7 @@
   <section>
     <h2>Change Email</h2>
 
-    <!-- STEP 1: Old Email, New Email, Confirm New Email -->
-    <div v-if="step === 1">
+    <div>
       <input
         type="email"
         v-model="oldEmail"
@@ -23,68 +22,33 @@
         placeholder="Confirm New Email"
       />
 
-      <button @click="submitEmailChangeStep1" :disabled="loading">
-        {{ loading ? "Processing..." : "Send OTP" }}
+      <button @click="submitEmailChange" :disabled="loading">
+        {{ loading ? "Processing..." : "Change Email" }}
       </button>
     </div>
 
-    <!-- STEP 2: OTP Verification -->
-    <div v-if="step === 2">
-      <p>Please enter the One-Time Password sent to your new email:</p>
-
-      <input
-        type="text"
-        v-model="otp"
-        placeholder="Enter OTP"
-      />
-
-      <button @click="submitEmailChangeStep2" :disabled="loading">
-        {{ loading ? "Checking..." : "Verify OTP" }}
-      </button>
-
-      <button @click="goBackToSettings">
-        Cancel
-      </button>
-    </div>
-
-    <!-- STEP 3: Success -->
-    <div v-if="step === 3">
-      <h3>Success!</h3>
-      <p>Your email was successfully changed to: {{ newEmail }}</p>
-
-      <button @click="goBackToSettings">Back</button>
-    </div>
   </section>
 </template>
 
 <script>
-import { requestEmailChange, verifyEmailOTP } from "../services/api.js";
+import { emailChange } from "../services/api.js";
 
 export default {
   name: "ChangeEmailView",
 
   data() {
     return {
-      step: 1,
-
       oldEmail: "",
       newEmail: "",
       confirmNewEmail: "",
-
-      otp: "",
       
       loading: false
     };
   },
 
   methods: {
-    /*
-      STEP 1:
-      -----------------------
-      Validation όπως στο desktop app.
-      Καλούμε backend για OTP.
-    */
-    async submitEmailChangeStep1() {
+
+    async submitEmailChange() {
       if (!this.oldEmail || !this.newEmail || !this.confirmNewEmail) {
         alert("Please fill in all fields.");
         return;
@@ -106,50 +70,20 @@ export default {
 
       try {
         // ΕΔΩ ΣΤΕΛΝΕΤΑΙ ΤΟ EMAIL ΜΕ ΤΟΝ OTP (BACKEND ΥΛΟΠΟΙΗΣΗ)
-        const data = await requestEmailChange(this.oldEmail, this.newEmail);
+        const data = await emailChange(this.oldEmail, this.newEmail, this.confirmNewEmail);
 
         if (data.success) {
-          // Πάμε στο βήμα OTP
-          this.step = 2;
+          alert(data.message || "Email changed successfully!");
+
+          // Μετάβαση πίσω στις ρυθμίσεις
+          this.$router.push("/settings");
         } else {
-          alert(data.message || "Email change request failed.");
-        }
-      } catch (error) {
-        alert("Error connecting to server.");
-      } finally {
-        this.loading = false;
-      }
-    },
-
-    /*
-      STEP 2:
-      -----------------------
-      Ο χρήστης δίνει το OTP.
-      Το backend ελέγχει:
-      - αν το OTP ταιριάζει
-      - αν ναι → αλλάζει email → success
-    */
-    async submitEmailChangeStep2() {
-      if (!this.otp) {
-        alert("Please enter the OTP.");
-        return;
-      }
-
-      this.loading = true;
-
-      try {
-        const data = await verifyEmailOTP(this.otp);
-
-        if (data.success) {
-          // OTP correct → backend already changed email
-          this.step = 3;
-        } else {
-          alert("Wrong OTP. Please try again.");
+          alert(data.message || "Email change failed.");
         }
 
       } catch (error) {
+        console.error("Error during Email change:", error);
         alert("Error connecting to server.");
-
       } finally {
         this.loading = false;
       }
