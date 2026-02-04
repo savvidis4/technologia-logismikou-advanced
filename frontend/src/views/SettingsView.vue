@@ -26,17 +26,17 @@ export default {
 
     goToChangePassword() {
       // Πηγαίνει στο component ChangePasswordView.vue
-      this.$router.push("/change-password");
+      this.$router.push("/change_password");
     },
 
     goToChangePin() {
       // Πηγαίνει στο component ChangePinView.vue
-      this.$router.push("/change-pin");
+      this.$router.push("/change_pin");
     },
 
     goToChangeEmail() {
       // Πηγαίνει στο component ChangeEmailView.vue
-      this.$router.push("/change-email");
+      this.$router.push("/otp");
     },
 
     goBack() {

@@ -1,10 +1,10 @@
 <template>
   <!-- Λογικά εδώ θα μπει ο κώδικας του Λάμπρου -->
   <div>
-    <section>
+    <!-- <section>
     <h2>BANK OF UNIVERSITY OF WEST ATTICA e-Banking</h2>
 
-    <!-- Mock στοιχεία λογαριασμού -->
+    
     <div>
       <p><strong>Balance:</strong> {{ balance }} €</p>
       <p><strong>IBAN:</strong> {{ iban }}</p>
@@ -18,7 +18,7 @@
             <p class="value">{{ cardNumber }}</p>
           </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- HEADER -->
     <header class="header">
@@ -44,7 +44,7 @@
     <section class="container">
         <div class="balance_top">
             <h2>Balance</h2>
-            <p class="amount">50,000.75 €</p>
+            <p class="amount">{{ balance }} €</p>
         </div>
 
         <div class="balance_rest">
@@ -52,7 +52,7 @@
                 <img src="/card1.png" alt="iban_icon" class="icon"/>
                 <div>
                     <p class="label">IBAN</p>
-                    <p class="value">GR30 0369 3768 4885 8436 2590 002</p>
+                    <p class="value">{{ iban }}</p>
                 </div>
             </div>
 
@@ -60,7 +60,7 @@
                 <img src="/card1.png" alt="card_icon" class="icon"/>
                 <div>
                     <p class="label">Card Number</p>
-                    <p class="value">**** **** **** 0001</p>
+                    <p class="value">{{ cardNumber }}</p>
                 </div>
             </div>
         </div>
@@ -119,13 +119,10 @@ export default {
     };
   },
 
+
+  
   async mounted() {
-    /*
-      ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND (Flask)
-      Μόλις "φορτωθεί" η σελίδα (mounted),
-      καλούμε τη συνάρτηση getAccount() από το api.js
-      για να φέρει τα στοιχεία λογαριασμού του χρήστη.
-    */
+    
     this.loading = true;
     try {
       const data = await getAccount();
@@ -145,8 +142,20 @@ export default {
     } finally {
       this.loading = false;
     }
+  },
+
+  methods: {
+    goToSettings() {
+      // Πηγαίνει στο component SettingsView.vue
+      this.$router.push("/settings");
+    },
+
+    goToLogout() {
+      // Πηγαίνει στο component LogoutView.vue
+      this.$router.push("/logout");
+    }
   }
-};
+}
 </script>
 
 

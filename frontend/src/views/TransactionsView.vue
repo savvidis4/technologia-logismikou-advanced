@@ -1,12 +1,7 @@
 <template>
   <!-- ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ FRONTEND -->
-  <section>
+  <section style="background: gray;">
     <h2>Transactions</h2>
-
-    <!-- Κουμπί φόρτωσης συναλλαγών -->
-    <button @click="fetchTransactions" :disabled="loading">
-      {{ loading ? "Loading..." : "Load Transactions" }}
-    </button>
 
     <!-- Πίνακας συναλλαγών -->
     <table v-if="transactions.length">
@@ -24,13 +19,13 @@
 
       <tbody>
         <tr v-for="t in transactions" :key="t.id">
-          <td>{{ t.id }}</td>
-          <td>{{ t.from_iban }}</td>
-          <td>{{ t.to_iban }}</td>
-          <td>{{ t.amount }}</td>
-          <td>{{ t.currency }}</td>
-          <td>{{ t.date }}</td>
-          <td>{{ t.type }}</td>
+          <td>{{ t[0] }}</td>
+          <td>{{ t[1] }}</td>
+          <td>{{ t[2] }}</td>
+          <td>{{ t[3] }}</td>
+          <td>{{ t[4] }}</td>
+          <td>{{ t[5] }}</td>
+          <td>{{ t[6] }}</td>
         </tr>
       </tbody>
     </table>
@@ -44,6 +39,7 @@
 
 <script>
 // Εισάγουμε τη συνάρτηση getTransactions() από το api.js
+import { onMounted } from "vue";
 import { getTransactions } from "../services/api.js";
 
 export default {
@@ -56,7 +52,13 @@ export default {
     };
   },
 
+  mounted() {
+      // Φόρτωση συναλλαγών κατά το mount (προαιρετικό)
+      this.fetchTransactions();
+  },
+
   methods: {
+    
     /*
       fetchTransactions()
       -------------------

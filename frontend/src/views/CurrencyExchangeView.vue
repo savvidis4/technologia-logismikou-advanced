@@ -3,6 +3,13 @@
   <section>
     <h2>Currency Exchange</h2>
 
+    <p>Available Balances:</p>
+    <ul>
+      <li>Euro: {{ balances.euro_balance }}</li>
+      <li>Dollar: {{ balances.usd_balance }}</li>
+      <li>Yen: {{ balances.yen_balance }}</li>
+      <li>Pound: {{ balances.gbp_balance }}</li>
+    </ul>
     <!-- Φόρμα μετατροπής -->
     <form @submit.prevent="makeExchange">
       <input
@@ -14,18 +21,18 @@
 
       <select v-model="currencyFrom" required>
         <option disabled value="">Select from</option>
-        <option>Euro</option>
-        <option>Dollar</option>
-        <option>Yen</option>
-        <option>Yuan</option>
+        <option>EUR</option>
+        <option>USD</option>
+        <option>GBP</option>
+        <option>JPY</option>
       </select>
 
       <select v-model="currencyTo" required>
         <option disabled value="">Select to</option>
-        <option>Euro</option>
-        <option>Dollar</option>
-        <option>Yen</option>
-        <option>Yuan</option>
+        <option>EUR</option>
+        <option>USD</option>
+        <option>GBP</option>
+        <option>JPY</option>
       </select>
 
       <button type="submit" :disabled="loading">
@@ -36,7 +43,7 @@
 </template>
 
 <script>
-import { exchange } from "../services/api.js";
+import { exchange, getExchange } from "../services/api.js";
 
 export default {
   name: "CurrencyExchangeView",
@@ -46,31 +53,23 @@ export default {
       amount: "",
       currencyFrom: "",
       currencyTo: "",
-
-      // Mock balances (μέχρι να κάνουμε endpoint για πραγματικά balances)
       balances: {
-        Euro: 500,
-        Dollar: 200,
-        Yen: 15000,
-        Yuan: 1000
+        euro_balance: "0.0",
+        usd_balance: "0.0",
+        gbp_balance: "0.0",
+        yen_balance: "0.0"
       },
 
       loading: false
     };
   },
 
-  methods: {
-    // Μεταφορά Python calc_value → Vue
-    calcValue(amount, from, to) {
-      const rates = {
-        Euro: { Dollar: 1.1463, Yen: 170.4335, Yuan: 8.2176 },
-        Dollar: { Euro: 0.8692, Yen: 148.2383, Yuan: 7.1521 },
-        Yen: { Euro: 0.0058, Dollar: 0.0067, Yuan: 0.0480 },
-        Yuan: { Euro: 0.1202, Dollar: 0.1381, Yen: 20.5003 }
-      };
+  mounted() {
+    this.getExchange();  // Φορτώνουμε τα στοιχεία μόλις φορτώσει το component
+  },
 
-      return parseFloat(amount) * rates[from][to];
-    },
+  methods: {
+    
 
     // Έλεγχος υπολοίπου (Python → Vue)
     checkBalance(amount, currency) {
@@ -80,6 +79,30 @@ export default {
         return false;
       }
       return true;
+    },
+
+    async getExchange(){
+      this.loading = true;
+      console.log("Loading exchange data...");
+
+      try {
+        const data = await getExchange();   // ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND
+
+        if (data.success) {
+          this.balances.euro_balance = data.euro_balance;
+          this.balances.usd_balance = data.usd_balance;
+          this.balances.gbp_balance = data.gbp_balance;
+          this.balances.yen_balance = data.yen_balance;
+          console.log("Exchange data loaded:", this.balances);
+        } else {
+          alert("Failed to load exchange data.");
+        }
+      } catch (error) {
+        console.error("Error loading exchange data:", error);
+        alert("Error connecting to server.");
+      } finally {
+        this.loading = false;
+      }
     },
 
     async makeExchange() {
@@ -117,14 +140,15 @@ export default {
         */
         const data = await exchange(value, this.currencyFrom, this.currencyTo);
 
+        if (data.converted_amount == 0.0) {
+          alert(`Exchange failed. ${data.errmsg}`);
+          return;
+        }
+
         if (data.success) {
-          // Αν επιτυχής μετατροπή → κάνε update balances (mock)
-          const newValue = this.calcValue(value, this.currencyFrom, this.currencyTo);
+          this.getExchange();  // Ενημερώνουμε τα υπόλοιπα μετά την ανταλλαγή
 
-          this.balances[this.currencyFrom] -= value;
-          this.balances[this.currencyTo] += newValue;
-
-          alert(`You exchanged ${value} ${this.currencyFrom} into ${newValue.toFixed(2)} ${this.currencyTo}.`);
+          alert(`You exchanged ${value} ${this.currencyFrom} into ${data.converted_amount.toFixed(2)} ${this.currencyTo}.`);
         } else {
           alert("Exchange failed. Please try again.");
         }

@@ -1,4 +1,4 @@
-// src/api/api.js
+//  src/services/api.js
 // ===================================================
 // ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND (Flask API)
 // Όλες οι κλήσεις API θα βρίσκονται εδώ συγκεντρωμένες
@@ -124,9 +124,28 @@ export async function exchange(amount, from, to) {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${localStorage.getItem("token")}`
     },
-    body: JSON.stringify({ amount, currency_from: from, currency_to: to })
+    body: JSON.stringify({ amount, currencyFrom: from, currencyTo: to })
   });
   return await response.json();
+}
+
+// Ανταλλαγή νομισμάτων
+export async function getExchange() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/exchange`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      }
+    });
+    const data = await response.json();
+    console.log("Account data fetched:", data);
+    return data; // Επιστρέφει balance, iban, card_number
+  } catch (error) {
+    console.error("Error fetching account info:", error);
+    return { success: false, message: "Error connecting to server." };
+  }
 }
 
 // Πληροφορίες κάρτας
@@ -141,8 +160,7 @@ export async function getCard() {
 
 // Freeze / Unfreeze κάρτας
 export async function toggleCardFreeze(freeze) {
-  const endpoint = freeze ? "freeze_card" : "unfreeze_card";
-  const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
+  const response = await fetch(`${API_BASE_URL}/card`, {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -159,4 +177,78 @@ export async function getTransactions() {
     }
   });
   return await response.json();
+}
+
+
+// Γραφήματα
+export async function getGraphsData() {
+  const response = await fetch(`${API_BASE_URL}/graphs`, {
+    headers: { 
+      "Authorization": `Bearer ${localStorage.getItem("token")}` }
+  });
+  return await response.json();
+}
+
+export async function changePin(oldPin, newPin, confirmPin) {
+  const response = await fetch(`${API_BASE_URL}/change_pin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    },
+    body: JSON.stringify({ old_pin: oldPin, new_pin: newPin, new_pin_verification: confirmPin })
+  });
+  return await response.json();
+}
+
+export async function changePassword(oldPassword, newPassword, confirmPassword) {
+  const response = await fetch(`${API_BASE_URL}/change_password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    },
+    body: JSON.stringify({ old_password: oldPassword, new_password: newPassword, new_password_verification: confirmPassword })
+  });
+  return await response.json();
+}
+
+export async function openOtp() {
+  const response = await fetch(`${API_BASE_URL}/otp`, {
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+  });
+  return await response.json();
+}
+
+
+export async function otp(otp_code) {
+  const response = await fetch(`${API_BASE_URL}/otp`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    },
+    body: JSON.stringify({ otp_code: otp_code })
+  });
+  return await response.json();
+}
+
+export async function emailChange(old_email, new_email, new_email_verification) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/change_email`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({ old_email, new_email, new_email_verification })
+    });
+
+    return await response.json();
+  } catch (error) {
+    console.error("Request email change error:", error);
+    return { success: false };
+  }
 }

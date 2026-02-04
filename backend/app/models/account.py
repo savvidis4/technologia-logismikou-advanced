@@ -1,3 +1,5 @@
+import decimal
+import random
 from app.extensions import db
 
 class Account(db.Model):
@@ -69,4 +71,88 @@ class Account(db.Model):
 
         db.session.commit()
         return True
-        
+
+    @staticmethod
+    def calcValue(amount, cur_from, cur_to):
+        rates = {
+            "EUR": {"USD": 1.1703, "JPY": 185.1487, "GBP": 0.8716},
+            "USD": {"EUR": 0.8543, "JPY": 158.1766, "GBP": 0.7446},
+            "JPY": {"EUR": 0.0054, "USD": 0.0063, "GBP": 0.0047},
+            "GBP": {"EUR": 1.1473, "USD": 1.3427, "JPY": 212.3886}
+        }
+
+        return float(amount) * rates[cur_from][cur_to]
+    
+    @classmethod
+    def convert_currency(cls, iban, from_currency, to_currency, amount):
+
+        account = db.session.query(cls).filter_by(iban=iban).first()
+        converted_amount = 0.0
+        if not account:
+            return False
+
+        if from_currency == "EUR" and to_currency == "USD":
+            converted_amount = Account.calcValue(amount, from_currency, to_currency)
+            account.euro_balance -= amount
+            account.usd_balance += decimal.Decimal(converted_amount)
+        elif from_currency == "EUR" and to_currency == "GBP":
+            converted_amount = Account.calcValue(amount, from_currency, to_currency)
+            account.euro_balance -= amount
+            account.gbp_balance += decimal.Decimal(converted_amount)
+        elif from_currency == "EUR" and to_currency == "JPY":
+            converted_amount = Account.calcValue(amount, from_currency, to_currency)
+            account.euro_balance -= amount
+            account.yen_balance += decimal.Decimal(converted_amount)
+        elif from_currency == "USD" and to_currency == "GBP":
+            converted_amount = Account.calcValue(amount, from_currency, to_currency)
+            account.usd_balance -= amount
+            account.gbp_balance += decimal.Decimal(converted_amount)
+        elif from_currency == "USD" and to_currency == "JPY":
+            converted_amount = Account.calcValue(amount, from_currency, to_currency)
+            account.usd_balance -= amount
+            account.yen_balance += decimal.Decimal(converted_amount)
+        elif from_currency == "USD" and to_currency == "EUR":
+            converted_amount = Account.calcValue(amount, from_currency, to_currency)
+            account.usd_balance -= amount
+            account.euro_balance += decimal.Decimal(converted_amount)
+        elif from_currency == "GBP" and to_currency == "JPY":
+            converted_amount = Account.calcValue(amount, from_currency, to_currency)
+            account.gbp_balance -= amount
+            account.yen_balance += decimal.Decimal(converted_amount)
+        elif from_currency == "GBP" and to_currency == "USD":
+            converted_amount = Account.calcValue(amount, from_currency, to_currency)
+            account.gbp_balance -= amount
+            account.usd_balance += decimal.Decimal(converted_amount)
+        elif from_currency == "GBP" and to_currency == "EUR":
+            converted_amount = Account.calcValue(amount, from_currency, to_currency)
+            account.gbp_balance -= amount
+            account.euro_balance += decimal.Decimal(converted_amount)
+        elif from_currency == "JPY" and to_currency == "EUR":
+            converted_amount = Account.calcValue(amount, from_currency, to_currency)
+            account.yen_balance -= amount
+            account.euro_balance += decimal.Decimal(converted_amount)
+        elif from_currency == "JPY" and to_currency == "USD":
+            converted_amount = Account.calcValue(amount, from_currency, to_currency)
+            account.yen_balance -= amount
+            account.usd_balance += decimal.Decimal(converted_amount)
+        elif from_currency == "JPY" and to_currency == "GBP":
+            converted_amount = Account.calcValue(amount, from_currency, to_currency)
+            account.yen_balance -= amount
+            account.gbp_balance += decimal.Decimal(converted_amount)
+
+        db.session.commit()
+        return converted_amount
+
+    @classmethod
+    def generate_new_otp_secret(self):
+        self.otp_secret = str(random.randint(100000, 999999))
+        db.session.commit()
+        return self.otp_secret
+    
+    @classmethod
+    def check_otp_secret(self, test_otp):
+        return self.otp_secret == test_otp
+    
+    @classmethod
+    def get_otp(self):
+        return self.otp_secret
