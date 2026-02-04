@@ -14,6 +14,7 @@ import ChangePinView from '@/views/ChangePinView.vue'
 import OtpView from '@/views/OtpView.vue'
 import ChangeEmail from '@/views/ChangeEmail.vue'
 import ChangePassword from '@/views/ChangePassword.vue'
+import ForgetPassword from '@/views/ForgetPassword.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,7 @@ const router = createRouter({
     { path: '/otp', component: OtpView },
     { path: '/change_email', component: ChangeEmail },
     { path: '/change_password', component: ChangePassword },
+    { path: '/forgotPassword', component: ForgetPassword}
 
   ]
 })
