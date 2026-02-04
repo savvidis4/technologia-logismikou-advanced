@@ -22,13 +22,13 @@
 
     <!-- HEADER -->
     <header class="header">
-      <img src="logo.png" alt="bank_logo" class="img" />
+      <img src="/logo.png" alt="bank_logo" class="img" />
       <h2 class="logo">Bank of University of West Attica e-Banking</h2>
      
 
     <!-- SETTINGS -->
     <button class="settings" @click="goToSettings">
-      <img src="settings.png" alt="settings" class="settings_icon" />
+      <img src="/settings.png" alt="settings" class="settings_icon" />
       <span class="tooltip">User Settings</span>
     </button>
     
@@ -49,7 +49,7 @@
 
         <div class="balance_rest">
             <div class="row">
-                <img src="card1.png" alt="iban_icon" class="icon"/>
+                <img src="/card1.png" alt="iban_icon" class="icon"/>
                 <div>
                     <p class="label">IBAN</p>
                     <p class="value">GR30 0369 3768 4885 8436 2590 002</p>
@@ -57,7 +57,7 @@
             </div>
 
             <div class="row">
-                <img src="card1.png" alt="card_icon" class="icon"/>
+                <img src="/card1.png" alt="card_icon" class="icon"/>
                 <div>
                     <p class="label">Card Number</p>
                     <p class="value">**** **** **** 0001</p>
