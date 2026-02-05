@@ -27,8 +27,8 @@ class EmailService:
         try:
             email = EmailMessage()
             email["From"] = self.sender
-            # email["To"] = self.recipient
-            email["To"] = "charissavvidis4@gmail.com"
+            email["To"] = self.recipient
+            # email["To"] = "charissavvidis4@gmail.com"
             email["Subject"] = self.theme
             email.set_content(self.message)
 

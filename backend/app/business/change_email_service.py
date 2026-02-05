@@ -1,8 +1,4 @@
-import random
-from datetime import datetime
-import re
-from app.models import User, Account, Card
-from app.business.otp_service import OtpService
+from app.models import User
 
 class ChangeEmailService:
 
