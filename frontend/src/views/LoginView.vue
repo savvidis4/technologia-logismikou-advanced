@@ -6,11 +6,9 @@
     <header class="header">
         <img src="/logo.png" alt="bank logo" class="img"/>
         <h2 class="logo">Bank of University of West Attica e-Banking</h2>
-<<<<<<< HEAD
-        <router-link to="/signup" class="register_btn">
-=======
+
         <router-link to="/register" class="register_btn">
->>>>>>> 4596068acd11d5fdb2de52e5a8d10e0fd891a8b6
+
           <img src="/register.png" alt="register_icon" class="register_icon"/>
           <span>Create Account</span>
         </router-link>
