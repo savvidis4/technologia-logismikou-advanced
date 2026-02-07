@@ -6,11 +6,9 @@
     <header class="header">
         <img src="/logo.png" alt="bank logo" class="img"/>
         <h2 class="logo">Bank of University of West Attica e-Banking</h2>
-<<<<<<< HEAD
-        <router-link to="/signup" class="register_btn">
-=======
+       
         <router-link to="/register" class="register_btn">
->>>>>>> 4596068acd11d5fdb2de52e5a8d10e0fd891a8b6
+          
           <img src="/register.png" alt="register_icon" class="register_icon"/>
           <span>Create Account</span>
         </router-link>
@@ -30,20 +28,11 @@
         <!-- PASSWORD FIELD -->
          <div class="input_row">
            <p class="input_label2">Enter Password</p>
-            <input 
-              :type="showPassword ? 'text' : 'password'" 
-              v-model="password" 
-              placeholder="Password" 
-              required 
-            />
+            <input :type="showPassword ? 'text' : 'password'" v-model="password" placeholder="Password" required />
 
             <!-- Show / Hide password -->
              <span class="trigger" @click="togglePassword">
-                <img 
-                :src="showPassword ? 'show (1).png' : 'hide (1).png'" 
-                :alt="showPassword ? 'show' : 'hide'" 
-                class="show_pswd"
-                />
+                <img :src="showPassword ? 'show (1).png' : 'hide (1).png'" :alt="showPassword ? 'show' : 'hide'" class="show_pswd"/>
               </span>
           </div>
 
