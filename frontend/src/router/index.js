@@ -31,8 +31,8 @@ const router = createRouter({
     { path: '/graphs', component: GraphsView },
     { path: '/change_pin', component: ChangePinView },
     { path: '/otp', component: OtpView },
-    { path: '/change_email', component: ChangeEmail },
-    { path: '/change_password', component: ChangePassword },
+    { path: '/change_email', component: ChangeEmailView },
+    { path: '/change_password', component: ChangePasswordView },
     { path: '/forgotPassword', component: ForgetPassword}
 
   ]
