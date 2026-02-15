@@ -1,5 +1,7 @@
 from app.models import User, Account, Transactions
+from app.business.email_service import EmailService
 from flask import jsonify
+from datetime import datetime
 
 class CurrencyExchangeService:
 
@@ -86,6 +88,12 @@ class CurrencyExchangeService:
             currency=to_currency,
             description="CREDIT"
         )
+
+        date = datetime.now()
+
+        sender_email_service = EmailService()
+        sender_email_service.set_email_data(user.email, "UniWAlerts Service", f'We would like to inform you that on {date} the following transaction was made to your account {account.iban}\n\n\t~ Amount: -{str(amount)} {from_currency}\n\t~ Amount: +{str(converted_amount)} {to_currency}\n\nYours sinserely,\nUniWA Bank', False, False)
+        sender_email_service.send_email()
 
         return converted_amount
 

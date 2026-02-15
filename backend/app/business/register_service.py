@@ -2,6 +2,7 @@ import random
 from datetime import datetime
 import re
 from app.models import User, Account, Card
+from app.business.email_service import EmailService
 
 class AccountCreationService:
 
@@ -114,6 +115,9 @@ class AccountCreationService:
 
             Card.create_card(account_id= new_account.id, card_number=card["card_number"], card_exp_date=card["card_exp"], card_cvv=str(card["card_cvv"]), card_pin=str(card["card_number"][-4:]))
             
+            sender_email_service = EmailService()
+            sender_email_service.set_email_data(email, "UniWAlerts Service", f'We would like to welcome you to Uniwa Bank!\nOne of the best online NeoBanks out there competing with giants such as Revolut or N26.\n\nWe are happy to have you on board!\n\nYours sinserely,\nUniWA Bank', False, False)
+            sender_email_service.send_email()
             
             return {
                 "success": True,

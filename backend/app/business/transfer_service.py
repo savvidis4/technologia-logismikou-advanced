@@ -1,5 +1,7 @@
-from app.models import Account, Transactions
+from app.models import Account, Transactions, User
 from flask import jsonify
+from app.business.email_service import EmailService
+from datetime import datetime
 
 
 
@@ -11,12 +13,16 @@ class TransferService:
         self.db = db_session
         self.account_iban = None
         self.currency_symbol = ""
+        self.email = None
 
         self.load_transfer_data(current_user_id)
 
     def load_transfer_data(self, current_user_id):
 
+        user = self.db.query(User).get(current_user_id)
         account = self.db.query(Account).filter_by(user_id=current_user_id).first()
+
+        self.email = user.email
 
         if not account:
             # Δεν επιστρέφουμε jsonify εδώ (το κάνει ο controller)
@@ -53,7 +59,7 @@ class TransferService:
 
         added = Account.add_funds(recipient_iban, amount, currency)
         Account.deduct_funds(self.account_iban, amount, currency, added)
-
+        account = self.db.query(Account).filter_by(iban=self.account_iban).first()
         Transactions.create_transaction(
             account_id=self.db.query(Account).filter_by(iban=self.account_iban).first().id,
             iban_from=self.account_iban,
@@ -63,6 +69,11 @@ class TransferService:
             description="DEBIT"
         )
 
+        date = datetime.now()
+        sender_email_service = EmailService()
+        sender_email_service.set_email_data(self.email, "UniWAlerts Service", f'We would like to inform you that on {date} the following transaction was made to your account {account.iban}\n\n\t~ Transaction type: DEBIT\n\t~ Amount: -{str(amount)} Euro (€)\n\nAfter this transaction your Euro (€) Balance was shaped into:\n\n\t~Euro (€) Balance: {account.euro_balance} Euro (€)\n\nYours sinserely,\nUniWA Bank', False, False)
+        sender_email_service.send_email()
+
         Transactions.create_transaction(
             account_id=self.db.query(Account).filter_by(iban=recipient_iban).first().id,
             iban_from=self.account_iban,
@@ -71,6 +82,13 @@ class TransferService:
             currency=currency,
             description="CREDIT"
         )
+
+        rec_account = self.db.query(Account).filter_by(iban=recipient_iban).first()
+        rec_user = self.db.query(User).get(rec_account.user_id)
+
+        sender_email_service = EmailService()
+        sender_email_service.set_email_data(rec_user.email, "UniWAlerts Service", f'We would like to inform you that on {date} the following transaction was made to your account {recipient_iban}\n\n\t~ Transaction type: CREDIT\n\t~ Amount: +{str(amount)} Euro (€)\n\nAfter this transaction your Euro (€) Balance was shaped into:\n\n\t~Euro (€) Balance: {rec_account.euro_balance} Euro (€)\n\nYours sinserely,\nUniWA Bank', False, False)
+        sender_email_service.send_email()
 
         return jsonify({"success": True, "message": f"Transfer of {amount} {self.currency_symbol} to account with IBAN {recipient_iban} was successfull."}), 200
     

@@ -13,7 +13,7 @@ class EmailService:
         self.theme = None
         self.ver = False
         self.new = False
-
+ 
     def set_email_data(self, user, theme, mess, ver, new):
         self.user = user
         self.theme = theme
