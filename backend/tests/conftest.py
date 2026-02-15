@@ -2,6 +2,8 @@ import pytest
 from app import create_app
 from app.extensions import db
 
+#pytest tests/
+
 @pytest.fixture
 def app():
     # 1. Define the SAFE test configuration
