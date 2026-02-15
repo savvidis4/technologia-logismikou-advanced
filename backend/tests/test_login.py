@@ -2,9 +2,6 @@ import json
 
 def test_login_jwt(client, test_user):
 
-    # ---------------------------------------------------------
-    # 1. Test Login
-    # ---------------------------------------------------------
     login_data = {
         "email": test_user['email'],
         "password": test_user['password']
@@ -19,9 +16,6 @@ def test_login_jwt(client, test_user):
     
     token = log_json["token"]
 
-    # ---------------------------------------------------------
-    # 2. Test Protected Route (/home) Using the JWT Token
-    # ---------------------------------------------------------
     headers = {
         "Authorization": f"Bearer {token}"
     }

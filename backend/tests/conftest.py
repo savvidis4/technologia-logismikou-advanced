@@ -48,6 +48,32 @@ def test_user(client):
 
 
 @pytest.fixture
+def auth_header(client):
+    """
+    Helper fixture: Registers a user, logs them in, 
+    and returns the Authorization header needed for requests.
+    Used by test_transfers.py
+    """
+    # 1. Register a user specifically for this fixture
+    client.post('/register', json={
+        "email": "tester@uniwa.gr",
+        "password": "Password123!",
+        "ver_password": "Password123!"
+    })
+    
+    # 2. Login to get the JWT token
+    response = client.post('/login', json={
+        "email": "tester@uniwa.gr",
+        "password": "Password123!"
+    })
+    
+    token = response.get_json()['token']
+    
+    # 3. Return the header dictionary
+    return {"Authorization": f"Bearer {token}"}
+
+
+@pytest.fixture
 def client(app):
     # This creates a fake browser/client we can use to make requests to our API
     return app.test_client()
