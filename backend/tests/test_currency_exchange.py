@@ -1,4 +1,3 @@
-import pytest
 from app.extensions import db
 from app.models import User, Account
 
