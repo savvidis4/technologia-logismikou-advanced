@@ -29,7 +29,7 @@ header{
 
 .logo{
     position: relative;
-    font-size: 1.8em;
+    font-size: 1.95em;
     color: rgb(0, 0, 0);
     text-decoration: none;
     font-weight: 50;
@@ -104,9 +104,10 @@ header{
 /* ---- POP UP SETTINGS ---- */
 .tooltip{
     position: absolute;
-    bottom: -45px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    bottom: auto;
+    right: calc(100% + 12px);
+    transform: translateY(-50%);
     background-color: #333;
     color: white;
     font-size: 0.85rem;
@@ -116,23 +117,23 @@ header{
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease, bottom 0.3s ease;
-    z-index: 20;
+    z-index: 200;
 }
 
 .tooltip::after{
     content: '';
     position: absolute;
-    top: -16px;
-    left: 50px;
-    transform: translateX(-50%);
+    top: 50%;
+    left: 101.7px;
+    transform: translateY(-50%);
     border-width: 6px;
     border-style: solid;
-    border-color: transparent transparent #333 transparent;
+    border-color: transparent transparent transparent #333;
 }
 
 .settings:hover .tooltip{
     opacity: 1;
-    bottom: -47px;
+    right: calc(100% +18px);
 }
 
 /*---------------*/
@@ -145,7 +146,8 @@ body{
     padding-top: 34.4px;
     background: linear-gradient(-85deg, #01035c, #114e94, #114e94, #0f0b44);
     background-size: 400% 500%;
-    animation: gradientMove 20s linear infinite;  
+    animation: gradientMove 20s linear infinite; 
+    
 }
 
 @keyframes gradientMove {
@@ -157,7 +159,7 @@ body{
 /* ----COINTAINER---- */
 .container{
     position: relative;
-    margin: 110px auto 30px auto;
+    margin: 90px auto 40px auto;
     width: 1150px; /* eikona 1: 950, eikona 2: 750 */
     border-radius: 25px;
     background-color: rgb(255, 255, 255);
@@ -182,6 +184,7 @@ body{
     font-size: 2.92rem;
     color: rgba(46, 219, 3, 0.938);
     margin-bottom: 5px;
+    font-weight: 550;
 }
 
 .amount{

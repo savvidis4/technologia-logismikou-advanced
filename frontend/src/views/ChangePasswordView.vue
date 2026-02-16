@@ -1,9 +1,53 @@
 <template>
   <!-- ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ FRONTEND -->
+
+  <div>
+    <header class="header">
+      <img src="/logo.png" alt="bank logo" class="img">
+      <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+      <button class="settings" @click="goHome()">
+        <img src="/home_1.png" alt="settings" class="settings_icon">
+        <span class="tooltip">Home</span>
+      </button>
+      <button class="logout" @click="goToLogout()"><span>Log Out</span></button>
+    </header>
+
+    <section class="container">
+      <div class="email_top">
+        <h2>Change Password</h2> 
+        <div class="exit" @click="goBack()" style="cursor: pointer;">
+          <img src="/exit.png" alt="exit">
+        </div>
+      </div>
+
+      <form class="email_form" @submit.prevent="submitPasswordChange">
+        <div class="form_group1">
+          <label>Old password</label>
+          <input type="password" v-model="oldPassword" placeholder="Enter old password" required>
+        </div>
+
+        <div class="form_group1">
+          <label>New password</label>
+          <input type="password" v-model="newPassword" placeholder="Enter new password" required>
+        </div>
+
+        <div class="form_group2">
+          <label>Verify New password</label>
+          <input type="password" v-model="confirmPassword" placeholder="Verify new password" required>
+        </div>
+
+        <button type="submit" class="change_btn" :disabled="loading">
+          {{ loading ? "Processing..." : "Change Password"}}
+        </button>
+      </form>
+    </section>
+  </div>
+
+  <!-- 
   <section>
     <h2>Change Password</h2>
 
-    <!-- Φόρμα αλλαγής password -->
+    // Φόρμα αλλαγής password 
     <form @submit.prevent="submitPasswordChange">
       
       <input
@@ -33,10 +77,11 @@
 
     </form>
 
-    <!-- Κουμπί Back -->
+    // Κουμπί Back 
     <button @click="goBack">⬅ Back</button>
 
   </section>
+  -->
 </template>
 
 <script>
@@ -128,7 +173,24 @@ export default {
     // Κουμπί επιστροφής
     goBack() {
       this.$router.push("/settings");
+    },
+
+    goToLogout() {
+      // Πηγαίνει στο component LogoutView.vue
+      this.$router.push("/logout");
+    },
+
+    goHome() {
+      // Επιστροφή στο home screen (ή όπου έχεις ορίσει)
+      this.$router.push("/home");
     }
+
+
   }
 };
 </script>
+
+
+<style scoped>
+@import "../assets/change_pass_style.css";
+</style>

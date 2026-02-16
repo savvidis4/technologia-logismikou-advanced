@@ -1,5 +1,183 @@
 <template>
   <!-- ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ FRONTEND -->
+
+<div>
+<div class="exchange_wrapper">
+
+  
+
+
+    <header class="header">
+      <img src="/logo.png" alt="bank logo" class="img">
+      <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+      <button class="settings" @click="goToSettings">
+        <img src="/settings.png" alt="settings" class="settings_icon" />
+        <span class="tooltip">User Settings</span>
+      </button>
+      <button class="logout" @click="goToLogout"><span>Log Out</span></button>
+    </header>
+
+    <div class="body_top">
+      <h2 class="title">Currency Exchange</h2>
+      <img src="/exit.png" alt="exit" class="exit" @click="$router.push('/home')" style="cursor: pointer;">
+    </div>
+
+    <div class="main_wrapper">
+      
+      <div class="balance-board">
+        <h3 class="balance-title">Account Balances</h3>
+        <div class="balance-item">
+          <span class="curr-name">Euro (€)</span>
+          <span class="curr-amount">{{ balances.euro_balance }} €</span>
+        </div>
+        <div class="balance-item">
+          <span class="curr-name">US Dollar ($)</span>
+          <span class="curr-amount">{{ balances.usd_balance }} $</span>
+        </div>
+        <div class="balance-item">
+          <span class="curr-name">Japanese Yen (¥)</span>
+          <span class="curr-amount">{{ balances.yen_balance }} ¥</span>
+        </div>
+        <div class="balance-item">
+          <span class="curr-name">Chinese Yuan (¥)</span>
+          <span class="curr-amount">{{ balances.gbp_balance }} ¥</span>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="ex_box">
+          <div class="row">
+            <div class="label">From :</div>
+            <div class="currency">
+              <div class="dropdown">
+                <button class="drop">
+                  <img :src="getFlag(currencyFrom)" class="flag">
+                  <span class="code">{{ currencyFrom }}</span>
+                </button>
+                <div class="drop_content">
+                  <div v-for="curr in availableCurrencies" :key="curr.code" class="option" @click="currencyFrom = curr.code">
+                    <img :src="curr.flag" class="flag">
+                    <span>{{ curr.code }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <input type="number" v-model="amount" class="input" placeholder="0.00">
+          </div>
+
+          <div class="row">
+            <div class="label">To :</div>
+            <div class="currency">
+              <div class="dropdown">
+                <button class="drop">
+                  <img :src="getFlag(currencyTo)" class="flag">
+                  <span class="code">{{ currencyTo }}</span>
+                </button>
+                <div class="drop_content">
+                  <div v-for="curr in availableCurrencies" :key="curr.code" class="option" @click="currencyTo = curr.code">
+                    <img :src="curr.flag" class="flag">
+                    <span>{{ curr.code }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <input type="text" :value="convertedDisplay" class="input" disabled>
+          </div>
+        </div>
+      </div>
+    </div> <button type="submit" class="exchange" @click="handleExchange" :disabled="loading">
+      <span>{{ loading ? 'Processing...' : 'Exchange' }}</span>
+    </button>
+
+    <img src="/scale.png" alt="scale" class="scale_icon">
+    <img src="/updown.png" alt="updown" class="updown_icon">
+  </div>
+  </div>
+
+<!-- 
+  <div>
+    <header class="header">
+      <img src="/logo.png" alt="bank logo" class="img">
+      <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+      <button class="settings" @click="goToSettings">
+        <img src="/settings.png" alt="settings" class="settings_icon" />
+        <span class="tooltip">User Settings</span>
+      </button>
+        
+      <button class="logout" @click="goToLogout"><span>Log Out</span></button>
+    </header>
+
+    <div class="body_top">
+        <h2 class="title">Currency Exchange</h2>
+        <router-link to="/home" class="exit">
+            <img src="/exit.png" alt="exit">
+        </router-link>
+    </div>
+
+    <div class="main_wrapper">
+      <div class="balance-board">
+        <h3 class="balance-title">Account Balances</h3>
+        <div class="balance-item">
+          <span class="curr-name">Euro (€)</span>
+          <span class="curr-amount">{{ balances.euro_balance }} €</span>
+        </div>
+        <div class="balance-item">
+          <span class="curr-name">US Dollar ($)</span>
+          <span class="curr-amount">{{ balances.usd_balance }} $</span>
+        </div>
+        <div class="balance-item">
+          <span class="curr-name">Japanese Yen (¥)</span>
+          <span class="curr-amount">{{ balances.yen_balance }} ¥</span>
+        </div>
+        <div class="balance-item">
+          <span class="curr-name">Chinese Yuan (¥)</span>
+          <span class="curr-amount">{{ balances.gbp_balance }} ¥</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="ex_box">
+            <div class="row">
+                <div class="label">From :</div>
+                <div class="currency">
+                    <select v-model="currencyFrom" class="vue_select">
+                        <option value="EUR">EUR (€) - Bal: {{ balances.euro_balance }}</option>
+                        <option value="USD">USD ($) - Bal: {{ balances.usd_balance }}</option>
+                        <option value="GBP">CNY (¥) - Bal: {{ balances.gbp_balance }}</option>
+                        <option value="JPY">JPY (¥) - Bal: {{ balances.yen_balance }}</option>
+                    </select>
+                </div>
+                <input type="number" v-model="amount" class="input" placeholder="Amount">
+            </div>
+
+            <img src="/updown.png" alt="updown" class="updown_icon" @click="swapCurrencies">
+
+            <div class="row">
+                <div class="label">To :</div>
+                <div class="currency">
+                    <select v-model="currencyTo" class="vue_select">
+                        <option value="EUR">EUR (€)</option>
+                        <option value="USD">USD ($)</option>
+                        <option value="CNY">CNY (¥)</option>
+                        <option value="JPY">JPY (¥)</option>
+                    </select>
+                </div>
+                <input type="text" :value="convertedResult" class="input" disabled placeholder="Result">
+            </div>
+        </div>
+    </div>
+
+    <button type="button" class="exchange" @click="makeExchange" :disabled="loading">
+        <span>{{ loading ? 'Processing...' : 'Exchange' }}</span>
+    </button>
+
+    <img src="/scale.png" alt="scale" class="scale_icon">
+
+  </div>
+  -->
+
+  <!-- 
   <section>
     <h2>Currency Exchange</h2>
 
@@ -10,7 +188,7 @@
       <li>Yen: {{ balances.yen_balance }}</li>
       <li>Pound: {{ balances.gbp_balance }}</li>
     </ul>
-    <!-- Φόρμα μετατροπής -->
+    // Φόρμα μετατροπής 
     <form @submit.prevent="makeExchange">
       <input
         type="number"
@@ -40,6 +218,7 @@
       </button>
     </form>
   </section>
+  -->
 </template>
 
 <script>
@@ -51,8 +230,8 @@ export default {
   data() {
     return {
       amount: "",
-      currencyFrom: "",
-      currencyTo: "",
+      currencyFrom: "EUR",
+      currencyTo: "EUR",
       balances: {
         euro_balance: "0.0",
         usd_balance: "0.0",
@@ -60,7 +239,15 @@ export default {
         yen_balance: "0.0"
       },
 
-      loading: false
+      loading: false,
+      
+      availableCurrencies: [
+        { code: "EUR", flag: "/greece.png" },
+        { code: "USD", flag: "/usa.png" },
+        { code: "JPY", flag: "/japan.png" },
+        { code: "CNY", flag: "/china.png" } // Πρόσθεσα GBP όπως το API σου
+      ]
+
     };
   },
 
@@ -69,7 +256,26 @@ export default {
   },
 
   methods: {
+    selectCurrency(code, type) {
+      if (type === 'from') this.currencyFrom = code;
+      else this.currencyTo = code;
+      this.dropdownActive = false;
+    },
+
+    getFlag(code) {
+      const curr = this.availableCurrencies.find(c => c.code === code);
+      return curr ? curr.flag : '';
+    },
     
+    goToSettings() {
+      // Πηγαίνει στο component SettingsView.vue
+      this.$router.push("/settings");
+    },
+
+    goToLogout() {
+      // Πηγαίνει στο component LogoutView.vue
+      this.$router.push("/logout");
+    },
 
     // Έλεγχος υπολοίπου (Python → Vue)
     checkBalance(amount, currency) {
@@ -162,3 +368,26 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+@import "../assets/currencyex_style.css";
+
+
+/* Fix για τα Dropdowns που λείπει από το CSS σου */
+/*
+.dropdown { position: relative; display: inline-block; width: 100%; }
+.drop { 
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; background: white; border: 1px solid #ccc; padding: 8px; border-radius: 8px;
+}
+.dropdown:hover .drop_content { display: block; }
+.drop_content {
+    display: none; position: absolute; background: white; min-width: 120px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2); z-index: 100; border-radius: 8px;
+}
+.option { padding: 10px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.option:hover { background: #f1f1f1; }
+.flag { width: 25px; height: auto; }
+*/
+
+</style>

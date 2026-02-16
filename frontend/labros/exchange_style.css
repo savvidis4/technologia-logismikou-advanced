@@ -199,11 +199,12 @@ body{
 
 /* --------- COINTAINER ------- */
 .container{
-    margin-top: 190px;
+    margin-top: 60px;
     display: flex;
-    flex-direction: column;
+    /*flex-direction: column;*/
     gap: 30px;
     align-items: center;
+    margin-left: 305px;
 }
 
 /* ------ EXCHANGE BOX ----- */
@@ -213,7 +214,7 @@ body{
     align-items: center;
     justify-content: center;
     gap: 115px;
-    margin-top: 50px;
+    margin-top: -460px;
 }
 
 .row{
@@ -221,7 +222,7 @@ body{
     align-items: center;
     justify-content: center;
     gap: 15px;
-    color: white;
+    color: rgb(248, 248, 248);
     font-weight: 500;
 }
 
@@ -258,12 +259,13 @@ body{
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: background 10.3s ease, transform 10.2s ease;
 }
 
 .drop:hover{
     background: rgba(255, 255, 255, 0.253);
     transform: scale(1.05);
+    
 }
 
 .flag{
@@ -285,12 +287,13 @@ body{
     top: 45px;
     left: 0;
     backdrop-filter: blur(4px);
+    
 }
 
 /* ---- Emfanisi me hover ----- */
 .dropdown:hover .drop_content{
     display: block;
-    animation: fadeIn 0.3s ease;
+    animation: fadeIn 0.7s ease;
 }
 
 /* ------ EPILOGES MENU ------ */
@@ -301,7 +304,7 @@ body{
     padding: 8px 12px;
     color: white;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: background 1.2s ease;
 }
 
 .drop_content .option:hover{
@@ -347,8 +350,8 @@ body{
     font-size: 15px;
     padding: 15px 27px;
     border-radius: 8px;
-    margin-top: 420px;
-    right: 235px;
+    margin-top: 430px;
+    right: 600px;
     cursor: pointer;
     transition: transform 0.2s ease, color 0.3s ease;
     overflow: hidden;
@@ -406,4 +409,56 @@ body{
     height: auto;
     filter: brightness(0) invert(1) opacity(0.8);
     top: 345px;
+}
+
+/* PIANAKAS */
+.balance-board {
+    background: rgba(255, 255, 255, 0.103);
+    backdrop-filter: blur(15px);
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 300px;
+    box-shadow: 0 15px 35px rgba(80, 79, 79, 0.5);
+    margin-top: 180px;
+    margin-right: 900px;
+}
+
+.balance-title {
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.993);
+    padding-bottom: 10px;
+    color: white;
+}
+
+.balance-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.178);
+    margin-bottom: 15px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    transition: transform 0.3s;
+}
+
+.balance-item:hover { 
+    transform: scale(1.03); background: rgba(255, 255, 255, 0.1); 
+}
+
+.curr-name { 
+    color: #ccc; font-size: 0.9rem; 
+}
+
+.curr-amount { 
+    color: #08d155; font-weight: 700; font-size: 1.2rem; 
+}
+
+/* ---- EXCHANGE FORM ---- */
+.exchange-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

@@ -29,10 +29,10 @@ header{
 
 .logo{
     position: relative;
-    font-size: 1.8em;
+    font-size: 1.95em;
     color: rgb(0, 0, 0);
     text-decoration: none;
-    font-weight: 50;
+    font-weight: 500;
     width: 100%;
 }
 
@@ -40,13 +40,13 @@ header{
 .register_btn{
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 15px;
     color: black;
     text-decoration: none;
-    padding: 8px 16px;
+    padding: 2px 16px;
     border-radius: 25px;
-    font-weight: 600;
-    font-size: 0.8rem;
+    font-weight: 900;
+    font-size: 0.85rem;
     transition: all 0.3s ease;
     animation: glow 2.5s infinite;
 }
@@ -110,8 +110,9 @@ header:hover ~ .pada_img{
 /*------------------*/
 .login_container{
     position: relative;
-    margin: 110px auto 30px auto;
+    margin: 120px auto 30px auto;
     width: 400px;
+    margin-left: 430px;
     border-radius: 25px;
     background-color: rgba(255, 255, 255, 0.87);
     overflow: hidden;
@@ -121,10 +122,11 @@ header:hover ~ .pada_img{
 }
 
 /* TITLE */
-.login_container h2{
+.login_container h2{  
     font-family: 'Raleway', cursive;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.3px;
     font-size: 2.2rem;
+    font-weight: 500;
     margin-bottom: 45px;
     margin-top: 25px;
     color: rgb(6, 51, 109);
@@ -144,7 +146,15 @@ header:hover ~ .pada_img{
     outline: none;
     font-size: 1.1rem;
     color: rgb(0, 0, 0);
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255); 
+    cursor: text;
+    caret-color: black;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #303131;
+    caret-color: black; 
 }
 
 .input_row input::placeholder{
@@ -174,7 +184,7 @@ header:hover ~ .pada_img{
 .login{
     width: 40%;
     padding: 12px;
-    margin: 50px;
+    margin: 30px;
     border-radius: 15px;
     border: 2px solid black;
     color: white;
@@ -211,19 +221,23 @@ header:hover ~ .pada_img{
 
 .forgot a{
     color: black;
-    font-size: 1rem;
     text-decoration: none;
+    font-weight: bold;
+    transition: color 0.1s ease;
 }
 
 .forgot a:hover{
+    color: blue;
     text-decoration: underline;
+    text-shadow: none;
+    background-color: transparent;
 }
 
 /* SHOW PASSWORD */
 .trigger{
     position: absolute;
     right: 45px;
-    top: 59.2%;
+    top: 65.2%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -242,4 +256,13 @@ header:hover ~ .pada_img{
 .show_pswd:hover{
     opacity: 1;
     transform: scale(1.1);
+}
+
+.login-page-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 100vh; /* Καταλαμβάνει όλο το ύψος της οθόνης */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

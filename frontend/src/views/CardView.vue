@@ -1,21 +1,78 @@
 <template>
   <!-- ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ FRONTEND -->
+
+  <div>
+    <header class="header">
+      <img src="/logo.png" alt="bank logo" class="img">
+      <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+      <router-link to="/settings" class="settings" style="text-decoration: none;">
+        <img src="/settings.png" alt="settings" class="settings_icon">
+        <span class="tooltip">User Settings</span>
+      </router-link>
+      
+      <button class="logout" @click="goToLogout()"><span>Log Out</span></button>
+    </header>
+
+    <section class="container">
+      <div class="card_top">
+        <h2>Your Card</h2> 
+          <div class="exit" @click="goBack" style="cursor: pointer;">
+            <img src="/exit.png" alt="exit">
+          </div>
+      </div>
+
+        <div class="card_template">
+            <div v-if="card" class="your_card">
+                <img src="/card_template.png" alt="credit card" class="card_bg">
+                <div class="card_overlay">
+                  <div class="card_header">
+                      <img src="/logo_card.png" alt="logo" class="card_logo">
+                      <h3 class="bank_name">Bank of UniWA</h3>
+                  </div>
+
+                  <div class="card_number">{{ formatCardNumber(card.number) }}</div>
+
+                    <div class="card_info">
+                      <p>EXP: {{ card.exp }}</p>
+                      <p>CVV: {{ card.cvv }}</p>
+                    </div>
+                </div>  
+              </div>
+            <div v-else style="color: black; text-align: center;">Loading card details...</div>
+        </div>
+
+        <button 
+            v-if="card"
+            type="button" 
+            class="freeze" 
+            :class="{ 'active': card.isFrozen }"
+            @click="toggleFreeze"
+            :disabled="loading"
+        >
+            <span>{{ card.isFrozen ? 'Unfreeze' : 'Freeze' }}</span>
+        </button>
+    </section>
+
+  </div>
+
+  <!-- 
   <section style="max-width: 400px; margin: auto; background-color: gray;">
     <h2>Your Card</h2>
 
-    <!-- Στοιχεία κάρτας -->
+    // Στοιχεία κάρτας 
     <div v-if="card">
       <p><strong>Card Number:</strong> {{ card.number }}</p>
       <p><strong>Expiration:</strong> {{ card.exp }}</p>
       <p><strong>CVV:</strong> {{ card.cvv }}</p>
       <p><strong>Status:</strong> {{ card.isFrozen ? "Frozen" : "Active" }}</p>
 
-      <!-- Κουμπί Freeze / Unfreeze -->
+      // Κουμπί Freeze / Unfreeze 
       <button @click="toggleFreeze" :disabled="loading">
         {{ card.isFrozen ? "Unfreeze Card" : "Freeze Card" }}
       </button>
     </div>
   </section>
+  -->
 </template>
 
 <script>
@@ -36,6 +93,22 @@ export default {
   },
 
   methods: {
+    // ΛΑΜΠΡΟΣ: Προσθήκη συναρτήσεων για να εμφανίζεται η κάρτα και για λογκ αουτ και για Home
+    formatCardNumber(num) {
+      if (!num) return "0000 0000 0000 0000";
+      return num.toString().replace(/\d{4}(?=.)/g, '$& ');
+    },
+
+    goToLogout() {
+      // Πηγαίνει στο component LogoutView.vue
+      this.$router.push("/logout");
+    },
+
+    goBack() {
+      // Αλλάζεις το route σε ό,τι θες
+      this.$router.push("/home");
+    },
+
     // 1) Φόρτωση στοιχείων κάρτας από backend
     async loadCard() {
       this.loading = true;
@@ -99,3 +172,8 @@ export default {
   }
 };
 </script>
+
+
+<style scoped>
+@import "../assets/card_style.css";
+</style>

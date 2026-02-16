@@ -9,11 +9,10 @@ import SettingsView from '@/views/SettingsView.vue'
 import CardView from '@/views/CardView.vue'
 import LogoutView from '@/views/LogoutView.vue'
 import GraphsView from '@/views/GraphsView.vue'
-import ChangePin from '@/views/ChangePinView.vue'
 import ChangePinView from '@/views/ChangePinView.vue'
 import OtpView from '@/views/OtpView.vue'
-import ChangeEmail from '@/views/ChangeEmail.vue'
-import ChangePassword from '@/views/ChangePassword.vue'
+import ChangeEmailView from '@/views/ChangeEmailView.vue'
+import ChangePasswordView from '@/views/ChangePasswordView.vue'
 import ForgetPassword from '@/views/ForgetPassword.vue'
 
 const router = createRouter({
@@ -32,8 +31,8 @@ const router = createRouter({
     { path: '/graphs', component: GraphsView },
     { path: '/change_pin', component: ChangePinView },
     { path: '/otp', component: OtpView },
-    { path: '/change_email', component: ChangeEmail },
-    { path: '/change_password', component: ChangePassword },
+    { path: '/change_email', component: ChangeEmailView },
+    { path: '/change_password', component: ChangePasswordView },
     { path: '/forgotPassword', component: ForgetPassword}
 
   ]

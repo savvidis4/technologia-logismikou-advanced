@@ -1,14 +1,12 @@
 <template>
   <!-- Λογικά εδώ θα μπει ο κώδικας του Λάμπρου -->
-  <div>
-    
+  <div class="login_page_wrapper">   
     <!-- HEADER -->
     <header class="header">
         <img src="/logo.png" alt="bank logo" class="img"/>
         <h2 class="logo">Bank of University of West Attica e-Banking</h2>
-       
+         <!-- <router-link to="/register" class="register_btn"> -->
         <router-link to="/register" class="register_btn">
-          
           <img src="/register.png" alt="register_icon" class="register_icon"/>
           <span>Create Account</span>
         </router-link>
@@ -37,7 +35,7 @@
           </div>
 
           <p class="forgot">
-            <router-link to="/forgot_password">Forgot Password?</router-link>
+            <router-link to="/forgotPassword">Forgot Password?</router-link>
           </p>
 
            <button type="submit" class="login" :disabled="loading">
@@ -95,7 +93,10 @@ export default {
     return {
       email: "",      // Τιμή από το πεδίο email (μέσω v-model)
       password: "",   // Τιμή από το πεδίο password
-      loading: false  // Flag που αποτρέπει πολλαπλά clicks
+      loading: false,  // Flag που αποτρέπει πολλαπλά clicks
+      
+      // ΛΑΜΠΡΟΣ: Δική μου προσθήκη για να μπορούν να φαίνονται οι κωδικοί αν θέλει ο χρήστης
+      showPassword: false
     };
   },
 
@@ -112,6 +113,12 @@ export default {
       Αποθήκευση token στο localStorage
       Μετάβαση στο κύριο dashboard (π.χ. Transfers)
     */
+
+    // ΛΑΜΠΡΟΣ: Αλλαγή της κατάστασης για τον κωδικό
+    togglePassword()
+    {
+      this.showPassword = !this.showPassword;
+    },
 
     async loginUser() {
       
@@ -160,3 +167,7 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+@import "../assets/login_style.css";
+</style>

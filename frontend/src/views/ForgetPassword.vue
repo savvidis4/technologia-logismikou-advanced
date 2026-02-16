@@ -1,4 +1,43 @@
 <template>
+
+  <div class="forgot_wrapper">
+    <header class="header">
+      <img src="/logo.png" alt="bank logo" class="img">
+      <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+    </header>
+
+    <div class="forgot_container">
+      <h2>Forgot Password</h2>
+      <form @submit.prevent="submitEmail">
+        <div class="input_row">
+          <p class="input_label1">Enter your Email</p>
+          <input type="text" v-model="email" placeholder="E-mail" required>
+        </div>
+
+        <button type="submit" class="verify" :disabled="loading">
+          {{ loading ? "Sending..." : "Verify Email" }}
+        </button>
+
+        <router-link to="/login" class="return" style="text-decoration: none; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+            <img src="/back.png" alt="return" class="return_icon">
+            <span>Back</span>
+        </router-link>
+
+        <!-- 
+        <div class="return" onclick="window.location.href='login.html'">
+          <img src="back.png" alt="return" class="return_icon">
+          <span>Back</span>
+        </div>
+        -->
+      </form>
+    </div>
+
+    <img src="/pada1.webp" alt="background" class="pada_img">
+  </div>
+
+
+
+  <!--
   <section>
     <h2>Forgot Password</h2>
 
@@ -17,6 +56,7 @@
       </button>
     </form>
   </section>
+  -->
 </template>
 
 <script>
@@ -73,3 +113,7 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+@import "../assets/forgot_pass_style.css";
+</style>

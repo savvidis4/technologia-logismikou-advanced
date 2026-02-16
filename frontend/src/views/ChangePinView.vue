@@ -1,9 +1,55 @@
 <template>
   <!-- ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ FRONTEND -->
+
+  <div>
+    <header class="header">
+      <img src="/logo.png" alt="bank logo" class="img">
+      <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+      <button class="settings" @click="goHome">
+        <img src="/home_1.png" alt="settings" class="settings_icon">
+        <span class="tooltip">Home</span>
+      </button>
+        
+        <button class="logout" @click="goToLogout()"><span>Log Out</span></button>
+    </header>
+
+    <section class="container">
+      <div class="email_top">
+        <h2>Change Card PIN</h2> 
+            
+        <div class="exit" @click="goBack" style="cursor: pointer;">
+          <img src="/exit.png" alt="exit">
+        </div>
+      </div>
+
+      <form class="email_form" @submit.prevent="submitPinChange">
+        <div class="form_group1">
+          <label>Old PIN</label>
+          <input type="password" v-model="oldPin" placeholder="Enter old PIN" required>
+        </div>
+
+        <div class="form_group1">
+          <label>New PIN</label>
+          <input type="password" v-model="newPin" placeholder="Enter new PIN" required>
+        </div>
+
+        <div class="form_group2">
+          <label>Verify New PIN</label>
+          <input type="password" v-model="confirmPin" placeholder="Verify new PIN" required>
+        </div>
+
+        <button class="change_btn" :disabled="loading">
+          {{ loading ? "Processing..." : "Change PIN" }}
+        </button>
+      </form>
+    </section>
+  </div>
+
+  <!-- 
   <section>
     <h2>Change Card PIN</h2>
 
-    <!-- Φόρμα αλλαγής PIN -->
+    // Φόρμα αλλαγής PIN 
     <form @submit.prevent="submitPinChange">
       
       <input
@@ -33,10 +79,11 @@
 
     </form>
 
-    <!-- Κουμπί Back -->
+    // Κουμπί Back 
     <button @click="goBack">⬅ Back</button>
 
   </section>
+  -->
 </template>
 
 <script>
@@ -131,7 +178,22 @@ export default {
     // Κουμπί επιστροφής
     goBack() {
       this.$router.push("/settings");
+    },
+
+    goToLogout() {
+      // Πηγαίνει στο component LogoutView.vue
+      this.$router.push("/logout");
+    },
+
+    goHome() {
+      // Επιστροφή στο home screen (ή όπου έχεις ορίσει)
+      this.$router.push("/home");
     }
   }
 };
 </script>
+
+
+<style scoped>
+@import "../assets/change_pin_style.css";
+</style>
