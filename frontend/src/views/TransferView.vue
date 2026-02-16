@@ -133,7 +133,8 @@ export default {
       }
 
       this.loading = true;
-
+      this.currency = "EUR"; // Σταθερό νόμισμα για απλότητα
+      
       try {
         // Στέλνουμε τα δεδομένα ΣΤΟ BACKEND
         console.log("Initiating transfer to:", this.recipientIban, "Amount:", this.amount);
