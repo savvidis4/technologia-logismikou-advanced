@@ -1,0 +1,343 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/*  ----HEADER----  */
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px 40px;
+    background: rgb(223, 221, 221);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+}
+
+.img{
+    position:relative;
+    width: auto;
+    height: 100px;
+    object-fit: contain;
+}
+
+.logo{
+    position: relative;
+    font-size: 1.95em;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: 50;
+    width: 100%;
+}
+
+/* ----Log Out Button---- */
+.logout{
+    position: relative;
+    width: 170px;
+    height: 40px;
+    background: #062d58;
+    border: 2px solid black;
+    border-radius: 35px;
+    border-width: 2px ;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: white;
+    transition: color .3s ease;
+    overflow: hidden;
+}
+
+.logout:hover {
+    color: black;
+    border-color: black;
+}
+
+.logout::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    transition: all 0.4s ease;
+    background: linear-gradient(90deg, #d40000, #f84e4e);
+}
+
+.logout:hover::before{
+    left: 0;
+}
+
+.logout span{
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- SETTINGS BUTTON ---- */
+.settings{
+    position: relative;
+    width: 60px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 15px;
+    border-width: 2px ;
+    cursor: pointer;
+    margin-right: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    z-index: 10;
+    background-color: transparent;
+}
+
+.settings_icon{
+    width: 30px;
+    height: 30px;
+    margin-top: 3px;
+}
+
+/* ---- POP UP SETTINGS ---- */
+.tooltip{
+    position: absolute;
+    top: 50%;
+    bottom: auto;
+    right: calc(100% + 12px);
+    transform: translateY(-50%);
+    background-color: #333;
+    color: white;
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, bottom 0.3s ease;
+    z-index: 200;
+}
+
+.tooltip::after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 101.7px;
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent transparent #333;
+}
+
+.settings:hover .tooltip{
+    opacity: 1;
+    right: calc(100% +18px);
+}
+
+/*---------------*/
+/*------BODY-----*/
+/*---------------*/
+body{
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 34.4px;
+    background: linear-gradient(-85deg, #01035c, #114e94, #114e94, #0f0b44);
+    background-size: 400% 500%;
+    animation: gradientMove 20s linear infinite; 
+    
+}
+
+@keyframes gradientMove {
+     0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.body_top{
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+
+}
+
+
+.title{
+    display: flex;
+    margin-top: 90px;
+    color: white;
+    font-weight: 600;
+    font-size: 2.7rem;
+    margin-left: 25px;
+}
+
+
+/* ---- EXIT ICON ----- */
+.exit{
+    position: absolute;
+    top: 110px;
+    right: 50px;
+    cursor: pointer;
+    filter: brightness(0) saturate(100%) invert(100%);
+    transition: transform 0.2s ease;
+}
+
+.exit img {
+    width: 36px;
+    height: 36px;
+    filter: brightness(1) saturate(100%) invert(100%);
+    transition: none;
+}
+
+
+.exit:hover{
+    transform: scale(1.1);
+    filter: brightness(0) saturate(100%) invert(18%) sepia(100%) saturate(7000%) hue-rotate(0deg);
+    transition: none;
+    background-color: transparent;
+}
+
+
+.layout{
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+
+.container{
+    margin-top: 140px;
+    height: calc(100vh - 220px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    margin-left: 50px;
+    overflow: visible;
+}
+
+/* hide scrollbar but keep scroll working */
+.slider{
+  -ms-overflow-style: none;   /* IE/Edge */
+  scrollbar-width: none;      /* Firefox */
+}
+.slider::-webkit-scrollbar{
+  display: none;              /* Chrome/Safari */
+}
+
+
+
+.slider_wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slider{
+    display: flex;
+    overflow: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+
+    height: 390px;
+    border-radius: 18px;
+}
+
+.slider img{
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.slider_nav{
+    display: flex;
+    position: absolute;
+    transform: none;
+    margin-bottom: -450px;
+    justify-content: center;
+}
+
+.slider_nav .dot{
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    opacity: 0.45;
+    cursor: pointer;
+    transition: opacity ease 250ms, transform 250ms ease;
+}
+
+.slider_nav .dot:hover{
+    opacity: 0.9;
+    transform: scale(1.15);
+}
+
+.slider_nav .dot.active{
+    opacity: 1;
+    transform: scale(1.25);
+}
+
+/* ------- ARROWS --------- */
+.arrow{
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+
+    border: 1px solid rgb(5, 5, 5);
+    background: rgba(255,255,255,0.12);
+    color: white;
+    background-color: transparent;
+
+    font-size: 36px;
+    font-weight: bold;
+    cursor: pointer;
+
+    display: grid;
+    place-items: center;
+
+    backdrop-filter: blur(12px);
+    /*box-shadow: 0 10px 26px rgba(0,0,0,0.35);*/
+
+    transition: transform .2s ease, background .2s ease;
+}
+
+.arrow:hover{
+  transform: scale(1.08);
+  background: rgba(255,255,255,0.22);
+}
+
+.arrow:hover{
+  transform: translateY(-2px) scale(1.05);
+  background: rgba(255,255,255,0.18);
+  box-shadow: 0 16px 34px rgba(0,0,0,0.45);
+}
+
+.arrow:active{
+  transform: scale(0.98);
+}
+
+
+
+.slider_frame{
+    display: flex;
+    align-items: center;
+    grid-template-columns: 56px 1fr 56px;
+    gap: 14px;
+}
+

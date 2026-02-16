@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+    <title>OTP Verification | UniWA e-Banking</title>
+    <link rel="stylesheet" href="otp_styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <img src="logo.png" alt="bank logo" class="img">
+        <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+        <button class="settings">
+            <img src="home_1.png" alt="settings" class="settings_icon">
+            <span class="tooltip">Home</span>
+        </button>
+        <!--TESTING-->
+        <button class="logout" onclick="user_logout()"><span>Log Out</span></button>
+    </header>
+
+    <section class="container">
+        <div class="email_top">
+            <h2>Verify E-mail</h2> 
+            <!-- TESTING -->
+             <div class="exit" onclick="window.location.href='settings.html'">
+                <img src="exit.png" alt="exit">
+            </div>
+        </div>
+
+        <form class="email_form">
+            <div class="form_group1">
+                <label>Please enter the 6-digit code sent to your email.</label>
+                <input type="number">
+            </div>
+
+            <button type="button" class="change_btn" onclick="window.location.href='change_email.html'"><span>Verify</span></button>
+
+        </form>
+    </section>
+</body>
+</html>

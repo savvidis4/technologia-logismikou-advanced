@@ -1,0 +1,308 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/*  ----HEADER----  */
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px 40px;
+    background: rgb(223, 221, 221);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+}
+
+.img{
+    position:relative;
+    width: auto;
+    height: 100px;
+    object-fit: contain;
+}
+
+.logo{
+    position: relative;
+    font-size: 1.95em;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: 500;
+    width: 100%;
+}
+
+/* ----Log Out Button---- */
+.logout{
+    position: relative;
+    width: 170px;
+    height: 40px;
+    background: #062d58;
+    border: 2px solid black;
+    border-radius: 35px;
+    border-width: 2px ;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: white;
+    transition: color .3s ease;
+    overflow: hidden;
+}
+
+.logout:hover {
+    color: black;
+    border-color: black;
+}
+
+.logout::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    transition: all 0.4s ease;
+    background: linear-gradient(90deg, #d40000, #f84e4e);
+}
+
+.logout:hover::before{
+    left: 0;
+}
+
+.logout span{
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- SETTINGS BUTTON ---- */
+.settings{
+    position: relative;
+    width: 60px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 15px;
+    border-width: 2px ;
+    cursor: pointer;
+    margin-right: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    z-index: 10;
+}
+
+.settings_icon{
+    width: 28px;
+    height: auto;
+}
+
+/* ---- POP UP SETTINGS ---- */
+.tooltip{
+    position: absolute;
+    top: 50%;
+    bottom: auto;
+    right: calc(100% + 12px);
+    transform: translateY(-50%);
+    background-color: #333;
+    color: white;
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, bottom 0.3s ease;
+    z-index: 200;
+}
+
+.tooltip::after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 56.745px;
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent transparent #333;
+}
+
+.settings:hover .tooltip{
+    opacity: 1;
+    right: calc(100% +18px);
+}
+
+/*---------------*/
+/*------BODY-----*/
+/*---------------*/
+body{
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 34.4px;
+    background: linear-gradient(-85deg, #01035c, #114e94, #114e94, #0f0b44);
+    background-size: 400% 500%;
+    animation: gradientMove 20s linear infinite; 
+    
+}
+
+@keyframes gradientMove {
+     0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ----COINTAINER---- */
+.container{
+    position: relative;
+    margin: 110px auto 30px auto;
+    width: 500px;
+    border-radius: 25px;
+    background-color: rgb(255, 255, 255);
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    box-shadow: 0 50px 55px rgb(0, 0, 0);
+    border: 2px solid rgb(0, 0, 0);
+    height: 490px;
+    max-height: 500px;
+    margin-left: 360px;
+    margin-top: 75px;
+}
+
+/* ---- TRANSFERS ---- */
+.email_top{
+    text-align: center;
+    padding: 25px 40px;
+    background: linear-gradient(180deg, #062d58 15%, #06a4e2 160%);
+}
+
+.email_top h2{
+    font-size: 2.12rem;
+    color: rgba(255, 255, 255, 0.938);
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* ---- EXIT ICON ----- */
+.exit{
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    cursor: pointer;
+}
+
+.exit img{
+    width: 30px;
+    height: 30px;
+    filter: brightness(1) saturate(100%) invert(100%);
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.exit:hover{
+    transform: scale(1.1);
+    filter: brightness(0) saturate(100%) invert(18%) sepia(100%) saturate(7000%) hue-rotate(0deg);
+}
+
+/* ---- CHANGE E-MAIL  FORM ---- */
+.email_form{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 5px 40px;
+    margin-top: 20px;
+}
+
+.form_group1{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.form_group2{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form_group1 label{
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-left: 160px;
+    color: black;
+}
+
+.form_group2 label{
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-left: 135px;
+    color: black;
+}
+
+
+.form_group1 input{
+    height: 42px;
+    padding: 0 12px;
+    border-radius: 12px;
+    border: 1.5px solid #686868;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.form_group2 input{
+    height: 42px;
+    padding: 0 12px;
+    border-radius: 12px;
+    border: 1.5px solid #686868;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #303131;
+    caret-color: black; 
+}
+
+.change_btn{
+    position: relative;
+    align-self: center;
+    background: linear-gradient(90deg, #0b4f91, #00b4db);
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 15px 27px;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    overflow: hidden;
+}
+
+.change_btn:hover{
+     transform: scale(1.05);
+}
+
+.change_btn::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, #1ceb1e, #13a013);
+    transition: bottom 0.5s ease-in-out;
+    z-index: -1;
+}
+
+.change_btn:hover::before{
+    bottom: 0;
+}
+
+.change_btn span{
+    position: relative;
+    z-index: 1;
+}
