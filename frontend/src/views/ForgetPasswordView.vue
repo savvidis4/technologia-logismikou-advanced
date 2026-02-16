@@ -99,7 +99,7 @@ export default {
           this.email = "";
 
           // Προαιρετικά: αν θέλετε να πάει σε OTP view
-          // this.$router.push("/verify-otp");
+          this.$router.push("/otp");
         } else {
           alert("Request failed. Please try again.");
         }

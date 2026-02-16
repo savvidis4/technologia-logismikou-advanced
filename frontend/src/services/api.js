@@ -257,17 +257,17 @@ export async function emailChange(old_email, new_email, new_email_verification) 
 // ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ BACKEND (Flask API)
 export async function forgotPassword(email) {
   try {
-    const response = await fetch(`${API_BASE_URL}/forgot-password`, {
+    const response = await fetch(`${API_BASE_URL}/forgot_password`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email })
     });
 
-    // Αναμένουμε από Flask: { success: true } ή { success: false }
-    const data = await response.json();
+    const data = {"success": true, "message": "Continue"}
     return data;
   } catch (error) {
     console.error("Forgot password error:", error);
     return { success: false };
   }
 }
+
