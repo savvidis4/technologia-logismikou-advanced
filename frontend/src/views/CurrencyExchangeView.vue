@@ -52,12 +52,12 @@
               <div class="dropdown">
                 <button class="drop">
                   <img :src="getFlag(currencyFrom)" class="flag">
-                  <span class="code">{{ currencyFrom }}</span>
+                  <span class="code">{{ currencyFrom === 'GBP' ? 'CNY' : currencyFrom }}</span>
                 </button>
                 <div class="drop_content">
                   <div v-for="curr in availableCurrencies" :key="curr.code" class="option" @click="currencyFrom = curr.code">
                     <img :src="curr.flag" class="flag">
-                    <span>{{ curr.code }}</span>
+                    <span>{{ curr.label }}</span>
                   </div>
                 </div>
               </div>
@@ -71,12 +71,12 @@
               <div class="dropdown">
                 <button class="drop">
                   <img :src="getFlag(currencyTo)" class="flag">
-                  <span class="code">{{ currencyTo }}</span>
+                  <span class="code">{{ currencyTo === 'GBP' ? 'CNY' : currencyTo }}</span>
                 </button>
                 <div class="drop_content">
                   <div v-for="curr in availableCurrencies" :key="curr.code" class="option" @click="currencyTo = curr.code">
                     <img :src="curr.flag" class="flag">
-                    <span>{{ curr.code }}</span>
+                    <span>{{ curr.label }}</span>
                   </div>
                 </div>
               </div>
@@ -85,7 +85,7 @@
           </div>
         </div>
       </div>
-    </div> <button type="submit" class="exchange" @click="handleExchange" :disabled="loading">
+    </div> <button type="submit" class="exchange" @click="makeExchange" :disabled="loading">
       <span>{{ loading ? 'Processing...' : 'Exchange' }}</span>
     </button>
 
@@ -241,15 +241,41 @@ export default {
 
       loading: false,
       
+
+
+
+
       availableCurrencies: [
-        { code: "EUR", flag: "/greece.png" },
-        { code: "USD", flag: "/usa.png" },
-        { code: "JPY", flag: "/japan.png" },
-        { code: "CNY", flag: "/china.png" } // Πρόσθεσα GBP όπως το API σου
-      ]
+        { code: "EUR", flag: "/greece.png", label: "EUR" },
+        { code: "USD", flag: "/usa.png", label: "USD" },
+        { code: "JPY", flag: "/japan.png", label: "JPY" },
+        { code: "GBP", flag: "/china.png", label: "CNY" } // Πρόσθεσα GBP όπως το API σου
+      ],
+
+      //LAMPROS GIA LIVE EMFANISI METATROPHS
+      rates: { "EUR": 1.0, "USD": 1.17, "JPY": 185.15, "GBP": 0.87 }
 
     };
   },
+
+
+// LAMPROS
+computed: {
+    convertedDisplay() {
+      if (!this.amount || !this.currencyFrom || !this.currencyTo) return "0.00";
+      
+      // Μετατροπή σε ευρώ (βάση)
+      const amountInEur = parseFloat(this.amount) / this.rates[this.currencyFrom];
+      // Μετατροπή στο τελικό νόμισμα
+      const result = amountInEur * this.rates[this.currencyTo];
+      
+      return result.toFixed(2);
+    }
+  },
+
+
+
+
 
   mounted() {
     this.getExchange();  // Φορτώνουμε τα στοιχεία μόλις φορτώσει το component

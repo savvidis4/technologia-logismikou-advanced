@@ -100,6 +100,7 @@ export default {
     return {
       recipientIban: "",
       amount: "",
+      currency: "EUR",
       loading: false,
       myiban: ""
     };
