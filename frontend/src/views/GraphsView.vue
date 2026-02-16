@@ -1,4 +1,70 @@
 <template>
+
+  <div>
+    <header class="header">
+      <img src="/logo.png" alt="bank logo" class="img">
+      <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+      <router-link to="/settings" class="settings" style="text-decoration: none;">
+        <img src="/settings.png" alt="settings" class="settings_icon">
+        <span class="tooltip">User Settings</span>
+      </router-link>
+      
+      <button class="logout" @click="handleLogout()"><span>Log Out</span></button>
+    </header>
+
+    <div class="body_top">
+      <h2 class="title">Graphs</h2>
+      <router-link to="/home" class="exit">
+        <img src="/exit.png" alt="exit">
+      </router-link>
+    </div>
+
+    <section class="container">
+        <div class="layout">
+            <button class="arrow ar_prev" @click="prevSlide"> < </button>   
+
+            <div class="slider_wrapper">
+                <div v-if="loading" class="loading_box">Loading charts...</div>
+
+                <div v-else class="slider_content">
+                    
+                    <div v-if="currentSlide === 0" class="chart_slide">
+                        <h3>Transactions per Month</h3>
+                        <div class="canvas_container">
+                            <Bar v-if="countChartData" :data="countChartData" :options="chartOptions" />
+                        </div>
+                    </div>
+
+                    <div v-if="currentSlide === 1" class="chart_slide">
+                        <h3>Spending Distribution</h3>
+                        <div class="canvas_container">
+                            <Pie v-if="pieChartData" :data="pieChartData" :options="pieOptions" />
+                        </div>
+                    </div>
+
+                    <div v-if="currentSlide === 2" class="chart_slide">
+                        <h3>Cash Flow (In vs Out)</h3>
+                        <div class="canvas_container">
+                            <Bar v-if="inOutChartData" :data="inOutChartData" :options="chartOptions" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <button class="arrow ar_next" @click="nextSlide"> > </button>
+        </div>
+
+        <div class="slider_nav">
+            <div class="dot" :class="{ active: currentSlide === 0 }" @click="currentSlide = 0"></div>
+            <div class="dot" :class="{ active: currentSlide === 1 }" @click="currentSlide = 1"></div>
+            <div class="dot" :class="{ active: currentSlide === 2 }" @click="currentSlide = 2"></div>
+        </div>
+    </section>
+
+  </div>
+
+  <!-- 
   <div class="graphs-container">
     <h1>Account Graphs (Euro €)</h1>
     
@@ -29,6 +95,7 @@
 
     </div>
   </div>
+  -->
 </template>
 
 <script setup>
@@ -36,6 +103,7 @@ import { ref, onMounted } from 'vue';
 import { getGraphsData } from '@/services/api';
 import { Bar, Pie } from 'vue-chartjs';
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, ArcElement } from 'chart.js';
+import { useRouter } from 'vue-router';
 
 
 
@@ -43,16 +111,35 @@ import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, Li
 // Εγγραφή των components του Chart.js
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, ArcElement);
 
+// ΛΑΜΠΡΟΣ: ΠΡΟΣΘΗΚΗ ΓΙΑ Logout
+const router = useRouter();
 const loading = ref(true);
 const countChartData = ref(null);
 const pieChartData = ref(null);
 const inOutChartData = ref(null);
+// ΛΑΜΠΡΟΣ: ΠΡΟΣΘΗΚΗ ΓΙΑ slider ΣΤΑ ΓΡΑΦΗΜΑΤΑ
+const currentSlide = ref(0);
+const totalSlides = 3;
 
 const chartOptions = { 
   responsive: true, 
   maintainAspectRatio: false // <--- ΑΥΤΟ ΕΙΝΑΙ ΤΟ ΚΛΕΙΔΙ
 };
 const pieOptions = { responsive: true, maintainAspectRatio: false };
+
+// ΛΑΜΠΡΟΣ: Logic για το Slider
+const nextSlide = () => {
+    currentSlide.value = (currentSlide.value + 1) % totalSlides;
+};
+
+const prevSlide = () => {
+    currentSlide.value = (currentSlide.value - 1 + totalSlides) % totalSlides;
+};
+
+// ΛΑΜΠΡΟΣ: ΛΕΙΤΟΥΡΓΙΑ Logout
+const handleLogout = () => {
+    router.push("/login");
+};
 
 onMounted(async () => {
   try {
@@ -89,9 +176,83 @@ onMounted(async () => {
     loading.value = false;
   }
 });
+
+
 </script>
 
 <style scoped>
+
+@import "../assets/graph_style.css";
+
+.layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.slider_wrapper {
+    width: 60%;
+    background: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 15px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.canvas_container {
+    width: 100%;
+    height: 380px;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 18px;
+}
+
+.slider_nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot.active { 
+  background: white; 
+}
+
+/* Styles για τα βέλη (από το δικό σου CSS) */
+.arrow {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.chart-box {
+  background: rgb(134, 134, 134);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  min-height: 300px;
+}
+
+
+/*
 h3 {
   text-align: center;
   margin-bottom: 10px;
@@ -120,6 +281,8 @@ h3 {
 .canvas-container {
   position: relative;
   height: 300px; /* Ή όσο ύψος θέλεις να έχει το γράφημα */
-  width: 100%;
+  /*width: 100%;
 }
+*/
+
 </style>

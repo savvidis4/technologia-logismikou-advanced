@@ -1,11 +1,61 @@
 <template>
   <!-- ΕΔΩ ΣΥΝΔΕΕΤΑΙ ΜΕ FRONTEND -->
+
+  <div>
+    <header class="header">
+      <img src="/logo.png" alt="bank logo" class="img">
+      <h2 class="logo">Bank of University of West Attica e-Banking</h2>
+      <button class="settings" @click="goToSettings">
+        <img src="/settings.png" alt="settings" class="settings_icon" />
+        <span class="tooltip">User Settings</span>
+      </button>
+        
+      <button class="logout" @click="user_logout">
+        <span>Log Out</span>
+      </button>
+    </header>
+
+    <section class="container">
+      <div class="transfer_top">
+        <h2>Transfers</h2> 
+        
+        <router-link to="/home" class="exit">
+          <img src="/exit.png" alt="exit">
+        </router-link>
+      </div>
+
+      <form class="transfer_form" @submit.prevent="makeTransfer">
+        <div class="form_row">
+          <label for="form">From</label>
+          <span class="iban">{{ myiban || 'Loading...' }}</span>
+        </div>
+
+        <div class="form_row">
+          <label for="to">To</label>
+          <input type="text" v-model="recipientIban" placeholder="Recipient IBAN" required>
+        </div>
+
+        <div class="form_row">
+          <label for="amount">Amount (€)</label>
+          <input type="number" step="0.01" v-model="amount" id="amount" placeholder="Enter amount" required>
+        </div>
+
+        <button type="submit" class="send" :disabled="loading">
+          <span>{{ loading ? "Processing..." : "Transfer" }}</span>
+        </button>
+      </form>
+    </section>
+  </div>
+
+
+
+  <!-- 
   <section>
     <h2 style="color: black;">Transfers</h2>
 
     <p style="color: black;">Account IBAN (From): {{myiban}}</p>
 
-    <!-- Φόρμα μεταφοράς χρημάτων -->
+     //Φόρμα μεταφοράς χρημάτων 
     <form @submit.prevent="makeTransfer">
       <input
         type="text"
@@ -37,6 +87,7 @@
       </button>
     </form>
   </section>
+  -->
 </template>
 
 <script>
@@ -63,6 +114,17 @@ export default {
 
   methods: {
     
+    goToSettings() {
+      // Πηγαίνει στο component SettingsView.vue
+      this.$router.push("/settings");
+    },
+
+    goToLogout() {
+      // Πηγαίνει στο component LogoutView.vue
+      this.$router.push("/logout");
+    },
+
+
     async makeTransfer() {
       // Απλό validation — μόνο ότι τα πεδία δεν είναι άδεια
       if (!this.recipientIban || !this.amount) {
@@ -99,3 +161,7 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+@import "../assets/transfer_style.css";
+</style>
