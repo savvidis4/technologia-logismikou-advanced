@@ -146,7 +146,8 @@ input:focus {
 }
 /* LOGIN BUTTON */
 .register{
-    width: 40%;
+    width: 50%;
+    height: auto;
     padding: 9px;
     margin: -6px;
     margin-bottom: 1px;
@@ -155,8 +156,9 @@ input:focus {
     color: white;
     background: linear-gradient(90deg, #0b4f91, #00b4db);
     background-size: 200% 200%;
-    font-size: 1rem;
+    font-size: 1.08rem;
     font-weight: 600;
+    letter-spacing: 1px;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
@@ -180,7 +182,7 @@ input:focus {
 
 /* ------ LOGIN LINK ------ */
 .login_link{
-    margin-top: 10px;
+    margin-top: 7px;
     font-size: 0.9rem;
     color: black;
 }
